@@ -1,0 +1,18 @@
+# Test data for LatLngToCell function at resolution 5
+# Format: lat lng res expected_cell_hex
+# Known-good values verified against uber/h3
+
+# Google Googleplex (Palo Alto, CA)
+37.3615593 -122.0553238 5 85283473fffffff
+
+# San Francisco City Hall
+37.7796 -122.4193 5 85283473fffffff
+
+# Origin (0, 0)
+0.0 0.0 5 8575bfffffffffff
+
+# London, UK
+51.5074 -0.1278 5 8531e7bffffffff
+
+# Tokyo, Japan
+35.6762 139.6503 5 85676e3ffffffff

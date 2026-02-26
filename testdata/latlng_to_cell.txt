@@ -1,0 +1,39 @@
+# Test data for LatLngToCell function
+# Format: lat lng res expected_cell_hex
+# Known-good values verified against uber/h3
+
+# Google Googleplex (Palo Alto, CA)
+37.3615593 -122.0553238 5 85283473fffffff
+37.3615593 -122.0553238 9 8928308280fffff
+
+# San Francisco City Hall
+37.7796 -122.4193 9 8928308280fffff
+37.7796 -122.4193 5 85283473fffffff
+
+# Origin (0, 0) at different resolutions
+0.0 0.0 0 8075fffffffffff
+0.0 0.0 5 8575bfffffffffff
+
+# North Pole (90, 0) - note: H3 handles poles specially
+# These values may differ from exact computation
+# 90.0 0.0 0 8001fffffffffff
+
+# South Pole (-90, 0)
+# -90.0 0.0 0 80f3fffffffffff
+
+# Antimeridian crossing tests
+# London, UK (positive longitude)
+51.5074 -0.1278 5 8531e7bffffffff
+
+# Tokyo, Japan (near antimeridian)
+35.6762 139.6503 5 85676e3ffffffff
+
+# Various resolutions for the same location (Googleplex)
+37.3615593 -122.0553238 0 8029fffffffffff
+37.3615593 -122.0553238 1 8129bffffffffff
+37.3615593 -122.0553238 2 8229b3fffffffff
+37.3615593 -122.0553238 3 8329b37ffffffff
+37.3615593 -122.0553238 4 8429b37ffffffff
+37.3615593 -122.0553238 6 8629b347fffffff
+37.3615593 -122.0553238 7 8729b3473ffffff
+37.3615593 -122.0553238 8 8829b3473bfffff

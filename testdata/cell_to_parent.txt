@@ -1,0 +1,17 @@
+# Test data for CellToParent function
+# Format: child_cell parent_res expected_parent_cell
+# All cell indexes are in hex (without 0x prefix)
+
+# SF City Hall cell at res 9 → parents
+89283082877ffff 8 8828308287fffff
+89283082877ffff 5 85283083fffffff
+
+# Benchmark cell at res 9 → parents
+8928308280fffff 8 8828308281fffff
+8928308280fffff 5 85283083fffffff
+8928308280fffff 3 832830fffffffff
+
+# Google Googleplex cell at res 5 → parents
+85283473fffffff 3 832834fffffffff
+85283473fffffff 2 822837fffffffff
+85283473fffffff 0 8029fffffffffff

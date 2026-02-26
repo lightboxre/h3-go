@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # Fast job: pure Go, no CGO dependency, runs on every commit.
+  test-pure-go:
+    name: Pure Go Tests
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: ["1.22", "1.23"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go-version }}
+
+      - name: Build
+        run: go build ./...
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Test (pure Go, race detector)
+        run: go test -v -race -coverprofile=coverage.txt ./...
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          file: ./coverage.txt
+        continue-on-error: true
+
+  # Oracle job: compares native Go against CGO reference implementation.
+  # Runs on every commit to catch correctness regressions.
+  test-cgo-oracle:
+    name: CGO Oracle Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+
+      - name: Install build tools
+        run: sudo apt-get install -y cmake build-essential
+
+      - name: Build and install H3 C library
+        run: |
+          git clone --depth 1 https://github.com/uber/h3.git /tmp/h3
+          cd /tmp/h3
+          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --parallel $(nproc)
+          sudo cmake --install build
+          sudo ldconfig
+
+      - name: Download cgotest dependencies
+        working-directory: ./cgotest
+        env:
+          CGO_ENABLED: 1
+        run: go mod download
+
+      - name: Run CGO oracle tests
+        working-directory: ./cgotest
+        env:
+          CGO_ENABLED: 1
+        run: go test -v -count=1 ./...

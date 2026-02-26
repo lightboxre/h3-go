@@ -1,0 +1,36 @@
+run:
+  timeout: 5m
+  tests: true
+
+linters:
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - gofmt
+    - goimports
+    - revive
+    - misspell
+
+linters-settings:
+  goimports:
+    local-prefixes: github.com/h3-native/h3-go
+  revive:
+    rules:
+      - name: exported
+        severity: warning
+
+issues:
+  exclude-rules:
+    - path: _test\.go
+      linters:
+        - errcheck
+    # Transcribed data tables use positional notation matching the C source.
+    # Adding field names would quadruple the size of these lookup tables.
+    - path: internal/faceijk/(boundary|faceijk)\.go
+      linters:
+        - govet
+      text: "struct literal uses unkeyed fields"

@@ -1,0 +1,12 @@
+# Test data for GridDistance function
+# Format: cell1 cell2 expected_distance
+# All cell indexes are in hex (without 0x prefix)
+
+# Distance from cell to itself = 0
+89283082877ffff 89283082877ffff 0
+85283473fffffff 85283473fffffff 0
+
+# Distance from cell to immediate neighbor = 1
+89283082877ffff 8928308282bffff 1
+89283082877ffff 89283082863ffff 1
+85283473fffffff 85283477fffffff 1
