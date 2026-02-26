@@ -14,41 +14,20 @@ The H3 Native Go implementation aims to achieve:
 
 ## Running Benchmarks
 
-### Native Go Only (No CGO)
-
-Run benchmarks for the native Go implementation without CGO:
-
-```bash
-# Run all benchmarks once
-go test -bench=. -benchmem .
-
-# Run benchmarks 10 times for stability
-go test -bench=. -benchmem -count=10 .
-
-# Run with longer benchmark time for more accurate results
-go test -bench=. -benchmem -benchtime=2s -count=10 .
-
-# Save results to file
-go test -bench=. -benchmem -count=10 . | tee bench_native.txt
-```
-
 ### CGO Comparison Tests (Requires C H3 Library)
 
 To run comparison tests against the official CGO binding:
 
-1. **Add the CGO dependency:**
+1. **Run CGO comparison tests:**
    ```bash
-   go get github.com/uber/h3-go/v4
+   CGO_ENABLED=1 go test -tags cgo cgotest/...
    ```
 
-2. **Run CGO comparison tests:**
+2. **Run CGO benchmarks:**
    ```bash
-   CGO_ENABLED=1 go test -tags cgo ./...
-   ```
-
-3. **Run CGO benchmarks:**
-   ```bash
-   CGO_ENABLED=1 go test -bench=. -benchmem -tags cgo -count=10 . | tee bench_cgo.txt
+   # Save each variant separately
+   CGO_ENABLED=1 go test -bench='_Native' -benchmem -count=10 ./... > bench_native.txt
+   CGO_ENABLED=1 go test -bench='_CGO'    -benchmem -count=10 ./... > bench_cgo.txt
    ```
 
 ### Comparing Results with benchstat
@@ -60,7 +39,7 @@ Use the `benchstat` tool to compare native Go vs CGO performance:
 go install golang.org/x/perf/cmd/benchstat@latest
 
 # Compare native vs CGO
-benchstat bench_native.txt bench_cgo.txt
+benchstat bench_cgo.txt bench_native.txt
 ```
 
 Example output:
