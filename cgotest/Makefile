@@ -19,12 +19,14 @@ _C     := .bench_cgo.txt
 .PHONY: bench bench-native bench-cgo clean
 
 bench:
+	$(eval OUTFILE := benchmarks/benchmark_$(shell date +%Y%m%d_%H%M%S).txt)
 	CGO_ENABLED=1 go test -bench='$(BENCH)_Native' -benchmem -count=$(COUNT) ./... > $(_N_RAW)
 	CGO_ENABLED=1 go test -bench='$(BENCH)_CGO'    -benchmem -count=$(COUNT) ./... > $(_C_RAW)
 	sed 's/_Native//' $(_N_RAW) > $(_N)
 	sed 's/_CGO//'    $(_C_RAW) > $(_C)
-	benchstat $(_C) $(_N) > benchmarks/benchmark.txt
+	benchstat $(_C) $(_N) > $(OUTFILE)
 	$(RM) $(_N_RAW) $(_C_RAW) $(_N) $(_C)
+	@echo "Results written to $(OUTFILE)"
 
 bench-native:
 	CGO_ENABLED=1 go test -bench='$(BENCH)_Native' -benchmem -count=$(COUNT) ./...

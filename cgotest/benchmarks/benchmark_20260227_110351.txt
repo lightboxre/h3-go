@@ -1,0 +1,150 @@
+goos: darwin
+goarch: arm64
+pkg: github.com/h3-native/h3-go/cgotest
+cpu: Apple M4 Pro
+                              │ .bench_cgo.txt │           .bench_native.txt           │
+                              │     sec/op     │    sec/op     vs base                 │
+LatLngToCell-14                   212.7n ±  0%    359.4n ± 0%   +68.95% (p=0.000 n=10)
+CellToLatLng-14                   170.2n ±  1%    263.6n ± 1%   +54.91% (p=0.000 n=10)
+CellToBoundary-14                 487.8n ±  0%    688.8n ± 3%   +41.18% (p=0.000 n=10)
+CellToParent-14                   28.89n ±  1%    45.19n ± 1%   +56.45% (p=0.000 n=10)
+CellToChildren-14                 77.75n ±  2%    84.59n ± 4%    +8.79% (p=0.000 n=10)
+CellToCenterChild-14              28.58n ±  1%    29.64n ± 1%    +3.73% (p=0.000 n=10)
+CellToChildPos-14                 31.10n ±  4%    91.69n ± 1%  +194.84% (p=0.000 n=10)
+ChildPosToCell-14                 33.73n ±  1%    35.98n ± 1%    +6.67% (p=0.000 n=10)
+GetResolution-14                15.5450n ±  1%   0.2258n ± 2%   -98.55% (p=0.000 n=10)
+GetBaseCellNumber-14            15.4450n ±  5%   0.2254n ± 1%   -98.54% (p=0.000 n=10)
+IsValidCell-14                    17.29n ±  4%    40.93n ± 1%  +136.70% (p=0.000 n=10)
+IsPentagon-14                    17.535n ±  5%    4.697n ± 3%   -73.21% (p=0.000 n=10)
+IsResClassIII-14                16.4650n ±  5%   0.2260n ± 1%   -98.63% (p=0.000 n=10)
+CellToString-14                   14.97n ± 16%    30.39n ± 1%  +102.90% (p=0.000 n=10)
+StringToCell-14                   19.30n ±  9%    16.79n ± 1%   -13.03% (p=0.000 n=10)
+GetNumCells-14                    2.424n ±  4%    1.282n ± 2%   -47.14% (p=0.000 n=10)
+GetRes0Cells-14                   148.1n ±  4%    209.8n ± 4%   +41.63% (p=0.000 n=10)
+GetPentagonCells-14              155.25n ± 15%    64.47n ± 1%   -58.47% (p=0.000 n=10)
+IsValidDirectedEdge-14            18.25n ±  7%    47.40n ± 3%  +159.65% (p=0.000 n=10)
+GetDirectedEdgeOrigin-14        28.3750n ±  2%   0.2269n ± 1%   -99.20% (p=0.000 n=10)
+GetDirectedEdgeDestination-14    31.875n ±  8%    9.611n ± 1%   -69.85% (p=0.000 n=10)
+DirectedEdgeToCells-14            36.12n ±  1%    10.21n ± 1%   -71.73% (p=0.000 n=10)
+OriginToDirectedEdges-14          45.33n ±  1%    60.85n ± 1%   +34.23% (p=0.000 n=10)
+DirectedEdgeToBoundary-14         306.8n ±  1%    777.0n ± 2%  +153.30% (p=0.000 n=10)
+AreNeighborCells-14               29.59n ±  0%   145.50n ± 1%  +391.80% (p=0.000 n=10)
+CellsToDirectedEdge-14            62.60n ±  4%   146.80n ± 1%  +134.52% (p=0.000 n=10)
+GridDisk-14                       202.2n ±  1%    357.1n ± 3%   +76.56% (p=0.000 n=10)
+GridDiskDistances-14              277.8n ±  3%    577.1n ± 7%  +107.76% (p=0.000 n=10)
+GridDistance-14                   112.6n ±  0%    291.2n ± 1%  +158.73% (p=0.000 n=10)
+GridPathCells-14                  616.5n ±  0%   1630.0n ± 5%  +164.42% (p=0.000 n=10)
+CompactCells-14                   104.5n ±  1%    686.7n ± 1%  +557.13% (p=0.000 n=10)
+UncompactCells-14                 81.05n ±  2%    88.31n ± 1%    +8.96% (p=0.000 n=10)
+PolygonToCells-14                 20.08µ ±  3%    44.71µ ± 1%  +122.72% (p=0.000 n=10)
+CellsToLinkedMultiPolygon-14      1.191µ ±  1%    1.591µ ± 3%   +33.59% (p=0.000 n=10)
+GreatCircleDistanceKm-14          54.27n ±  2%    15.04n ± 2%   -72.29% (p=0.000 n=10)
+CellAreaKm2-14                    877.3n ±  0%    984.7n ± 1%   +12.24% (p=0.000 n=10)
+EdgeLengthKm-14                 27.4750n ±  1%   0.2292n ± 1%   -99.17% (p=0.000 n=10)
+ExactEdgeLengthKm-14              318.2n ±  2%    817.7n ± 3%  +157.00% (p=0.000 n=10)
+CellToVertex-14                  161.75n ±  4%    47.48n ± 2%   -70.65% (p=0.000 n=10)
+CellToVertexes-14                 829.5n ±  1%    346.1n ± 1%   -58.28% (p=0.000 n=10)
+VertexToLatLng-14                 195.0n ±  1%    746.8n ± 1%  +283.10% (p=0.000 n=10)
+IsValidVertex-14                 109.55n ±  2%    94.54n ± 1%   -13.70% (p=0.000 n=10)
+CellToChildrenSize-14                             5.951n ± 2%
+geomean                           82.64n          57.34n        -26.76%
+
+                              │ .bench_cgo.txt │             .bench_native.txt              │
+                              │      B/op      │     B/op      vs base                      │
+LatLngToCell-14                   24.00 ± 0%        0.00 ± 0%   -100.00% (p=0.000 n=10)
+CellToLatLng-14                   16.00 ± 0%        0.00 ± 0%   -100.00% (p=0.000 n=10)
+CellToBoundary-14                 336.0 ± 0%       336.0 ± 0%          ~ (p=1.000 n=10) ¹
+CellToParent-14                   8.000 ± 0%       0.000 ± 0%   -100.00% (p=0.000 n=10)
+CellToChildren-14                 72.00 ± 0%       64.00 ± 0%    -11.11% (p=0.000 n=10)
+CellToCenterChild-14              8.000 ± 0%       0.000 ± 0%   -100.00% (p=0.000 n=10)
+CellToChildPos-14                 8.000 ± 0%       0.000 ± 0%   -100.00% (p=0.000 n=10)
+ChildPosToCell-14                 8.000 ± 0%       0.000 ± 0%   -100.00% (p=0.000 n=10)
+GetResolution-14                  0.000 ± 0%       0.000 ± 0%          ~ (p=1.000 n=10) ¹
+GetBaseCellNumber-14              0.000 ± 0%       0.000 ± 0%          ~ (p=1.000 n=10) ¹
+IsValidCell-14                    0.000 ± 0%       0.000 ± 0%          ~ (p=1.000 n=10) ¹
+IsPentagon-14                     0.000 ± 0%       0.000 ± 0%          ~ (p=1.000 n=10) ¹
+IsResClassIII-14                  0.000 ± 0%       0.000 ± 0%          ~ (p=1.000 n=10) ¹
+CellToString-14                   16.00 ± 0%       16.00 ± 0%          ~ (p=1.000 n=10) ¹
+StringToCell-14                   0.000 ± 0%       0.000 ± 0%          ~ (p=1.000 n=10) ¹
+GetNumCells-14                    0.000 ± 0%       0.000 ± 0%          ~ (p=1.000 n=10) ¹
+GetRes0Cells-14                 1.000Ki ± 0%     2.000Ki ± 0%   +100.00% (p=0.000 n=10)
+GetPentagonCells-14               96.00 ± 0%      192.00 ± 0%   +100.00% (p=0.000 n=10)
+IsValidDirectedEdge-14            0.000 ± 0%       0.000 ± 0%          ~ (p=1.000 n=10) ¹
+GetDirectedEdgeOrigin-14          8.000 ± 0%       0.000 ± 0%   -100.00% (p=0.000 n=10)
+GetDirectedEdgeDestination-14     8.000 ± 0%       0.000 ± 0%   -100.00% (p=0.000 n=10)
+DirectedEdgeToCells-14            16.00 ± 0%        0.00 ± 0%   -100.00% (p=0.000 n=10)
+OriginToDirectedEdges-14          96.00 ± 0%       48.00 ± 0%    -50.00% (p=0.000 n=10)
+DirectedEdgeToBoundary-14         336.0 ± 0%       368.0 ± 0%     +9.52% (p=0.000 n=10)
+AreNeighborCells-14               4.000 ± 0%       0.000 ± 0%   -100.00% (p=0.000 n=10)
+CellsToDirectedEdge-14            8.000 ± 0%       0.000 ± 0%   -100.00% (p=0.000 n=10)
+GridDisk-14                       160.0 ± 0%       320.0 ± 0%   +100.00% (p=0.000 n=10)
+GridDiskDistances-14              472.0 ± 0%      1008.0 ± 0%   +113.56% (p=0.000 n=10)
+GridDistance-14                   8.000 ± 0%       0.000 ± 0%   -100.00% (p=0.000 n=10)
+GridPathCells-14                  32.00 ± 0%      112.00 ± 0%   +250.00% (p=0.000 n=10)
+CompactCells-14                   64.00 ± 0%      152.00 ± 0%   +137.50% (p=0.000 n=10)
+UncompactCells-14                 72.00 ± 0%      200.00 ± 0%   +177.78% (p=0.000 n=10)
+PolygonToCells-14                 552.0 ± 0%      1520.0 ± 0%   +175.36% (p=0.000 n=10)
+CellsToLinkedMultiPolygon-14      192.0 ± 0%      1312.0 ± 0%   +583.33% (p=0.000 n=10)
+GreatCircleDistanceKm-14          32.00 ± 0%        0.00 ± 0%   -100.00% (p=0.000 n=10)
+CellAreaKm2-14                    8.000 ± 0%     240.000 ± 0%  +2900.00% (p=0.000 n=10)
+EdgeLengthKm-14                   8.000 ± 0%       0.000 ± 0%   -100.00% (p=0.000 n=10)
+ExactEdgeLengthKm-14              8.000 ± 0%     368.000 ± 0%  +4500.00% (p=0.000 n=10)
+CellToVertex-14                   8.000 ± 0%       0.000 ± 0%   -100.00% (p=0.000 n=10)
+CellToVertexes-14                 48.00 ± 0%       48.00 ± 0%          ~ (p=1.000 n=10) ¹
+VertexToLatLng-14                 16.00 ± 0%      240.00 ± 0%  +1400.00% (p=0.000 n=10)
+IsValidVertex-14                  0.000 ± 0%       0.000 ± 0%          ~ (p=1.000 n=10) ¹
+CellToChildrenSize-14                              0.000 ± 0%
+geomean                                      ²                 ?                        ² ³
+¹ all samples are equal
+² summaries must be >0 to compute geomean
+³ ratios must be >0 to compute geomean
+
+                              │ .bench_cgo.txt │            .bench_native.txt             │
+                              │   allocs/op    │  allocs/op   vs base                     │
+LatLngToCell-14                   2.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+CellToLatLng-14                   1.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+CellToBoundary-14                 2.000 ± 0%      5.000 ± 0%  +150.00% (p=0.000 n=10)
+CellToParent-14                   1.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+CellToChildren-14                 2.000 ± 0%      1.000 ± 0%   -50.00% (p=0.000 n=10)
+CellToCenterChild-14              1.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+CellToChildPos-14                 1.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+ChildPosToCell-14                 1.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+GetResolution-14                  0.000 ± 0%      0.000 ± 0%         ~ (p=1.000 n=10) ¹
+GetBaseCellNumber-14              0.000 ± 0%      0.000 ± 0%         ~ (p=1.000 n=10) ¹
+IsValidCell-14                    0.000 ± 0%      0.000 ± 0%         ~ (p=1.000 n=10) ¹
+IsPentagon-14                     0.000 ± 0%      0.000 ± 0%         ~ (p=1.000 n=10) ¹
+IsResClassIII-14                  0.000 ± 0%      0.000 ± 0%         ~ (p=1.000 n=10) ¹
+CellToString-14                   1.000 ± 0%      1.000 ± 0%         ~ (p=1.000 n=10) ¹
+StringToCell-14                   0.000 ± 0%      0.000 ± 0%         ~ (p=1.000 n=10) ¹
+GetNumCells-14                    0.000 ± 0%      0.000 ± 0%         ~ (p=1.000 n=10) ¹
+GetRes0Cells-14                   1.000 ± 0%      2.000 ± 0%  +100.00% (p=0.000 n=10)
+GetPentagonCells-14               1.000 ± 0%      2.000 ± 0%  +100.00% (p=0.000 n=10)
+IsValidDirectedEdge-14            0.000 ± 0%      0.000 ± 0%         ~ (p=1.000 n=10) ¹
+GetDirectedEdgeOrigin-14          1.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+GetDirectedEdgeDestination-14     1.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+DirectedEdgeToCells-14            1.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+OriginToDirectedEdges-14          2.000 ± 0%      1.000 ± 0%   -50.00% (p=0.000 n=10)
+DirectedEdgeToBoundary-14         2.000 ± 0%      6.000 ± 0%  +200.00% (p=0.000 n=10)
+AreNeighborCells-14               1.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+CellsToDirectedEdge-14            1.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+GridDisk-14                       1.000 ± 0%      2.000 ± 0%  +100.00% (p=0.000 n=10)
+GridDiskDistances-14              6.000 ± 0%     17.000 ± 0%  +183.33% (p=0.000 n=10)
+GridDistance-14                   1.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+GridPathCells-14                  2.000 ± 0%      3.000 ± 0%   +50.00% (p=0.000 n=10)
+CompactCells-14                   1.000 ± 0%      5.000 ± 0%  +400.00% (p=0.000 n=10)
+UncompactCells-14                 2.000 ± 0%      4.000 ± 0%  +100.00% (p=0.000 n=10)
+PolygonToCells-14                 3.000 ± 0%      3.000 ± 0%         ~ (p=1.000 n=10) ¹
+CellsToLinkedMultiPolygon-14      4.000 ± 0%     15.000 ± 0%  +275.00% (p=0.000 n=10)
+GreatCircleDistanceKm-14          2.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+CellAreaKm2-14                    1.000 ± 0%      4.000 ± 0%  +300.00% (p=0.000 n=10)
+EdgeLengthKm-14                   1.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+ExactEdgeLengthKm-14              1.000 ± 0%      6.000 ± 0%  +500.00% (p=0.000 n=10)
+CellToVertex-14                   1.000 ± 0%      0.000 ± 0%  -100.00% (p=0.000 n=10)
+CellToVertexes-14                 1.000 ± 0%      1.000 ± 0%         ~ (p=1.000 n=10) ¹
+VertexToLatLng-14                 1.000 ± 0%      4.000 ± 0%  +300.00% (p=0.000 n=10)
+IsValidVertex-14                  0.000 ± 0%      0.000 ± 0%         ~ (p=1.000 n=10) ¹
+CellToChildrenSize-14                             0.000 ± 0%
+geomean                                      ²                ?                       ² ³
+¹ all samples are equal
+² summaries must be >0 to compute geomean
+³ ratios must be >0 to compute geomean
