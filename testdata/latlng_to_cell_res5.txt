@@ -5,14 +5,14 @@
 # Google Googleplex (Palo Alto, CA)
 37.3615593 -122.0553238 5 85283473fffffff
 
-# San Francisco City Hall
-37.7796 -122.4193 5 85283473fffffff
+# San Francisco City Hall - verified against CGO oracle (was erroneously 85283473fffffff)
+37.7796 -122.4193 5 85283083fffffff
 
 # Origin (0, 0)
-0.0 0.0 5 8575bfffffffffff
+0.0 0.0 5 85745c4ffffffff
 
 # London, UK
-51.5074 -0.1278 5 8531e7bffffffff
+51.5074 -0.1278 5 85194ad3fffffff
 
 # Tokyo, Japan
-35.6762 139.6503 5 85676e3ffffffff
+35.6762 139.6503 5 852f5a37fffffff

@@ -102,6 +102,9 @@ func MaxGridDiskSize(k int) (int64, error) {
 // GridDisk produces all H3 cells within k steps of the origin cell.
 // Includes the origin cell.
 func GridDisk(origin h3index.H3Index, k int) ([]h3index.H3Index, error) {
+	if !h3index.IsValid(origin) {
+		return nil, ErrCellInvalid
+	}
 	cells, err := GridDiskUnsafe(origin, k)
 	if err == nil {
 		return cells, nil
@@ -514,6 +517,9 @@ func CompactCells(cells []h3index.H3Index) ([]h3index.H3Index, error) {
 	for _, c := range cells {
 		if !h3index.IsValid(c) {
 			return nil, ErrCellInvalid
+		}
+		if _, exists := cellSet[c]; exists {
+			return nil, fmt.Errorf("duplicate cell in input: %w", ErrCellInvalid)
 		}
 		cellSet[c] = struct{}{}
 	}

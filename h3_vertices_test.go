@@ -413,3 +413,68 @@ func BenchmarkIsValidVertex(b *testing.B) {
 		_ = IsValidVertex(vertex)
 	}
 }
+
+// TestCellToVertex_errorCases verifies that out-of-range vertex numbers return
+// Vertex(0) (invalid).
+// Reference: Uber H3 Go v4 TestCellToVertex "invalid vertex", C cellToVertex_badVerts
+func TestCellToVertex_errorCases(t *testing.T) {
+	// hexCell has vertices 0-5; vertex 6 is out of range
+	t.Run("hexagon vertex 6 returns invalid", func(t *testing.T) {
+		v := CellToVertex(validCell, 6)
+		if v != Vertex(0) {
+			t.Errorf("CellToVertex(hex, 6) = %#x, want Vertex(0)", v)
+		}
+		if IsValidVertex(v) {
+			t.Error("CellToVertex(hex, 6) should return invalid vertex")
+		}
+	})
+
+	// pentagonCell has vertices 0-4; vertex 5 is out of range
+	t.Run("pentagon vertex 5 returns invalid", func(t *testing.T) {
+		v := CellToVertex(pentagonCell, 5)
+		if v != Vertex(0) {
+			t.Errorf("CellToVertex(pent, 5) = %#x, want Vertex(0)", v)
+		}
+		if IsValidVertex(v) {
+			t.Error("CellToVertex(pent, 5) should return invalid vertex")
+		}
+	})
+
+	// Negative vertex number
+	t.Run("negative vertex number returns invalid", func(t *testing.T) {
+		v := CellToVertex(validCell, -1)
+		if IsValidVertex(v) {
+			t.Error("CellToVertex(hex, -1) should return invalid vertex")
+		}
+	})
+}
+
+// TestVertexToLatLng_knownValue checks VertexToLatLng returns coordinates near
+// the cell center.
+// Reference: Uber H3 Go v4 TestVertexToLatLng known value
+func TestVertexToLatLng_knownValue(t *testing.T) {
+	// validVertex is vertex 0 of validCell (0x850dab63fffffff)
+	// validCell center ≈ validLatLng1 (67.15°N, -168.39°W)
+	if !IsValidVertex(validVertex) {
+		t.Fatal("validVertex constant is not a valid vertex — check bit encoding")
+	}
+
+	ll := VertexToLatLng(validVertex)
+
+	// Vertex should be within ~0.5° of validCell's center
+	center := CellToLatLng(validCell)
+	const maxDeg = 0.5
+	if math.Abs(ll.Lat-center.Lat) > maxDeg {
+		t.Errorf("VertexToLatLng lat too far from center: got %.6f, center %.6f (diff %.4f°)",
+			ll.Lat, center.Lat, math.Abs(ll.Lat-center.Lat))
+	}
+	if math.Abs(ll.Lng-center.Lng) > maxDeg {
+		t.Errorf("VertexToLatLng lng too far from center: got %.6f, center %.6f (diff %.4f°)",
+			ll.Lng, center.Lng, math.Abs(ll.Lng-center.Lng))
+	}
+
+	// Coordinates must be valid
+	if ll.Lat < -90 || ll.Lat > 90 {
+		t.Errorf("VertexToLatLng returned invalid latitude: %f", ll.Lat)
+	}
+}
