@@ -3,19 +3,19 @@ package h3math_test
 import (
 	"fmt"
 
-	"github.com/h3-native/h3-go/internal/constants"
-	"github.com/h3-native/h3-go/internal/h3index"
-	"github.com/h3-native/h3-go/internal/math"
+	"github.com/EDRInc/h3-go/internal/constants"
+	"github.com/EDRInc/h3-go/internal/h3index"
+	h3math "github.com/EDRInc/h3-go/internal/math"
 )
 
 // ExampleGreatCircleDistanceKm demonstrates calculating the distance between two points.
 func ExampleGreatCircleDistanceKm() {
 	// San Francisco coordinates (in radians)
-	sfLat := 0.6588 // ~37.7749 degrees
+	sfLat := 0.6588  // ~37.7749 degrees
 	sfLng := -2.1364 // ~-122.4194 degrees
 
 	// Los Angeles coordinates (in radians)
-	laLat := 0.5924 // ~33.9416 degrees
+	laLat := 0.5924  // ~33.9416 degrees
 	laLng := -2.0594 // ~-118.4085 degrees
 
 	distance := h3math.GreatCircleDistanceKm(sfLat, sfLng, laLat, laLng)

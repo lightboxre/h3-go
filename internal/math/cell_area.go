@@ -3,9 +3,9 @@ package h3math
 import (
 	"math"
 
-	"github.com/h3-native/h3-go/internal/constants"
-	"github.com/h3-native/h3-go/internal/faceijk"
-	"github.com/h3-native/h3-go/internal/h3index"
+	"github.com/EDRInc/h3-go/internal/constants"
+	"github.com/EDRInc/h3-go/internal/faceijk"
+	"github.com/EDRInc/h3-go/internal/h3index"
 )
 
 // CellAreaRads2 returns the area of the H3 cell in steradians (square radians).

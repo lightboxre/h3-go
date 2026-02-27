@@ -5,9 +5,9 @@ package h3
 import (
 	"errors"
 
-	"github.com/h3-native/h3-go/internal/algos"
-	"github.com/h3-native/h3-go/internal/constants"
-	"github.com/h3-native/h3-go/internal/h3index"
+	"github.com/EDRInc/h3-go/internal/algos"
+	"github.com/EDRInc/h3-go/internal/constants"
+	"github.com/EDRInc/h3-go/internal/h3index"
 )
 
 // ============================================================================

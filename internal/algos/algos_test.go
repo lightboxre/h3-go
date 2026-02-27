@@ -3,7 +3,7 @@ package algos
 import (
 	"testing"
 
-	"github.com/h3-native/h3-go/internal/h3index"
+	"github.com/EDRInc/h3-go/internal/h3index"
 )
 
 // Test helper to create a valid H3 cell at resolution 0

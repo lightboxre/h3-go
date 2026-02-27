@@ -3,9 +3,9 @@ package polygon
 import (
 	"testing"
 
-	"github.com/h3-native/h3-go/internal/bbox"
-	"github.com/h3-native/h3-go/internal/faceijk"
-	"github.com/h3-native/h3-go/internal/h3index"
+	"github.com/EDRInc/h3-go/internal/bbox"
+	"github.com/EDRInc/h3-go/internal/faceijk"
+	"github.com/EDRInc/h3-go/internal/h3index"
 )
 
 func TestPointInGeoLoop(t *testing.T) {
@@ -223,7 +223,7 @@ func TestAlmostEqual(t *testing.T) {
 		want bool
 	}{
 		{"equal", 1.0, 1.0, true},
-		{"close", 1.0, 1.0+1e-11, true},
+		{"close", 1.0, 1.0 + 1e-11, true},
 		{"not close", 1.0, 1.1, false},
 	}
 

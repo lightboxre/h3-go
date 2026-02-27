@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/h3-native/h3-go/internal/constants"
+	"github.com/EDRInc/h3-go/internal/constants"
 )
 
 // H3Index is a 64-bit packed geospatial index.

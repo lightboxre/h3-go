@@ -3,8 +3,8 @@ package h3
 import (
 	"testing"
 
-	"github.com/h3-native/h3-go/internal/constants"
-	"github.com/h3-native/h3-go/internal/h3index"
+	"github.com/EDRInc/h3-go/internal/constants"
+	"github.com/EDRInc/h3-go/internal/h3index"
 )
 
 // TestBasicDirectedEdgeEncoding tests the core directed edge encoding/decoding

@@ -3,9 +3,9 @@
 package polygon
 
 import (
-	"github.com/h3-native/h3-go/internal/bbox"
-	"github.com/h3-native/h3-go/internal/faceijk"
-	"github.com/h3-native/h3-go/internal/h3index"
+	"github.com/EDRInc/h3-go/internal/bbox"
+	"github.com/EDRInc/h3-go/internal/faceijk"
+	"github.com/EDRInc/h3-go/internal/h3index"
 )
 
 // LinkedGeoLoop represents a loop of geographic coordinates.

@@ -6,10 +6,10 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/h3-native/h3-go/internal/constants"
-	"github.com/h3-native/h3-go/internal/coordijk"
-	"github.com/h3-native/h3-go/internal/faceijk"
-	"github.com/h3-native/h3-go/internal/h3index"
+	"github.com/EDRInc/h3-go/internal/constants"
+	"github.com/EDRInc/h3-go/internal/coordijk"
+	"github.com/EDRInc/h3-go/internal/faceijk"
+	"github.com/EDRInc/h3-go/internal/h3index"
 )
 
 // Sentinel errors

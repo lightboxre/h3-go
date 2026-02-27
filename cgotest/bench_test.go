@@ -14,7 +14,7 @@ package cgotest
 import (
 	"testing"
 
-	h3native "github.com/h3-native/h3-go"
+	h3native "github.com/EDRInc/h3-go"
 	h3cgo "github.com/uber/h3-go/v4"
 )
 

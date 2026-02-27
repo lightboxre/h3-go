@@ -5,8 +5,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/h3-native/h3-go/internal/constants"
-	"github.com/h3-native/h3-go/internal/coordijk"
+	"github.com/EDRInc/h3-go/internal/constants"
+	"github.com/EDRInc/h3-go/internal/coordijk"
 )
 
 // TestDebugCellCenters computes the centers of both candidate cells and distances to input.
@@ -49,8 +49,8 @@ func TestDebugCellCenters(t *testing.T) {
 	fmt.Printf("\ngeoToHex2d(input, face=7, res=9):\n")
 	v2d := geoToHex2d(inputLatRad, inputLngRad, 7, 9)
 	fmt.Printf("  X=%.6f Y=%.6f\n", v2d.X, v2d.Y)
-	fmt.Printf("  X relative to sfCell center (-3991): %.6f\n", v2d.X - (-3991.0))
-	fmt.Printf("  X relative to ourCell center (-3992): %.6f\n", v2d.X - (-3992.0))
+	fmt.Printf("  X relative to sfCell center (-3991): %.6f\n", v2d.X-(-3991.0))
+	fmt.Printf("  X relative to ourCell center (-3992): %.6f\n", v2d.X-(-3992.0))
 
 	// Show what the average edge length is at res 9
 	// H3 avg edge length res 9 ≈ 174m

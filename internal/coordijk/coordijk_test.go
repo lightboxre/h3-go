@@ -4,7 +4,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/h3-native/h3-go/internal/constants"
+	"github.com/EDRInc/h3-go/internal/constants"
 )
 
 // TestIJKNormalize tests the normalization function.
@@ -489,8 +489,8 @@ func TestUpDownInverse(t *testing.T) {
 // TestIJKToIJ tests conversion from IJK to IJ.
 func TestIJKToIJ(t *testing.T) {
 	tests := []struct {
-		name       string
-		input      CoordIJK
+		name         string
+		input        CoordIJK
 		wantI, wantJ int
 	}{
 		{
@@ -534,9 +534,9 @@ func TestIJKToIJ(t *testing.T) {
 // TestIJToIJK tests conversion from IJ to IJK.
 func TestIJToIJK(t *testing.T) {
 	tests := []struct {
-		name  string
-		i, j  int
-		want  CoordIJK
+		name string
+		i, j int
+		want CoordIJK
 	}{
 		{
 			name: "origin",
@@ -573,8 +573,8 @@ func TestIJToIJK(t *testing.T) {
 // TestToVec2d tests conversion from IJK to Vec2d.
 func TestToVec2d(t *testing.T) {
 	tests := []struct {
-		name  string
-		input CoordIJK
+		name         string
+		input        CoordIJK
 		wantX, wantY float64
 	}{
 		{

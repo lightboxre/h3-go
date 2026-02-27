@@ -1,6 +1,6 @@
 goos: darwin
 goarch: arm64
-pkg: github.com/h3-native/h3-go/cgotest
+pkg: github.com/EDRInc/h3-go/cgotest
 cpu: Apple M4 Pro
                               │ .bench_cgo.txt │           .bench_native.txt           │
                               │     sec/op     │    sec/op     vs base                 │

@@ -5,7 +5,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/h3-native/h3-go/internal/h3index"
+	"github.com/EDRInc/h3-go/internal/h3index"
 )
 
 func TestComputeCellCenters(t *testing.T) {

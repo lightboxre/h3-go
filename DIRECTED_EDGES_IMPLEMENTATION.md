@@ -142,20 +142,20 @@ Fallback method to compute edge boundary using direction mapping.
 
 ### Internal Packages Used
 
-1. **github.com/h3-native/h3-go/internal/constants**
+1. **github.com/EDRInc/h3-go/internal/constants**
    - H3_DIRECTEDEDGE_MODE
    - H3_CELL_MODE
    - Direction constants (K_AXES_DIGIT, etc.)
    - H3_RESERVED_OFFSET, H3_RESERVED_MASK
 
-2. **github.com/h3-native/h3-go/internal/h3index**
+2. **github.com/EDRInc/h3-go/internal/h3index**
    - H3Index type
    - Mode, Resolution, BaseCell accessors
    - SetMode, SetResolution helper functions
    - IsValid, IsPentagon validators
    - H3_NULL constant
 
-3. **github.com/h3-native/h3-go/internal/algos**
+3. **github.com/EDRInc/h3-go/internal/algos**
    - H3NeighborRotations (exported for directed edge use)
 
 ### External Dependencies

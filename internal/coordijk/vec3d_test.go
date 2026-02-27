@@ -4,7 +4,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/h3-native/h3-go/internal/constants"
+	"github.com/EDRInc/h3-go/internal/constants"
 )
 
 // TestV3dMag tests 3D vector magnitude calculation.
@@ -202,8 +202,8 @@ func TestPointSquareDist3d(t *testing.T) {
 // TestGeoToVec3d tests conversion from lat/lng to 3D unit vector.
 func TestGeoToVec3d(t *testing.T) {
 	tests := []struct {
-		name       string
-		latRad, lngRad float64
+		name                string
+		latRad, lngRad      float64
 		wantX, wantY, wantZ float64
 	}{
 		{
@@ -256,28 +256,28 @@ func TestGeoToVec3d(t *testing.T) {
 // TestVec3dToGeo tests conversion from 3D unit vector to lat/lng.
 func TestVec3dToGeo(t *testing.T) {
 	tests := []struct {
-		name string
-		v    Vec3d
+		name                   string
+		v                      Vec3d
 		wantLatRad, wantLngRad float64
 	}{
 		{
-			name: "equator, prime meridian",
-			v:    Vec3d{1, 0, 0},
+			name:       "equator, prime meridian",
+			v:          Vec3d{1, 0, 0},
 			wantLatRad: 0, wantLngRad: 0,
 		},
 		{
-			name: "equator, 90° east",
-			v:    Vec3d{0, 1, 0},
+			name:       "equator, 90° east",
+			v:          Vec3d{0, 1, 0},
 			wantLatRad: 0, wantLngRad: math.Pi / 2,
 		},
 		{
-			name: "north pole",
-			v:    Vec3d{0, 0, 1},
+			name:       "north pole",
+			v:          Vec3d{0, 0, 1},
 			wantLatRad: math.Pi / 2, wantLngRad: 0,
 		},
 		{
-			name: "south pole",
-			v:    Vec3d{0, 0, -1},
+			name:       "south pole",
+			v:          Vec3d{0, 0, -1},
 			wantLatRad: -math.Pi / 2, wantLngRad: 0,
 		},
 	}

@@ -3,7 +3,7 @@ package coordijk
 import (
 	"math"
 
-	"github.com/h3-native/h3-go/internal/constants"
+	"github.com/EDRInc/h3-go/internal/constants"
 )
 
 // Vec2d is a 2D floating-point vector.

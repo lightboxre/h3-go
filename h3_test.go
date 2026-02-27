@@ -5,7 +5,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/h3-native/h3-go/internal/testutil"
+	"github.com/EDRInc/h3-go/internal/testutil"
 )
 
 // Known test values from H3 documentation and tests
@@ -25,7 +25,7 @@ const (
 	googCell = Cell(0x85283473fffffff)
 
 	// Reference constants from Uber H3 Go v4 reference suite
-	validCell     = Cell(0x850dab63fffffff)         // res 5, standard reference cell
+	validCell     = Cell(0x850dab63fffffff)          // res 5, standard reference cell
 	pentagonCell  = Cell(0x821c07fffffffff)          // res 2 pentagon
 	lineStartCell = Cell(0x89283082803ffff)          // res 9, GridPath start
 	lineEndCell   = Cell(0x8929a5653c3ffff)          // res 9, GridPath end
@@ -35,7 +35,7 @@ const (
 
 // Reference coordinates from Uber H3 Go v4 reference suite
 var (
-	validLatLng1 = LatLng{Lat: 67.1509268640, Lng: -168.3908885810}  // center of validCell
+	validLatLng1 = LatLng{Lat: 67.1509268640, Lng: -168.3908885810}          // center of validCell
 	validLatLng2 = LatLng{Lat: 37.775705522929044, Lng: -122.41812765598296} // SF area
 )
 
@@ -492,31 +492,31 @@ func TestCellToCenterChild(t *testing.T) {
 
 func TestCellToChildrenSize(t *testing.T) {
 	tests := []struct {
-		name      string
-		cell      Cell
-		childRes  int
-		wantSize  int64
+		name       string
+		cell       Cell
+		childRes   int
+		wantSize   int64
 		isPentagon bool
 	}{
 		{
-			name:      "hexagon res diff 1",
-			cell:      googCell, // res 5, hexagon
-			childRes:  6,
-			wantSize:  7,
+			name:       "hexagon res diff 1",
+			cell:       googCell, // res 5, hexagon
+			childRes:   6,
+			wantSize:   7,
 			isPentagon: false,
 		},
 		{
-			name:      "hexagon res diff 2",
-			cell:      googCell, // res 5, hexagon
-			childRes:  7,
-			wantSize:  49, // 7^2
+			name:       "hexagon res diff 2",
+			cell:       googCell, // res 5, hexagon
+			childRes:   7,
+			wantSize:   49, // 7^2
 			isPentagon: false,
 		},
 		{
-			name:      "same resolution",
-			cell:      googCell,
-			childRes:  5,
-			wantSize:  1,
+			name:       "same resolution",
+			cell:       googCell,
+			childRes:   5,
+			wantSize:   1,
 			isPentagon: false,
 		},
 	}
@@ -917,10 +917,10 @@ func TestPentagonChildrenSize(t *testing.T) {
 		childRes int
 		wantSize int64
 	}{
-		{0, 1},    // same res
-		{1, 6},    // 1 + 5*(7-1)/6 = 1 + 5 = 6
-		{2, 36},   // 1 + 5*(49-1)/6 = 1 + 5*8 = 41 (WRONG - need to recalculate)
-		{3, 216},  // 7^3 * 5/6 + 1 = ...
+		{0, 1},   // same res
+		{1, 6},   // 1 + 5*(7-1)/6 = 1 + 5 = 6
+		{2, 36},  // 1 + 5*(49-1)/6 = 1 + 5*8 = 41 (WRONG - need to recalculate)
+		{3, 216}, // 7^3 * 5/6 + 1 = ...
 	}
 
 	for _, tt := range tests {
@@ -1234,7 +1234,7 @@ func TestGridDistance(t *testing.T) {
 		{
 			// Reference: C E_RES_MISMATCH — cells at different resolutions
 			name:    "resolution mismatch returns error",
-			src:     validCell,    // res 5
+			src:     validCell,      // res 5
 			dst:     sfCityHallCell, // res 9
 			wantErr: true,
 		},
@@ -1347,27 +1347,27 @@ func TestGridPathCells(t *testing.T) {
 
 func TestCompactCells(t *testing.T) {
 	tests := []struct {
-		name      string
-		cells     []Cell
-		wantErr   bool
+		name        string
+		cells       []Cell
+		wantErr     bool
 		wantSmaller bool
 	}{
 		{
-			name:      "empty input",
-			cells:     []Cell{},
-			wantErr:   false,
+			name:        "empty input",
+			cells:       []Cell{},
+			wantErr:     false,
 			wantSmaller: false,
 		},
 		{
-			name:      "single cell",
-			cells:     []Cell{sfCityHallCell},
-			wantErr:   false,
+			name:        "single cell",
+			cells:       []Cell{sfCityHallCell},
+			wantErr:     false,
 			wantSmaller: false,
 		},
 		{
-			name:      "invalid cell",
-			cells:     []Cell{Cell(0)},
-			wantErr:   true,
+			name:        "invalid cell",
+			cells:       []Cell{Cell(0)},
+			wantErr:     true,
 			wantSmaller: false,
 		},
 	}

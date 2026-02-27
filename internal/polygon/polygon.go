@@ -6,11 +6,11 @@ package polygon
 import (
 	"math"
 
-	"github.com/h3-native/h3-go/internal/algos"
-	"github.com/h3-native/h3-go/internal/bbox"
-	"github.com/h3-native/h3-go/internal/constants"
-	"github.com/h3-native/h3-go/internal/faceijk"
-	"github.com/h3-native/h3-go/internal/h3index"
+	"github.com/EDRInc/h3-go/internal/algos"
+	"github.com/EDRInc/h3-go/internal/bbox"
+	"github.com/EDRInc/h3-go/internal/constants"
+	"github.com/EDRInc/h3-go/internal/faceijk"
+	"github.com/EDRInc/h3-go/internal/h3index"
 )
 
 // PointInGeoLoop tests if a point (lat, lng in radians) is inside a polygon loop.
@@ -222,22 +222,22 @@ func cellToBBox(h h3index.H3Index, res int, boundary []faceijk.GeoPoint) bbox.BB
 func getAvgHexagonEdgeLengthRads(res int) float64 {
 	// Average edge lengths in kilometers for each resolution (from H3 spec)
 	avgEdgeLenKm := []float64{
-		1107.712591,   // res 0
-		418.676005,    // res 1
-		158.244655,    // res 2
-		59.810857,     // res 3
-		22.606379,     // res 4
-		8.544408,      // res 5
-		3.229482,      // res 6
-		1.220629,      // res 7
-		0.461354,      // res 8
-		0.174375,      // res 9
-		0.065907,      // res 10
-		0.024910,      // res 11
-		0.009415,      // res 12
-		0.003559,      // res 13
-		0.001348,      // res 14
-		0.000509,      // res 15
+		1107.712591, // res 0
+		418.676005,  // res 1
+		158.244655,  // res 2
+		59.810857,   // res 3
+		22.606379,   // res 4
+		8.544408,    // res 5
+		3.229482,    // res 6
+		1.220629,    // res 7
+		0.461354,    // res 8
+		0.174375,    // res 9
+		0.065907,    // res 10
+		0.024910,    // res 11
+		0.009415,    // res 12
+		0.003559,    // res 13
+		0.001348,    // res 14
+		0.000509,    // res 15
 	}
 
 	if res < 0 || res >= len(avgEdgeLenKm) {

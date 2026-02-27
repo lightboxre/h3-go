@@ -3,7 +3,7 @@ package h3index
 import (
 	"testing"
 
-	"github.com/h3-native/h3-go/internal/constants"
+	"github.com/EDRInc/h3-go/internal/constants"
 )
 
 // Known-good test values from the C H3 implementation.
@@ -114,8 +114,8 @@ func TestIsPentagon(t *testing.T) {
 
 func TestIsResClassIII(t *testing.T) {
 	tests := []struct {
-		res       int
-		classIII  bool
+		res      int
+		classIII bool
 	}{
 		{0, false},
 		{1, true},
@@ -176,12 +176,12 @@ func TestFromStringInvalid(t *testing.T) {
 
 func TestGetNumCells(t *testing.T) {
 	tests := []struct {
-		res  int
-		num  int64
+		res int
+		num int64
 	}{
-		{0, 122},       // 2 + 120 * 7^0 = 2 + 120 = 122
-		{1, 842},       // 2 + 120 * 7^1 = 2 + 840 = 842
-		{2, 5882},      // 2 + 120 * 7^2 = 2 + 5880 = 5882
+		{0, 122},              // 2 + 120 * 7^0 = 2 + 120 = 122
+		{1, 842},              // 2 + 120 * 7^1 = 2 + 840 = 842
+		{2, 5882},             // 2 + 120 * 7^2 = 2 + 5880 = 5882
 		{15, 569707381193162}, // 2 + 120 * 7^15
 	}
 

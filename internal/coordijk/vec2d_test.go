@@ -4,7 +4,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/h3-native/h3-go/internal/constants"
+	"github.com/EDRInc/h3-go/internal/constants"
 )
 
 // TestV2dMag tests vector magnitude calculation.
@@ -54,26 +54,26 @@ func TestV2dMag(t *testing.T) {
 // TestV2dIntersect tests line segment intersection.
 func TestV2dIntersect(t *testing.T) {
 	tests := []struct {
-		name             string
-		p0, p1, p2, p3   Vec2d
-		wantX, wantY     float64
+		name           string
+		p0, p1, p2, p3 Vec2d
+		wantX, wantY   float64
 	}{
 		{
 			name: "perpendicular lines at origin",
 			p0:   Vec2d{-1, 0}, p1: Vec2d{1, 0},
-			p2:   Vec2d{0, -1}, p3: Vec2d{0, 1},
+			p2: Vec2d{0, -1}, p3: Vec2d{0, 1},
 			wantX: 0, wantY: 0,
 		},
 		{
 			name: "diagonal intersection",
 			p0:   Vec2d{0, 0}, p1: Vec2d{2, 2},
-			p2:   Vec2d{0, 2}, p3: Vec2d{2, 0},
+			p2: Vec2d{0, 2}, p3: Vec2d{2, 0},
 			wantX: 1, wantY: 1,
 		},
 		{
 			name: "intersection at (1, 0.5)",
 			p0:   Vec2d{0, 0}, p1: Vec2d{2, 1},
-			p2:   Vec2d{1, 0}, p3: Vec2d{1, 1},
+			p2: Vec2d{1, 0}, p3: Vec2d{1, 1},
 			wantX: 1, wantY: 0.5,
 		},
 	}
@@ -95,7 +95,7 @@ func TestV2dIntersect(t *testing.T) {
 // TestV2dEquals tests vector equality comparison.
 func TestV2dEquals(t *testing.T) {
 	tests := []struct {
-		name string
+		name   string
 		v1, v2 Vec2d
 		want   bool
 	}{

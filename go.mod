@@ -1,3 +1,3 @@
-module github.com/h3-native/h3-go
+module github.com/EDRInc/h3-go
 
 go 1.22

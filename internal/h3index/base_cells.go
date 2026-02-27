@@ -2,7 +2,7 @@
 // Data transcribed from the C H3 reference implementation (baseCells.c).
 package h3index
 
-import "github.com/h3-native/h3-go/internal/constants"
+import "github.com/EDRInc/h3-go/internal/constants"
 
 // INVALID_BASE_CELL is returned when no neighbor exists in a given direction.
 const INVALID_BASE_CELL = 127
