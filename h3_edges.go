@@ -28,15 +28,17 @@ func AreNeighborCells(origin, destination Cell) (bool, error) {
 	if GetResolution(origin) != GetResolution(destination) {
 		return false, errors.New("resolution mismatch")
 	}
-
-	// Check if destination is among origin's neighbors
-	edges := OriginToDirectedEdges(origin)
-	for _, e := range edges {
-		dest, err := getDirectedEdgeDestinationInternal(e)
-		if err != nil {
+	isPent := IsPentagon(origin)
+	for dir := 1; dir <= 6; dir++ {
+		if isPent && dir == constants.K_AXES_DIGIT {
 			continue
 		}
-		if dest == destination {
+		var rotations int
+		var neighbor h3index.H3Index
+		if err := algos.H3NeighborRotations(h3index.H3Index(origin), dir, &rotations, &neighbor); err != nil {
+			continue
+		}
+		if Cell(neighbor) == destination {
 			return true, nil
 		}
 	}
@@ -52,16 +54,21 @@ func CellsToDirectedEdge(origin, destination Cell) (DirectedEdge, error) {
 	if GetResolution(origin) != GetResolution(destination) {
 		return 0, errors.New("resolution mismatch")
 	}
-
-	// Find the direction from origin to destination
-	edges := OriginToDirectedEdges(origin)
-	for _, e := range edges {
-		dest, err := getDirectedEdgeDestinationInternal(e)
-		if err != nil {
+	isPent := IsPentagon(origin)
+	for dir := 1; dir <= 6; dir++ {
+		if isPent && dir == constants.K_AXES_DIGIT {
 			continue
 		}
-		if dest == destination {
-			return e, nil
+		var rotations int
+		var neighbor h3index.H3Index
+		if err := algos.H3NeighborRotations(h3index.H3Index(origin), dir, &rotations, &neighbor); err != nil {
+			continue
+		}
+		if Cell(neighbor) == destination {
+			e := h3index.H3Index(origin)
+			e = h3index.SetMode(e, constants.H3_DIRECTEDEDGE_MODE)
+			e = setReservedBits(e, dir)
+			return DirectedEdge(e), nil
 		}
 	}
 	return 0, errors.New("cells are not neighbors")
@@ -178,123 +185,38 @@ func DirectedEdgeToBoundary(e DirectedEdge) CellBoundary {
 	if !IsValidDirectedEdge(e) {
 		return CellBoundary{}
 	}
-
 	origin := GetDirectedEdgeOrigin(e)
-	destination := GetDirectedEdgeDestination(e)
-
-	if destination == Cell(h3index.H3_NULL) {
-		return CellBoundary{}
-	}
-
-	// Get the boundaries of both cells
-	originBoundary := CellToBoundary(origin)
-	destBoundary := CellToBoundary(destination)
-
-	// Find the two vertices that are shared between origin and destination
-	// These vertices define the directed edge boundary
-	var sharedVertices []LatLng
-
-	// Compare vertices with a tolerance for floating-point errors
-	const tolerance = 1e-9
-
-	for _, ov := range originBoundary {
-		for _, dv := range destBoundary {
-			// Check if vertices are approximately equal
-			latDiff := ov.Lat - dv.Lat
-			lngDiff := ov.Lng - dv.Lng
-
-			if latDiff < 0 {
-				latDiff = -latDiff
-			}
-			if lngDiff < 0 {
-				lngDiff = -lngDiff
-			}
-
-			// Also handle longitude wrapping around -180/180
-			if lngDiff > 180 {
-				lngDiff = 360 - lngDiff
-			}
-
-			if latDiff < tolerance && lngDiff < tolerance {
-				// This is a shared vertex
-				sharedVertices = append(sharedVertices, ov)
-				break
-			}
-		}
-	}
-
-	// A directed edge should have exactly 2 shared vertices
-	// If we don't find exactly 2, return what we found
-	if len(sharedVertices) != 2 {
-		// Fall back to alternative approach using direction-based computation
-		return computeEdgeBoundaryFromDirection(origin, getReservedBits(h3index.H3Index(e)))
-	}
-
-	return CellBoundary(sharedVertices)
+	dir := getReservedBits(h3index.H3Index(e))
+	return computeEdgeBoundaryFromDirection(origin, dir)
 }
 
 // computeEdgeBoundaryFromDirection computes the edge boundary using the
-// direction information. This is a fallback when vertex matching fails.
+// direction information encoded in a directed edge.
+// Uses the canonical H3 directionToVertexNum tables (same as C reference impl).
 func computeEdgeBoundaryFromDirection(origin Cell, dir int) CellBoundary {
-	// Get the origin cell boundary
+	// Get the origin cell boundary (1 alloc).
 	boundary := CellToBoundary(origin)
-	if len(boundary) == 0 {
+	n := len(boundary)
+	if n == 0 {
 		return CellBoundary{}
 	}
 
-	// For hexagons, each edge corresponds to two adjacent boundary vertices
-	// For pentagons, the mapping is similar but with 5 edges
-	isPent := IsPentagon(origin)
+	if dir < 1 || dir >= constants.NUM_DIGITS {
+		return CellBoundary{}
+	}
 
-	// Map direction to boundary vertex indices
-	// This mapping is based on the H3 direction encoding
-	var idx1, idx2 int
-
-	if isPent {
-		// Pentagon has 5 vertices and 5 edges
-		// Direction mapping (skipping K_AXES_DIGIT=1):
-		// J=2, JK=3, I=4, IK=5, IJ=6
-		switch dir {
-		case constants.J_AXES_DIGIT: // 2
-			idx1, idx2 = 0, 1
-		case constants.JK_AXES_DIGIT: // 3
-			idx1, idx2 = 1, 2
-		case constants.I_AXES_DIGIT: // 4
-			idx1, idx2 = 2, 3
-		case constants.IK_AXES_DIGIT: // 5
-			idx1, idx2 = 3, 4
-		case constants.IJ_AXES_DIGIT: // 6
-			idx1, idx2 = 4, 0
-		default:
-			return CellBoundary{}
-		}
+	// Select the leading vertex using the canonical direction→vertex tables
+	// (same tables used by vertex.c and the C directedEdgeToBoundary).
+	var vertexNum int
+	if IsPentagon(origin) {
+		vertexNum = directionToVertexNumPent[dir]
 	} else {
-		// Hexagon has 6 vertices and 6 edges
-		// Direction mapping: K=1, J=2, JK=3, I=4, IK=5, IJ=6
-		switch dir {
-		case constants.K_AXES_DIGIT: // 1
-			idx1, idx2 = 0, 1
-		case constants.J_AXES_DIGIT: // 2
-			idx1, idx2 = 1, 2
-		case constants.JK_AXES_DIGIT: // 3
-			idx1, idx2 = 2, 3
-		case constants.I_AXES_DIGIT: // 4
-			idx1, idx2 = 3, 4
-		case constants.IK_AXES_DIGIT: // 5
-			idx1, idx2 = 4, 5
-		case constants.IJ_AXES_DIGIT: // 6
-			idx1, idx2 = 5, 0
-		default:
-			return CellBoundary{}
-		}
+		vertexNum = directionToVertexNumHex[dir]
 	}
-
-	// Return the two vertices that define this edge
-	if idx1 < len(boundary) && idx2 < len(boundary) {
-		return CellBoundary{boundary[idx1], boundary[idx2]}
+	if vertexNum < 0 || vertexNum >= n {
+		return CellBoundary{}
 	}
-
-	return CellBoundary{}
+	return CellBoundary{boundary[vertexNum], boundary[(vertexNum+1)%n]}
 }
 
 // ============================================================================

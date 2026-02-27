@@ -1,7 +1,10 @@
 package h3
 
 import (
+	"math"
+
 	"github.com/h3-native/h3-go/internal/constants"
+	"github.com/h3-native/h3-go/internal/faceijk"
 	"github.com/h3-native/h3-go/internal/h3index"
 )
 
@@ -99,26 +102,26 @@ func VertexToLatLng(v Vertex) LatLng {
 
 	h := h3index.H3Index(v)
 
-	// Extract vertex number from reserved bits
+	// Extract vertex number from reserved bits.
 	vertexNum := int((uint64(h) >> constants.H3_RESERVED_OFFSET) & constants.H3_RESERVED_MASK)
 
-	// Get owner cell (change mode back to cell, clear reserved bits)
+	// Reconstruct owner cell.
 	owner := uint64(h)
-	// Clear mode bits and set to H3_CELL_MODE
 	owner = (owner & ^(uint64(0xF) << constants.H3_MODE_OFFSET)) | (uint64(constants.H3_CELL_MODE) << constants.H3_MODE_OFFSET)
-	// Clear reserved bits
 	owner = owner & ^(uint64(0x7) << constants.H3_RESERVED_OFFSET)
+	ownerH := h3index.H3Index(owner)
 
-	ownerCell := Cell(owner)
+	// Call FaceIJKToGeoBoundary directly to avoid the double-allocation of CellToBoundary.
+	fijk := faceijk.H3ToFaceIJK(ownerH)
+	res := ownerH.Resolution()
+	isPent := h3index.IsPentagon(ownerH)
+	geoPoints := faceijk.FaceIJKToGeoBoundary(fijk, res, isPent)
 
-	// Get cell boundary - vertices are the boundary points
-	boundary := CellToBoundary(ownerCell)
-
-	if vertexNum >= len(boundary) {
+	if vertexNum >= len(geoPoints) {
 		return LatLng{}
 	}
-
-	return boundary[vertexNum]
+	p := geoPoints[vertexNum]
+	return LatLng{Lat: p.Lat * (180 / math.Pi), Lng: p.Lng * (180 / math.Pi)}
 }
 
 // IsValidVertex returns true if v is a valid H3 vertex index.

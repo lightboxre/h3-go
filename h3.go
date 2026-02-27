@@ -248,10 +248,22 @@ func CellToChildPos(c Cell, parentRes int) int64 {
 	if !h3index.IsValid(h) {
 		return -1
 	}
+	if parentRes == cellRes {
+		return 0
+	}
 
-	// Use linear search through children for simplicity
-	// (The C library has a smarter mixed-radix algorithm)
 	parent := CellToParent(c, parentRes)
+
+	// Fast path: hexagon parent — pure base-7 digit encode (no allocations).
+	if !IsPentagon(parent) {
+		pos := int64(0)
+		for r := parentRes; r < cellRes; r++ {
+			pos = pos*7 + int64(h.IndexDigit(r))
+		}
+		return pos
+	}
+
+	// Pentagon parent: fall back to linear search (rare).
 	children := CellToChildren(parent, cellRes)
 	for i, child := range children {
 		if child == c {
@@ -267,6 +279,41 @@ func ChildPosToCell(childPos int64, parent Cell, childRes int) Cell {
 	if childPos < 0 {
 		return Cell(h3index.H3_NULL)
 	}
+	parentRes := GetResolution(parent)
+	if childRes < parentRes || childRes > constants.MaxH3Res {
+		return Cell(h3index.H3_NULL)
+	}
+	if !IsValidCell(parent) {
+		return Cell(h3index.H3_NULL)
+	}
+	if childRes == parentRes {
+		if childPos == 0 {
+			return parent
+		}
+		return Cell(h3index.H3_NULL)
+	}
+
+	// Fast path: hexagon parent — pure base-7 mixed-radix decode (stack only).
+	if !IsPentagon(parent) {
+		depth := childRes - parentRes
+		var digits [15]int
+		pos := childPos
+		for i := depth - 1; i >= 0; i-- {
+			digits[i] = int(pos % 7)
+			pos /= 7
+		}
+		if pos != 0 {
+			return Cell(h3index.H3_NULL) // childPos out of range
+		}
+		h := h3index.H3Index(parent)
+		h = h3index.SetResolution(h, childRes)
+		for i := 0; i < depth; i++ {
+			h = h3index.SetIndexDigit(h, parentRes+i, digits[i])
+		}
+		return Cell(h)
+	}
+
+	// Pentagon parent: fall back to full enumeration (rare).
 	children := CellToChildren(parent, childRes)
 	if childPos >= int64(len(children)) {
 		return Cell(h3index.H3_NULL)

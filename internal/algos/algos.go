@@ -364,6 +364,9 @@ func GridPathCells(src, dst h3index.H3Index) ([]h3index.H3Index, error) {
 	path[0] = src
 	path[dist] = dst
 
+	// Hoist dst face/coord outside the step loop — O(1) per step instead of O(BFS).
+	dstFijk := faceijk.H3ToFaceIJK(dst)
+
 	current := src
 	for step := int64(1); step < dist; step++ {
 		neighbors := getNeighbors(current)
@@ -373,7 +376,6 @@ func GridPathCells(src, dst h3index.H3Index) ([]h3index.H3Index, error) {
 
 		// Compute the canonical step direction from current toward dst in IJK space.
 		currentFijk := faceijk.H3ToFaceIJK(current)
-		dstFijk := faceijk.H3ToFaceIJK(dst)
 		sameFace := currentFijk.Face == dstFijk.Face
 		var wantI, wantJ, wantK int
 		if sameFace {
@@ -398,32 +400,36 @@ func GridPathCells(src, dst h3index.H3Index) ([]h3index.H3Index, error) {
 			if n == h3index.H3_NULL {
 				continue
 			}
-			d, err := GridDistance(n, dst)
-			if err != nil {
-				continue
+			// O(1) distance using IJK math where possible; BFS only for cross-face.
+			var d int64
+			nFijk := faceijk.H3ToFaceIJK(n)
+			if nFijk.Face == dstFijk.Face {
+				d = int64(coordijk.IJKDistance(nFijk.Coord, dstFijk.Coord))
+			} else {
+				d, err = GridDistance(n, dst)
+				if err != nil {
+					continue
+				}
 			}
 			nMatches := false
-			if sameFace {
-				nFijk := faceijk.H3ToFaceIJK(n)
-				if nFijk.Face == currentFijk.Face {
-					dir := coordijk.CoordIJK{
-						I: nFijk.Coord.I - currentFijk.Coord.I,
-						J: nFijk.Coord.J - currentFijk.Coord.J,
-						K: nFijk.Coord.K - currentFijk.Coord.K,
-					}
-					coordijk.IJKNormalize(&dir)
-					di, dj, dk := 0, 0, 0
-					if dir.I > 0 {
-						di = 1
-					}
-					if dir.J > 0 {
-						dj = 1
-					}
-					if dir.K > 0 {
-						dk = 1
-					}
-					nMatches = (di == wantI && dj == wantJ && dk == wantK)
+			if sameFace && nFijk.Face == currentFijk.Face {
+				dir := coordijk.CoordIJK{
+					I: nFijk.Coord.I - currentFijk.Coord.I,
+					J: nFijk.Coord.J - currentFijk.Coord.J,
+					K: nFijk.Coord.K - currentFijk.Coord.K,
 				}
+				coordijk.IJKNormalize(&dir)
+				di, dj, dk := 0, 0, 0
+				if dir.I > 0 {
+					di = 1
+				}
+				if dir.J > 0 {
+					dj = 1
+				}
+				if dir.K > 0 {
+					dk = 1
+				}
+				nMatches = (di == wantI && dj == wantJ && dk == wantK)
 			}
 			if d < bestGridDist || (d == bestGridDist && nMatches && !bestIJKMatch) {
 				bestGridDist = d
@@ -458,12 +464,18 @@ func GridDistance(src, dst h3index.H3Index) (int64, error) {
 		return 0, nil
 	}
 
-	// BFS from src to dst, count steps
+	// Fast O(1) path: same icosahedral face → use IJK distance.
+	srcFijk := faceijk.H3ToFaceIJK(src)
+	dstFijk := faceijk.H3ToFaceIJK(dst)
+	if srcFijk.Face == dstFijk.Face {
+		d := coordijk.IJKDistance(srcFijk.Coord, dstFijk.Coord)
+		return int64(d), nil
+	}
+
+	// Cross-face fallback: BFS.
 	seen := map[h3index.H3Index]int64{src: 0}
 	queue := []h3index.H3Index{src}
-
-	// Limit search depth to reasonable values
-	maxDepth := int64(1000)
+	const maxDepth = int64(1000)
 
 	for len(queue) > 0 {
 		current := queue[0]
