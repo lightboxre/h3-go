@@ -4,7 +4,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/EDRInc/h3-go/internal/constants"
+	"github.com/lightboxre/h3-go/internal/constants"
 )
 
 // TestV3dMag tests 3D vector magnitude calculation.

@@ -46,27 +46,31 @@ var PentagonBaseCells = [NumPentagons]int{
 
 // maxDimByCIIres[r] is the max IJK dimension for a Class II cell at resolution r.
 // From the C source: H3_EXPORT(maxGridDiskSize).
-var MaxDimByCIIres = [MaxH3Res + 1]int{
-	2,        // res 0
-	-1,       // res 1 (class III — unused here)
-	14,       // res 2
-	-1,       // res 3
-	98,       // res 4
-	-1,       // res 5
-	686,      // res 6
-	-1,       // res 7
-	4802,     // res 8
-	-1,       // res 9
-	33614,    // res 10
-	-1,       // res 11
-	235298,   // res 12
-	-1,       // res 13
-	1647086,  // res 14
-	-1,       // res 15
+// Index 16 supports the substrate grid for Class III resolution 15 pentagons
+// (faceIjkPentToVerts increments adjRes from 15 to 16).
+var MaxDimByCIIres = [MaxH3Res + 2]int{
+	2,         // res 0
+	-1,        // res 1 (class III — unused here)
+	14,        // res 2
+	-1,        // res 3
+	98,        // res 4
+	-1,        // res 5
+	686,       // res 6
+	-1,        // res 7
+	4802,      // res 8
+	-1,        // res 9
+	33614,     // res 10
+	-1,        // res 11
+	235298,    // res 12
+	-1,        // res 13
+	1647086,   // res 14
+	-1,        // res 15
+	11529602,  // res 16 (substrate level for Class III res 15)
 }
 
 // unitScaleByCIIres[r] is the unit scale for Class II grids at resolution r.
-var UnitScaleByCIIres = [MaxH3Res + 1]float64{
+// Index 16 supports the substrate grid for Class III resolution 15 pentagons.
+var UnitScaleByCIIres = [MaxH3Res + 2]float64{
 	1.0,
 	-1,
 	7.0,
@@ -83,6 +87,7 @@ var UnitScaleByCIIres = [MaxH3Res + 1]float64{
 	-1,
 	823543.0,
 	-1,
+	5764801.0, // res 16 (substrate level for Class III res 15)
 }
 
 // H3 index mode values.

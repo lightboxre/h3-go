@@ -3,9 +3,9 @@ package polygon
 import (
 	"testing"
 
-	"github.com/EDRInc/h3-go/internal/bbox"
-	"github.com/EDRInc/h3-go/internal/faceijk"
-	"github.com/EDRInc/h3-go/internal/h3index"
+	"github.com/lightboxre/h3-go/internal/bbox"
+	"github.com/lightboxre/h3-go/internal/faceijk"
+	"github.com/lightboxre/h3-go/internal/h3index"
 )
 
 func TestPointInGeoLoop(t *testing.T) {

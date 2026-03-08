@@ -3,8 +3,8 @@
 package h3math
 
 import (
-	"github.com/EDRInc/h3-go/internal/constants"
-	"github.com/EDRInc/h3-go/internal/faceijk"
+	"github.com/lightboxre/h3-go/internal/constants"
+	"github.com/lightboxre/h3-go/internal/faceijk"
 )
 
 // GreatCircleDistanceRads returns the great-circle distance in radians

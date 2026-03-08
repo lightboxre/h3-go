@@ -1,7 +1,7 @@
 # h3-go
 
-[![CI](https://github.com/EDRInc/h3-go/actions/workflows/ci.yml/badge.svg)](https://github.com/EDRInc/h3-go/actions/workflows/ci.yml)
-[![Go Reference](https://pkg.go.dev/badge/github.com/EDRInc/h3-go.svg)](https://pkg.go.dev/github.com/EDRInc/h3-go)
+[![CI](https://github.com/lightboxre/h3-go/actions/workflows/ci.yml/badge.svg)](https://github.com/lightboxre/h3-go/actions/workflows/ci.yml)
+[![Go Reference](https://pkg.go.dev/badge/github.com/lightboxre/h3-go.svg)](https://pkg.go.dev/github.com/lightboxre/h3-go)
 [![Go 1.22+](https://img.shields.io/badge/go-1.22+-blue.svg)](https://golang.org/dl/)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](LICENSE)
 
@@ -23,7 +23,7 @@ The official Go binding ([uber/h3-go](https://github.com/uber/h3-go)) requires C
 ## Installation
 
 ```bash
-go get github.com/EDRInc/h3-go
+go get github.com/lightboxre/h3-go
 ```
 
 Requires Go 1.22 or later.
@@ -31,7 +31,7 @@ Requires Go 1.22 or later.
 ## Quick start
 
 ```go
-import h3 "github.com/EDRInc/h3-go"
+import h3 "github.com/lightboxre/h3-go"
 
 // Convert a lat/lng coordinate to an H3 cell at resolution 9
 cell := h3.LatLngToCell(37.7796, -122.4193, 9)

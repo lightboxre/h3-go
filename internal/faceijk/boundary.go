@@ -6,8 +6,8 @@ package faceijk
 import (
 	"math"
 
-	"github.com/EDRInc/h3-go/internal/constants"
-	"github.com/EDRInc/h3-go/internal/coordijk"
+	"github.com/lightboxre/h3-go/internal/constants"
+	"github.com/lightboxre/h3-go/internal/coordijk"
 )
 
 // faceOrientIJK holds adjacent-face orientation info for _adjustOverageClassII.

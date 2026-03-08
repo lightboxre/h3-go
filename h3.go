@@ -9,12 +9,12 @@ import (
 	"fmt"
 	"math"
 
-	"github.com/EDRInc/h3-go/internal/algos"
-	"github.com/EDRInc/h3-go/internal/constants"
-	"github.com/EDRInc/h3-go/internal/faceijk"
-	"github.com/EDRInc/h3-go/internal/h3index"
-	h3math "github.com/EDRInc/h3-go/internal/math"
-	polygonpkg "github.com/EDRInc/h3-go/internal/polygon"
+	"github.com/lightboxre/h3-go/internal/algos"
+	"github.com/lightboxre/h3-go/internal/constants"
+	"github.com/lightboxre/h3-go/internal/faceijk"
+	"github.com/lightboxre/h3-go/internal/h3index"
+	h3math "github.com/lightboxre/h3-go/internal/math"
+	polygonpkg "github.com/lightboxre/h3-go/internal/polygon"
 )
 
 // Cell is an H3 index representing a hexagonal or pentagonal cell.

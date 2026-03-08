@@ -3,7 +3,7 @@ package h3index
 import (
 	"testing"
 
-	"github.com/EDRInc/h3-go/internal/constants"
+	"github.com/lightboxre/h3-go/internal/constants"
 )
 
 // Known-good test values from the C H3 implementation.

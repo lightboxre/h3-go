@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	h3 "github.com/EDRInc/h3-go"
+	h3 "github.com/lightboxre/h3-go"
 )
 
 func main() {

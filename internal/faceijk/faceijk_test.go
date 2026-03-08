@@ -4,8 +4,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/EDRInc/h3-go/internal/constants"
-	"github.com/EDRInc/h3-go/internal/coordijk"
+	"github.com/lightboxre/h3-go/internal/constants"
+	"github.com/lightboxre/h3-go/internal/coordijk"
 )
 
 func TestDegsToRads(t *testing.T) {

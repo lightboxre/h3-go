@@ -3,9 +3,9 @@ package h3math_test
 import (
 	"fmt"
 
-	"github.com/EDRInc/h3-go/internal/constants"
-	"github.com/EDRInc/h3-go/internal/h3index"
-	h3math "github.com/EDRInc/h3-go/internal/math"
+	"github.com/lightboxre/h3-go/internal/constants"
+	"github.com/lightboxre/h3-go/internal/h3index"
+	h3math "github.com/lightboxre/h3-go/internal/math"
 )
 
 // ExampleGreatCircleDistanceKm demonstrates calculating the distance between two points.

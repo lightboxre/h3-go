@@ -1,3 +1,5 @@
-module github.com/EDRInc/h3-go
+module github.com/lightboxre/h3-go
 
 go 1.22
+
+require gopkg.in/yaml.v3 v3.0.1 // indirect

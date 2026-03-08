@@ -5,7 +5,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/EDRInc/h3-go/internal/testutil"
+	"github.com/lightboxre/h3-go/internal/testutil"
 )
 
 // Known test values from H3 documentation and tests

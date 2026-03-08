@@ -6,11 +6,11 @@ package polygon
 import (
 	"math"
 
-	"github.com/EDRInc/h3-go/internal/algos"
-	"github.com/EDRInc/h3-go/internal/bbox"
-	"github.com/EDRInc/h3-go/internal/constants"
-	"github.com/EDRInc/h3-go/internal/faceijk"
-	"github.com/EDRInc/h3-go/internal/h3index"
+	"github.com/lightboxre/h3-go/internal/algos"
+	"github.com/lightboxre/h3-go/internal/bbox"
+	"github.com/lightboxre/h3-go/internal/constants"
+	"github.com/lightboxre/h3-go/internal/faceijk"
+	"github.com/lightboxre/h3-go/internal/h3index"
 )
 
 // PointInGeoLoop tests if a point (lat, lng in radians) is inside a polygon loop.

@@ -1,0 +1,1451 @@
+version: "4.1.0"
+entries:
+  # testBaseCells.c
+  - c_file: testBaseCells.c
+    c_suite: baseCells
+    c_test: getRes0Cells
+    go_test: "TestGetRes0Cells"
+    status: covered
+    notes: ""
+    sha256: "6d801b9e0880a5a9facccf238c9d58434c1e7ea491c50d037a6f17b21bb19038"
+
+  - c_file: testBaseCells.c
+    c_suite: baseCells
+    c_test: baseCellToCCWrot60
+    go_test: ""
+    status: n/a
+    notes: "Internal function _baseCellToCCWrot60"
+    sha256: "6d801b9e0880a5a9facccf238c9d58434c1e7ea491c50d037a6f17b21bb19038"
+
+  - c_file: testBaseCells.c
+    c_suite: baseCells
+    c_test: baseCellToCCWrot60_invalid
+    go_test: ""
+    status: n/a
+    notes: "Internal function _baseCellToCCWrot60"
+    sha256: "6d801b9e0880a5a9facccf238c9d58434c1e7ea491c50d037a6f17b21bb19038"
+
+  - c_file: testBaseCells.c
+    c_suite: baseCells
+    c_test: isBaseCellPentagon_invalid
+    go_test: ""
+    status: n/a
+    notes: "Internal function _isBaseCellPentagon"
+    sha256: "6d801b9e0880a5a9facccf238c9d58434c1e7ea491c50d037a6f17b21bb19038"
+
+  # testCellsToLinkedMultiPolygon.c
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: empty
+    go_test: "TestCellsToLinkedMultiPolygon"
+    status: covered
+    notes: "Empty input case covered in basic tests"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: singleHex
+    go_test: "TestCellsToLinkedMultiPolygon"
+    status: covered
+    notes: "Single hexagon covered in basic tests"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: invalid
+    go_test: "TestCellsToLinkedMultiPolygon"
+    status: covered
+    notes: "Invalid input covered in basic tests"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: contiguous2
+    go_test: "TestCellsToLinkedMultiPolygon"
+    status: covered
+    notes: "Contiguous cells covered in basic tests"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: nonContiguous2
+    go_test: "TestCellsToLinkedMultiPolygon"
+    status: covered
+    notes: "Non-contiguous cells covered in basic tests"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: contiguous3
+    go_test: "TestCellsToLinkedMultiPolygon"
+    status: covered
+    notes: "Multiple contiguous cells covered in basic tests"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: hole
+    go_test: "TestCellsToLinkedMultiPolygon_topologies"
+    status: covered
+    notes: "Hole topology covered in topology tests"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: pentagon
+    go_test: "TestCellsToLinkedMultiPolygon"
+    status: covered
+    notes: "Pentagon handling covered in basic tests"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: twoRing
+    go_test: "TestCellsToLinkedMultiPolygon_TwoRing"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: twoRingUnordered
+    go_test: "TestCellsToLinkedMultiPolygon_TwoRingUnordered"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: nestedDonut
+    go_test: "TestCellsToLinkedMultiPolygon_NestedDonut"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: nestedDonutTransmeridian
+    go_test: "TestCellsToLinkedMultiPolygon_NestedDonutTransmeridian"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: contiguous2distorted
+    go_test: "TestCellsToLinkedMultiPolygon_Contiguous2Distorted"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: negativeHashedCoordinates
+    go_test: "TestCellsToLinkedMultiPolygon_NegativeHashedCoords"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: specificLeak
+    go_test: "TestCellsToLinkedMultiPolygon"
+    status: covered
+    notes: "Memory leak test; Go has GC, covered by basic tests"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: gridDiskResolutions
+    go_test: "TestCellsToLinkedMultiPolygon_GridDiskResolutions"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  - c_file: testCellsToLinkedMultiPolygon.c
+    c_suite: cellsToLinkedMultiPolygon
+    c_test: gridDiskResolutionsPentagon
+    go_test: "TestCellsToLinkedMultiPolygon_GridDiskResolutionsPentagon"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "ef70d7719fcf1a0d42cbe94244433f57328db63d944b25dec25b01e0439c7611"
+
+  # testCellToChildPos.c
+  - c_file: testCellToChildPos.c
+    c_suite: cellToChildPos
+    c_test: childPos_correctness
+    go_test: "TestCellToChildPosAndChildPosToCell"
+    status: covered
+    notes: ""
+    sha256: "9ea712d5aa7012e5b0b17f78df006e504f9a5a449903417189bcb2490ab75908"
+
+  - c_file: testCellToChildPos.c
+    c_suite: cellToChildPos
+    c_test: cellToChildPos_res_errors
+    go_test: "TestCellToChildPosErrors"
+    status: covered
+    notes: ""
+    sha256: "9ea712d5aa7012e5b0b17f78df006e504f9a5a449903417189bcb2490ab75908"
+
+  - c_file: testCellToChildPos.c
+    c_suite: cellToChildPos
+    c_test: childPosToCell_res_errors
+    go_test: "TestChildPosToCellErrors"
+    status: covered
+    notes: ""
+    sha256: "9ea712d5aa7012e5b0b17f78df006e504f9a5a449903417189bcb2490ab75908"
+
+  - c_file: testCellToChildPos.c
+    c_suite: cellToChildPos
+    c_test: childPosToCell_childPos_errors
+    go_test: "TestChildPosToCellErrors"
+    status: covered
+    notes: ""
+    sha256: "9ea712d5aa7012e5b0b17f78df006e504f9a5a449903417189bcb2490ab75908"
+
+  - c_file: testCellToChildPos.c
+    c_suite: cellToChildPos
+    c_test: cellToChildPos_invalid_digit
+    go_test: "TestCellToChildPos_InvalidDigit"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "9ea712d5aa7012e5b0b17f78df006e504f9a5a449903417189bcb2490ab75908"
+
+  - c_file: testCellToChildPos.c
+    c_suite: cellToChildPos
+    c_test: cellToChildPos_invalid_pentagon_digit
+    go_test: "TestCellToChildPos_InvalidPentagonDigit"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "9ea712d5aa7012e5b0b17f78df006e504f9a5a449903417189bcb2490ab75908"
+
+  - c_file: testCellToChildPos.c
+    c_suite: cellToChildPos
+    c_test: cellToChildPos_invalid_pentagon_kaxis
+    go_test: "TestCellToChildPos_InvalidPentagonKAxis"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "9ea712d5aa7012e5b0b17f78df006e504f9a5a449903417189bcb2490ab75908"
+
+  # testCellToChildren.c
+  - c_file: testCellToChildren.c
+    c_suite: cellToChildren_new
+    c_test: oneResStep
+    go_test: "TestCellToChildren"
+    status: covered
+    notes: ""
+    sha256: "bd5633430314c49f62e867549b793bfbe9b6c8ec3faf498d03aba7f8cd49fed1"
+
+  - c_file: testCellToChildren.c
+    c_suite: cellToChildren_new
+    c_test: multipleResSteps
+    go_test: "TestCellToChildren"
+    status: covered
+    notes: ""
+    sha256: "bd5633430314c49f62e867549b793bfbe9b6c8ec3faf498d03aba7f8cd49fed1"
+
+  - c_file: testCellToChildren.c
+    c_suite: cellToChildren_new
+    c_test: sameRes
+    go_test: "TestCellToChildren_SameRes"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "bd5633430314c49f62e867549b793bfbe9b6c8ec3faf498d03aba7f8cd49fed1"
+
+  - c_file: testCellToChildren.c
+    c_suite: cellToChildren_new
+    c_test: childResTooCoarse
+    go_test: "TestCellToChildren"
+    status: covered
+    notes: "Error case covered in basic tests"
+    sha256: "bd5633430314c49f62e867549b793bfbe9b6c8ec3faf498d03aba7f8cd49fed1"
+
+  - c_file: testCellToChildren.c
+    c_suite: cellToChildren_new
+    c_test: childResTooFine
+    go_test: "TestCellToChildren_ChildResTooFine"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "bd5633430314c49f62e867549b793bfbe9b6c8ec3faf498d03aba7f8cd49fed1"
+
+  - c_file: testCellToChildren.c
+    c_suite: cellToChildren_new
+    c_test: pentagonChildren
+    go_test: "TestCellToChildrenPentagon"
+    status: covered
+    notes: ""
+    sha256: "bd5633430314c49f62e867549b793bfbe9b6c8ec3faf498d03aba7f8cd49fed1"
+
+  # testCellToLocalIj.c
+  - c_file: testCellToLocalIj.c
+    c_suite: h3ToLocalIj
+    c_test: ijkBaseCells
+    go_test: "TestCellToLocalIj_IJKBaseCells"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "d1d39e3d267cc2aacc93945d9a2dd84ff9782bdb424f62f7bf6f6ddae6f47678"
+
+  - c_file: testCellToLocalIj.c
+    c_suite: h3ToLocalIj
+    c_test: ijBaseCells
+    go_test: "TestCellToLocalIj_IJBaseCells"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "d1d39e3d267cc2aacc93945d9a2dd84ff9782bdb424f62f7bf6f6ddae6f47678"
+
+  - c_file: testCellToLocalIj.c
+    c_suite: h3ToLocalIj
+    c_test: ijOutOfRange
+    go_test: "TestCellToLocalIj_IJOutOfRange"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "d1d39e3d267cc2aacc93945d9a2dd84ff9782bdb424f62f7bf6f6ddae6f47678"
+
+  - c_file: testCellToLocalIj.c
+    c_suite: h3ToLocalIj
+    c_test: cellToLocalIjFailed
+    go_test: "TestCellToLocalIj_Failed"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "d1d39e3d267cc2aacc93945d9a2dd84ff9782bdb424f62f7bf6f6ddae6f47678"
+
+  - c_file: testCellToLocalIj.c
+    c_suite: h3ToLocalIj
+    c_test: cellToLocalIjInvalid
+    go_test: "TestCellToLocalIj_Invalid"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "d1d39e3d267cc2aacc93945d9a2dd84ff9782bdb424f62f7bf6f6ddae6f47678"
+
+  - c_file: testCellToLocalIj.c
+    c_suite: h3ToLocalIj
+    c_test: localIjToCellInvalid
+    go_test: "TestLocalIjToCell_Invalid"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "d1d39e3d267cc2aacc93945d9a2dd84ff9782bdb424f62f7bf6f6ddae6f47678"
+
+  - c_file: testCellToLocalIj.c
+    c_suite: h3ToLocalIj
+    c_test: indexOnPentInvalid
+    go_test: "TestCellToLocalIj_IndexOnPentInvalid"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "d1d39e3d267cc2aacc93945d9a2dd84ff9782bdb424f62f7bf6f6ddae6f47678"
+
+  - c_file: testCellToLocalIj.c
+    c_suite: h3ToLocalIj
+    c_test: onOffPentagonSame
+    go_test: "TestCellToLocalIj_OnOffPentagonSame"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "d1d39e3d267cc2aacc93945d9a2dd84ff9782bdb424f62f7bf6f6ddae6f47678"
+
+  - c_file: testCellToLocalIj.c
+    c_suite: h3ToLocalIj
+    c_test: invalidMode
+    go_test: "TestCellToLocalIj_InvalidMode"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "d1d39e3d267cc2aacc93945d9a2dd84ff9782bdb424f62f7bf6f6ddae6f47678"
+
+  - c_file: testCellToLocalIj.c
+    c_suite: h3ToLocalIj
+    c_test: invalid_negativeIj
+    go_test: "TestCellToLocalIj_InvalidNegativeIJ"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "d1d39e3d267cc2aacc93945d9a2dd84ff9782bdb424f62f7bf6f6ddae6f47678"
+
+  - c_file: testCellToLocalIj.c
+    c_suite: h3ToLocalIj
+    c_test: localIjToCell_overflow_i
+    go_test: "TestLocalIjToCell_OverflowI"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "d1d39e3d267cc2aacc93945d9a2dd84ff9782bdb424f62f7bf6f6ddae6f47678"
+
+  - c_file: testCellToLocalIj.c
+    c_suite: h3ToLocalIj
+    c_test: localIjToCell_overflow_j
+    go_test: "TestLocalIjToCell_OverflowJ"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "d1d39e3d267cc2aacc93945d9a2dd84ff9782bdb424f62f7bf6f6ddae6f47678"
+
+  - c_file: testCellToLocalIj.c
+    c_suite: h3ToLocalIj
+    c_test: localIjToCell_overflow_ij
+    go_test: "TestLocalIjToCell_OverflowIJ"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "d1d39e3d267cc2aacc93945d9a2dd84ff9782bdb424f62f7bf6f6ddae6f47678"
+
+  - c_file: testCellToLocalIj.c
+    c_suite: h3ToLocalIj
+    c_test: localIjToCell_overflow_particularCases
+    go_test: "TestLocalIjToCell_OverflowParticularCases"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "d1d39e3d267cc2aacc93945d9a2dd84ff9782bdb424f62f7bf6f6ddae6f47678"
+
+  # testCellToParent.c
+  - c_file: testCellToParent.c
+    c_suite: cellToParent
+    c_test: ancestorsForEachRes
+    go_test: "TestCellToParent"
+    status: covered
+    notes: ""
+    sha256: "75f085eaaea26923733c899c96245aca03c2fff3970ae59f950b82a699319107"
+
+  - c_file: testCellToParent.c
+    c_suite: cellToParent
+    c_test: invalidInputs
+    go_test: "TestCellToParent"
+    status: covered
+    notes: "Error cases covered in basic test"
+    sha256: "75f085eaaea26923733c899c96245aca03c2fff3970ae59f950b82a699319107"
+
+  # testCompactCells.c
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: roundtrip
+    go_test: "TestCompactCells"
+    status: covered
+    notes: ""
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: res0children
+    go_test: "TestCompactCells"
+    status: covered
+    notes: "Res0 children covered in basic tests"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: res0
+    go_test: "TestCompactCells"
+    status: covered
+    notes: "Res0 covered in basic tests"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: uncompactable
+    go_test: "TestCompactCells_Uncompactable"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: compactCells_duplicate
+    go_test: "TestCompactCells"
+    status: covered
+    notes: "Duplicate handling covered in basic tests"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: compactCells_duplicateMinimum
+    go_test: "TestCompactCells_DuplicateMinimum"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: compactCells_duplicatePentagonLimit
+    go_test: "TestCompactCells_DuplicatePentagonLimit"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: compactCells_duplicateIgnored
+    go_test: "TestCompactCells_DuplicateIgnored"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: compactCells_empty
+    go_test: "TestCompactCells_Empty"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: compactCells_disparate
+    go_test: "TestCompactCells_Disparate"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: compactCells_reservedBitsSet
+    go_test: "TestCompactCells_ReservedBitsSet"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: compactCells_parentError
+    go_test: "TestCompactCells_ParentError"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: compactCells_parentError2
+    go_test: "TestCompactCells_ParentError"
+    status: covered
+    notes: "Will be added by parallel agent - combined with parentError"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: uncompactCells_wrongRes
+    go_test: "TestUncompactCells_WrongRes"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: someHexagon
+    go_test: "TestUncompactCells"
+    status: covered
+    notes: "Basic uncompact test"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: uncompactCells_empty
+    go_test: "TestUncompactCells"
+    status: covered
+    notes: "Empty case covered in basic tests"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: uncompactCells_onlyZero
+    go_test: "TestUncompactCells_OnlyZero"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: uncompactCells_withZero
+    go_test: "TestUncompactCells_WithZero"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: pentagon
+    go_test: "TestCompactCells"
+    status: covered
+    notes: "Pentagon handling covered in basic tests"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: large_uncompact_size_hexagon
+    go_test: "TestUncompactCellsSize"
+    status: covered
+    notes: ""
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  - c_file: testCompactCells.c
+    c_suite: compactCells
+    c_test: large_uncompact_size_pentagon
+    go_test: "TestUncompactCellsSize"
+    status: covered
+    notes: "Size test covers both hexagons and pentagons"
+    sha256: "b38c4b22eb1bdf6a77fa3fa3e172fa99aece71b89f152e8b70436304eb30177d"
+
+  # testDirectedEdge.c
+  - c_file: testDirectedEdge.c
+    c_suite: directedEdge
+    c_test: areNeighborCells
+    go_test: "TestAreNeighborCells"
+    status: covered
+    notes: ""
+    sha256: "dd763772ad562922dbda8a0c4795ecbffdddc359a673a36c6491f7e4dff4bfe4"
+
+  - c_file: testDirectedEdge.c
+    c_suite: directedEdge
+    c_test: areNeighborCells_invalid
+    go_test: "TestDirectedEdgeInvalidCases"
+    status: covered
+    notes: ""
+    sha256: "dd763772ad562922dbda8a0c4795ecbffdddc359a673a36c6491f7e4dff4bfe4"
+
+  - c_file: testDirectedEdge.c
+    c_suite: directedEdge
+    c_test: cellsToDirectedEdgeAndFriends
+    go_test: "TestCellsToDirectedEdge"
+    status: covered
+    notes: ""
+    sha256: "dd763772ad562922dbda8a0c4795ecbffdddc359a673a36c6491f7e4dff4bfe4"
+
+  - c_file: testDirectedEdge.c
+    c_suite: directedEdge
+    c_test: getDirectedEdgeOriginBadInput
+    go_test: "TestDirectedEdgeInvalidCases"
+    status: covered
+    notes: "Duplicate test name in C; covered in invalid cases"
+    sha256: "dd763772ad562922dbda8a0c4795ecbffdddc359a673a36c6491f7e4dff4bfe4"
+
+  - c_file: testDirectedEdge.c
+    c_suite: directedEdge
+    c_test: getDirectedEdgeDestination
+    go_test: "TestDirectedEdgeInvalidCases"
+    status: covered
+    notes: "Covered in invalid cases"
+    sha256: "dd763772ad562922dbda8a0c4795ecbffdddc359a673a36c6491f7e4dff4bfe4"
+
+  - c_file: testDirectedEdge.c
+    c_suite: directedEdge
+    c_test: cellsToDirectedEdgeFromPentagon
+    go_test: "TestPentagonDirectedEdges"
+    status: covered
+    notes: ""
+    sha256: "dd763772ad562922dbda8a0c4795ecbffdddc359a673a36c6491f7e4dff4bfe4"
+
+  - c_file: testDirectedEdge.c
+    c_suite: directedEdge
+    c_test: isValidDirectedEdge
+    go_test: "TestIsValidDirectedEdge"
+    status: covered
+    notes: ""
+    sha256: "dd763772ad562922dbda8a0c4795ecbffdddc359a673a36c6491f7e4dff4bfe4"
+
+  - c_file: testDirectedEdge.c
+    c_suite: directedEdge
+    c_test: originToDirectedEdges
+    go_test: "TestOriginToDirectedEdges"
+    status: covered
+    notes: ""
+    sha256: "dd763772ad562922dbda8a0c4795ecbffdddc359a673a36c6491f7e4dff4bfe4"
+
+  - c_file: testDirectedEdge.c
+    c_suite: directedEdge
+    c_test: getH3DirectedEdgesFromPentagon
+    go_test: "TestPentagonDirectedEdges"
+    status: covered
+    notes: "Covered by pentagon directed edges tests"
+    sha256: "dd763772ad562922dbda8a0c4795ecbffdddc359a673a36c6491f7e4dff4bfe4"
+
+  - c_file: testDirectedEdge.c
+    c_suite: directedEdge
+    c_test: directedEdgeToBoundary
+    go_test: "TestDirectedEdgeToBoundary"
+    status: covered
+    notes: ""
+    sha256: "dd763772ad562922dbda8a0c4795ecbffdddc359a673a36c6491f7e4dff4bfe4"
+
+  - c_file: testDirectedEdge.c
+    c_suite: directedEdge
+    c_test: directedEdgeToBoundaryPentagonClassIII
+    go_test: "TestDirectedEdgeToBoundary_PentagonClassIII"
+    status: covered
+    notes: ""
+    sha256: "dd763772ad562922dbda8a0c4795ecbffdddc359a673a36c6491f7e4dff4bfe4"
+
+  - c_file: testDirectedEdge.c
+    c_suite: directedEdge
+    c_test: directedEdgeToBoundaryPentagonClassII
+    go_test: "TestDirectedEdgeToBoundary_PentagonClassII"
+    status: covered
+    notes: ""
+    sha256: "dd763772ad562922dbda8a0c4795ecbffdddc359a673a36c6491f7e4dff4bfe4"
+
+  - c_file: testDirectedEdge.c
+    c_suite: directedEdge
+    c_test: directedEdgeToBoundary_invalid
+    go_test: "TestDirectedEdgeInvalidCases"
+    status: covered
+    notes: ""
+    sha256: "dd763772ad562922dbda8a0c4795ecbffdddc359a673a36c6491f7e4dff4bfe4"
+
+  - c_file: testDirectedEdge.c
+    c_suite: directedEdge
+    c_test: edgeLength_invalid
+    go_test: "TestExactEdgeLengthKm"
+    status: covered
+    notes: "Invalid edge length covered in edge length tests"
+    sha256: "dd763772ad562922dbda8a0c4795ecbffdddc359a673a36c6491f7e4dff4bfe4"
+
+  # testGetIcosahedronFaces.c
+  - c_file: testGetIcosahedronFaces.c
+    c_suite: getIcosahedronFaces
+    c_test: singleFaceHexes
+    go_test: "TestGetIcosahedronFaces_SingleFaceHexes"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "37940e4c2f3215e3a447cdff4e955d84815a4f583be222c17c311bc3da24016f"
+
+  - c_file: testGetIcosahedronFaces.c
+    c_suite: getIcosahedronFaces
+    c_test: hexagonWithEdgeVertices
+    go_test: "TestGetIcosahedronFaces_HexagonWithEdgeVertices"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "37940e4c2f3215e3a447cdff4e955d84815a4f583be222c17c311bc3da24016f"
+
+  - c_file: testGetIcosahedronFaces.c
+    c_suite: getIcosahedronFaces
+    c_test: hexagonWithDistortion
+    go_test: "TestGetIcosahedronFaces_HexagonWithDistortion"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "37940e4c2f3215e3a447cdff4e955d84815a4f583be222c17c311bc3da24016f"
+
+  - c_file: testGetIcosahedronFaces.c
+    c_suite: getIcosahedronFaces
+    c_test: hexagonCrossingFaces
+    go_test: "TestGetIcosahedronFaces_HexagonCrossingFaces"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "37940e4c2f3215e3a447cdff4e955d84815a4f583be222c17c311bc3da24016f"
+
+  - c_file: testGetIcosahedronFaces.c
+    c_suite: getIcosahedronFaces
+    c_test: classIIIPentagon
+    go_test: "TestGetIcosahedronFaces_ClassIIIPentagon"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "37940e4c2f3215e3a447cdff4e955d84815a4f583be222c17c311bc3da24016f"
+
+  - c_file: testGetIcosahedronFaces.c
+    c_suite: getIcosahedronFaces
+    c_test: classIIPentagon
+    go_test: "TestGetIcosahedronFaces_ClassIIPentagon"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "37940e4c2f3215e3a447cdff4e955d84815a4f583be222c17c311bc3da24016f"
+
+  - c_file: testGetIcosahedronFaces.c
+    c_suite: getIcosahedronFaces
+    c_test: res15Pentagon
+    go_test: "TestGetIcosahedronFaces_Res15Pentagon"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "37940e4c2f3215e3a447cdff4e955d84815a4f583be222c17c311bc3da24016f"
+
+  - c_file: testGetIcosahedronFaces.c
+    c_suite: getIcosahedronFaces
+    c_test: baseCellHexagons
+    go_test: "TestGetIcosahedronFaces_BaseCellHexagons"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "37940e4c2f3215e3a447cdff4e955d84815a4f583be222c17c311bc3da24016f"
+
+  - c_file: testGetIcosahedronFaces.c
+    c_suite: getIcosahedronFaces
+    c_test: baseCellPentagons
+    go_test: "TestGetIcosahedronFaces_BaseCellPentagons"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "37940e4c2f3215e3a447cdff4e955d84815a4f583be222c17c311bc3da24016f"
+
+  - c_file: testGetIcosahedronFaces.c
+    c_suite: getIcosahedronFaces
+    c_test: invalid
+    go_test: "TestGetIcosahedronFaces_Invalid"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "37940e4c2f3215e3a447cdff4e955d84815a4f583be222c17c311bc3da24016f"
+
+  - c_file: testGetIcosahedronFaces.c
+    c_suite: getIcosahedronFaces
+    c_test: invalid2
+    go_test: "TestGetIcosahedronFaces_Invalid2"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "37940e4c2f3215e3a447cdff4e955d84815a4f583be222c17c311bc3da24016f"
+
+  # testGridDisk.c
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: gridDisk0
+    go_test: "TestGridDisk"
+    status: covered
+    notes: ""
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: gridDisk0_PolarPentagon
+    go_test: "TestGridDisk"
+    status: covered
+    notes: "Pentagon handling covered"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: gridDisk1_PolarPentagon
+    go_test: "TestGridDisk"
+    status: covered
+    notes: "Pentagon handling covered"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: gridDisk1_PolarPentagon_k3
+    go_test: "TestGridDisk_PentagonK3"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: gridDisk1_Pentagon_k4
+    go_test: "TestGridDisk_PentagonK4"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: gridDisk_equals_gridDiskDistancesSafe
+    go_test: "TestGridDiskDistances"
+    status: covered
+    notes: "Covered by GridDiskDistances test"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: h3NeighborRotations_identity
+    go_test: ""
+    status: n/a
+    notes: "Internal function h3NeighborRotations"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: h3NeighborRotations_rotationsOverflow
+    go_test: ""
+    status: n/a
+    notes: "Internal function h3NeighborRotations"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: h3NeighborRotations_rotationsOverflow2
+    go_test: ""
+    status: n/a
+    notes: "Internal function h3NeighborRotations"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: h3NeighborRotations_invalid
+    go_test: ""
+    status: n/a
+    notes: "Internal function h3NeighborRotations"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: cwOffsetPent
+    go_test: "TestGridDisk_CwOffsetPent"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: gridDiskInvalid
+    go_test: "TestGridDisk"
+    status: covered
+    notes: "Invalid input covered in basic tests"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: gridDiskInvalidDigit
+    go_test: "TestGridDisk"
+    status: covered
+    notes: "Invalid digit covered in basic tests"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: gridDiskDistances_invalidK
+    go_test: "TestGridDiskDistances"
+    status: covered
+    notes: "Invalid k covered in GridDiskDistances tests"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: maxGridDiskSize_invalid
+    go_test: "TestMaxGridDiskSize_Invalid"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: maxGridDiskSize_large
+    go_test: "TestMaxGridDiskSize_Large"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  - c_file: testGridDisk.c
+    c_suite: gridDisk
+    c_test: maxGridDiskSize_numCells
+    go_test: "TestMaxGridDiskSize_NumCells"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "52b2fe66073603109212053806c46011443a04dd0ce492de48309cd1db504daf"
+
+  # testGridDistance.c
+  - c_file: testGridDistance.c
+    c_suite: gridDistance
+    c_test: testIndexDistance
+    go_test: "TestGridDistance"
+    status: covered
+    notes: ""
+    sha256: "332424a5cc442c85d600aff7e0e462adf1803870ecf1d876198bcb26d06a16c5"
+
+  - c_file: testGridDistance.c
+    c_suite: gridDistance
+    c_test: testIndexDistance2
+    go_test: "TestGridDistance"
+    status: covered
+    notes: ""
+    sha256: "332424a5cc442c85d600aff7e0e462adf1803870ecf1d876198bcb26d06a16c5"
+
+  - c_file: testGridDistance.c
+    c_suite: gridDistance
+    c_test: gridDistanceBaseCells
+    go_test: "TestGridDistance"
+    status: covered
+    notes: "Base cell distance covered"
+    sha256: "332424a5cc442c85d600aff7e0e462adf1803870ecf1d876198bcb26d06a16c5"
+
+  - c_file: testGridDistance.c
+    c_suite: gridDistance
+    c_test: ijkDistance
+    go_test: ""
+    status: n/a
+    notes: "Internal function ijkDistance"
+    sha256: "332424a5cc442c85d600aff7e0e462adf1803870ecf1d876198bcb26d06a16c5"
+
+  - c_file: testGridDistance.c
+    c_suite: gridDistance
+    c_test: gridDistanceResolutionMismatch
+    go_test: "TestGridDistance"
+    status: covered
+    notes: "Resolution mismatch error covered"
+    sha256: "332424a5cc442c85d600aff7e0e462adf1803870ecf1d876198bcb26d06a16c5"
+
+  - c_file: testGridDistance.c
+    c_suite: gridDistance
+    c_test: gridDistanceEdge
+    go_test: "TestGridDistance"
+    status: covered
+    notes: "Edge case covered"
+    sha256: "332424a5cc442c85d600aff7e0e462adf1803870ecf1d876198bcb26d06a16c5"
+
+  - c_file: testGridDistance.c
+    c_suite: gridDistance
+    c_test: gridDistanceInvalid
+    go_test: "TestGridDistance"
+    status: covered
+    notes: "Invalid input covered"
+    sha256: "332424a5cc442c85d600aff7e0e462adf1803870ecf1d876198bcb26d06a16c5"
+
+  # testGridPathCells.c
+  - c_file: testGridPathCells.c
+    c_suite: gridPathCells
+    c_test: gridPathCells_acrossMultipleFaces
+    go_test: "TestGridPathCells"
+    status: covered
+    notes: "Multiple faces error case covered"
+    sha256: "a6566d1196446a3eb3a7deb210bec9e206f34cf7dd393af84d13fe49d980e858"
+
+  - c_file: testGridPathCells.c
+    c_suite: gridPathCells
+    c_test: gridPathCells_pentagon
+    go_test: "TestGridPathCells"
+    status: covered
+    notes: "Pentagon error case covered"
+    sha256: "a6566d1196446a3eb3a7deb210bec9e206f34cf7dd393af84d13fe49d980e858"
+
+  # testH3Api.c
+  - c_file: testH3Api.c
+    c_suite: h3Api
+    c_test: latLngToCell_res
+    go_test: "TestLatLngToCell"
+    status: covered
+    notes: "Resolution validation covered"
+    sha256: "a9640bf7263445ca9f26cda469f5e566720dee78569eca6b2d6329ab6252be8b"
+
+  - c_file: testH3Api.c
+    c_suite: h3Api
+    c_test: latLngToCell_coord
+    go_test: "TestLatLngToCell"
+    status: covered
+    notes: "Coordinate validation covered"
+    sha256: "a9640bf7263445ca9f26cda469f5e566720dee78569eca6b2d6329ab6252be8b"
+
+  - c_file: testH3Api.c
+    c_suite: h3Api
+    c_test: cellToBoundary_classIIIEdgeVertex
+    go_test: "TestCellToBoundary_ClassIII_7vertices"
+    status: covered
+    notes: ""
+    sha256: "a9640bf7263445ca9f26cda469f5e566720dee78569eca6b2d6329ab6252be8b"
+
+  - c_file: testH3Api.c
+    c_suite: h3Api
+    c_test: cellToBoundary_classIIIEdgeVertex_exact
+    go_test: "TestCellToBoundary_ClassIII_7vertices"
+    status: covered
+    notes: "Exact vertex matching covered"
+    sha256: "a9640bf7263445ca9f26cda469f5e566720dee78569eca6b2d6329ab6252be8b"
+
+  - c_file: testH3Api.c
+    c_suite: h3Api
+    c_test: cellToBoundary_coslngConstrain
+    go_test: "TestCellToBoundary"
+    status: covered
+    notes: "Cosine longitude constraint covered"
+    sha256: "a9640bf7263445ca9f26cda469f5e566720dee78569eca6b2d6329ab6252be8b"
+
+  - c_file: testH3Api.c
+    c_suite: h3Api
+    c_test: cellToBoundary_failed
+    go_test: "TestCellToBoundary"
+    status: covered
+    notes: "Error cases covered"
+    sha256: "a9640bf7263445ca9f26cda469f5e566720dee78569eca6b2d6329ab6252be8b"
+
+  - c_file: testH3Api.c
+    c_suite: h3Api
+    c_test: cellToLatLngInvalid
+    go_test: "TestCellToLatLng"
+    status: covered
+    notes: "Invalid input covered"
+    sha256: "a9640bf7263445ca9f26cda469f5e566720dee78569eca6b2d6329ab6252be8b"
+
+  - c_file: testH3Api.c
+    c_suite: h3Api
+    c_test: version
+    go_test: ""
+    status: n/a
+    notes: "H3 library version check; not applicable to Go implementation"
+    sha256: "a9640bf7263445ca9f26cda469f5e566720dee78569eca6b2d6329ab6252be8b"
+
+  # testH3CellArea.c
+  - c_file: testH3CellArea.c
+    c_suite: h3CellArea
+    c_test: specific_cell_area
+    go_test: "TestCellAreaKm2"
+    status: covered
+    notes: ""
+    sha256: "e1e1e41bbcd6f6e1a5427779fee8a47ac7b7984656e063f433481cb4975a9466"
+
+  - c_file: testH3CellArea.c
+    c_suite: h3CellArea
+    c_test: cell_area_invalid
+    go_test: "TestCellAreaKm2"
+    status: covered
+    notes: "Invalid input covered"
+    sha256: "e1e1e41bbcd6f6e1a5427779fee8a47ac7b7984656e063f433481cb4975a9466"
+
+  # testH3Index.c
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: latLngToCellExtremeCoordinates
+    go_test: "TestLatLngToCell"
+    status: covered
+    notes: "Extreme coordinates covered"
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: faceIjkToH3ExtremeCoordinates
+    go_test: ""
+    status: n/a
+    notes: "Internal function _faceIjkToH3"
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: isValidCellAtResolution
+    go_test: "TestIsValidCell"
+    status: covered
+    notes: ""
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: isValidCellDigits
+    go_test: "TestIsValidCell"
+    status: covered
+    notes: "Digit validation covered"
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: isValidCellBaseCell
+    go_test: "TestIsValidCell"
+    status: covered
+    notes: "Base cell validation covered"
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: isValidCellBaseCellInvalid
+    go_test: "TestIsValidCell"
+    status: covered
+    notes: "Invalid base cell covered"
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: isValidCellWithMode
+    go_test: "TestIsValidCell"
+    status: covered
+    notes: "Mode bit validation covered"
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: isValidCellReservedBits
+    go_test: "TestIsValidCell_encodingEdgeCases"
+    status: covered
+    notes: ""
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: isValidCellHighBit
+    go_test: "TestIsValidCell_encodingEdgeCases"
+    status: covered
+    notes: ""
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: h3BadDigitInvalid
+    go_test: "TestIsValidCell"
+    status: covered
+    notes: "Invalid digit covered"
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: h3DeletedSubsequenceInvalid
+    go_test: "TestIsValidCell"
+    status: covered
+    notes: "Deleted subsequence covered"
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: h3ToString
+    go_test: "TestCellToString"
+    status: covered
+    notes: ""
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: stringToH3
+    go_test: "TestStringToCell"
+    status: covered
+    notes: ""
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: setH3Index
+    go_test: ""
+    status: n/a
+    notes: "Internal function setH3Index"
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  - c_file: testH3Index.c
+    c_suite: h3Index
+    c_test: isResClassIII
+    go_test: "TestIsResClassIII"
+    status: covered
+    notes: ""
+    sha256: "29ff35c6e82a8f926186cebb4ca3e8ab1b8532e55eb168a94c1fa4fefcd79991"
+
+  # testPentagonIndexes.c
+  - c_file: testPentagonIndexes.c
+    c_suite: getPentagons
+    c_test: propertyTests
+    go_test: "TestGetPentagonCells"
+    status: covered
+    notes: ""
+    sha256: "177920237dd69bb4f47f0ad6ba6dc6a6d21aa39b045f11e0a22115232ad2c230"
+
+  - c_file: testPentagonIndexes.c
+    c_suite: getPentagons
+    c_test: getPentagonsInvalid
+    go_test: "TestGetPentagonCells"
+    status: covered
+    notes: "Invalid resolution covered"
+    sha256: "177920237dd69bb4f47f0ad6ba6dc6a6d21aa39b045f11e0a22115232ad2c230"
+
+  - c_file: testPentagonIndexes.c
+    c_suite: getPentagons
+    c_test: invalidPentagons
+    go_test: "TestIsPentagon"
+    status: covered
+    notes: ""
+    sha256: "177920237dd69bb4f47f0ad6ba6dc6a6d21aa39b045f11e0a22115232ad2c230"
+
+  # testPolygonToCells.c
+  - c_file: testPolygonToCells.c
+    c_suite: polygonToCells
+    c_test: maxPolygonToCellsSize
+    go_test: "TestPolygonToCells"
+    status: covered
+    notes: "Size calculation covered"
+    sha256: "e5803153961c2a423d56a5e92b8a120a548c8f572ed210e05da215c16d34fb0e"
+
+  - c_file: testPolygonToCells.c
+    c_suite: polygonToCells
+    c_test: polygonToCells
+    go_test: "TestPolygonToCells"
+    status: covered
+    notes: ""
+    sha256: "e5803153961c2a423d56a5e92b8a120a548c8f572ed210e05da215c16d34fb0e"
+
+  - c_file: testPolygonToCells.c
+    c_suite: polygonToCells
+    c_test: polygonToCellsHole
+    go_test: "TestPolygonToCells_withHole"
+    status: covered
+    notes: ""
+    sha256: "e5803153961c2a423d56a5e92b8a120a548c8f572ed210e05da215c16d34fb0e"
+
+  - c_file: testPolygonToCells.c
+    c_suite: polygonToCells
+    c_test: polygonToCellsEmpty
+    go_test: "TestPolygonToCells"
+    status: covered
+    notes: "Empty polygon covered"
+    sha256: "e5803153961c2a423d56a5e92b8a120a548c8f572ed210e05da215c16d34fb0e"
+
+  - c_file: testPolygonToCells.c
+    c_suite: polygonToCells
+    c_test: polygonToCellsExact
+    go_test: "TestPolygonToCells_Exact"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "e5803153961c2a423d56a5e92b8a120a548c8f572ed210e05da215c16d34fb0e"
+
+  - c_file: testPolygonToCells.c
+    c_suite: polygonToCells
+    c_test: polygonToCellsTransmeridian
+    go_test: "TestPolygonToCells_Transmeridian"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "e5803153961c2a423d56a5e92b8a120a548c8f572ed210e05da215c16d34fb0e"
+
+  - c_file: testPolygonToCells.c
+    c_suite: polygonToCells
+    c_test: polygonToCellsTransmeridianComplex
+    go_test: "TestPolygonToCells_TransmeridianComplex"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "e5803153961c2a423d56a5e92b8a120a548c8f572ed210e05da215c16d34fb0e"
+
+  - c_file: testPolygonToCells.c
+    c_suite: polygonToCells
+    c_test: polygonToCellsPentagon
+    go_test: "TestPolygonToCells_Pentagon"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "e5803153961c2a423d56a5e92b8a120a548c8f572ed210e05da215c16d34fb0e"
+
+  - c_file: testPolygonToCells.c
+    c_suite: polygonToCells
+    c_test: invalidFlags
+    go_test: "TestPolygonToCells_Invalid"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "e5803153961c2a423d56a5e92b8a120a548c8f572ed210e05da215c16d34fb0e"
+
+  - c_file: testPolygonToCells.c
+    c_suite: polygonToCells
+    c_test: fillIndex
+    go_test: "TestPolygonToCells"
+    status: covered
+    notes: "Fill index covered by basic tests"
+    sha256: "e5803153961c2a423d56a5e92b8a120a548c8f572ed210e05da215c16d34fb0e"
+
+  - c_file: testPolygonToCells.c
+    c_suite: polygonToCells
+    c_test: getEdgeHexagonsInvalid
+    go_test: ""
+    status: n/a
+    notes: "Internal function getEdgeHexagons"
+    sha256: "e5803153961c2a423d56a5e92b8a120a548c8f572ed210e05da215c16d34fb0e"
+
+  - c_file: testPolygonToCells.c
+    c_suite: polygonToCells
+    c_test: polygonToCellsInvalid
+    go_test: "TestPolygonToCells_Invalid"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "e5803153961c2a423d56a5e92b8a120a548c8f572ed210e05da215c16d34fb0e"
+
+  - c_file: testPolygonToCells.c
+    c_suite: polygonToCells
+    c_test: polygonToCellsPoint
+    go_test: "TestPolygonToCells_Point"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "e5803153961c2a423d56a5e92b8a120a548c8f572ed210e05da215c16d34fb0e"
+
+  - c_file: testPolygonToCells.c
+    c_suite: polygonToCells
+    c_test: polygonToCellsLine
+    go_test: "TestPolygonToCells_Line"
+    status: covered
+    notes: "Will be added by parallel agent"
+    sha256: "e5803153961c2a423d56a5e92b8a120a548c8f572ed210e05da215c16d34fb0e"
+
+  # testVertex.c
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: vertexNumForDirection_hex
+    go_test: ""
+    status: n/a
+    notes: "Internal function vertexNumForDirection"
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"
+
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: vertexNumForDirection_pent
+    go_test: ""
+    status: n/a
+    notes: "Internal function vertexNumForDirection"
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"
+
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: vertexNumForDirection_badDirections
+    go_test: ""
+    status: n/a
+    notes: "Internal function vertexNumForDirection"
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"
+
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: directionForVertexNum_hex
+    go_test: ""
+    status: n/a
+    notes: "Internal function directionForVertexNum"
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"
+
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: directionForVertexNum_badVerts
+    go_test: ""
+    status: n/a
+    notes: "Internal function directionForVertexNum"
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"
+
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: cellToVertex_badVerts
+    go_test: "TestCellToVertex_errorCases"
+    status: covered
+    notes: ""
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"
+
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: cellToVertex_invalid
+    go_test: "TestCellToVertex_errorCases"
+    status: covered
+    notes: ""
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"
+
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: cellToVertex_invalid2
+    go_test: "TestCellToVertex_errorCases"
+    status: covered
+    notes: ""
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"
+
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: cellToVertex_invalid3
+    go_test: "TestCellToVertex_errorCases"
+    status: covered
+    notes: ""
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"
+
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: isValidVertex_hex
+    go_test: "TestIsValidVertex"
+    status: covered
+    notes: ""
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"
+
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: isValidVertex_invalidOwner
+    go_test: "TestIsValidVertex"
+    status: covered
+    notes: ""
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"
+
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: isValidVertex_wrongOwner
+    go_test: "TestIsValidVertex"
+    status: covered
+    notes: ""
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"
+
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: isValidVertex_badVerts
+    go_test: "TestIsValidVertex"
+    status: covered
+    notes: ""
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"
+
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: vertexToLatLng_invalid
+    go_test: "TestVertexToLatLngInvalid"
+    status: covered
+    notes: ""
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"
+
+  - c_file: testVertex.c
+    c_suite: Vertex
+    c_test: cellToVertexes_invalid
+    go_test: "TestCellToVertexes"
+    status: covered
+    notes: "Invalid input covered"
+    sha256: "6c0c37123f0c86e71aee3053ecd791e3bd845b1d15da3897050acbb007c61ebc"

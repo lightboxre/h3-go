@@ -3,9 +3,9 @@ package h3
 import (
 	"math"
 
-	"github.com/EDRInc/h3-go/internal/constants"
-	"github.com/EDRInc/h3-go/internal/faceijk"
-	"github.com/EDRInc/h3-go/internal/h3index"
+	"github.com/lightboxre/h3-go/internal/constants"
+	"github.com/lightboxre/h3-go/internal/faceijk"
+	"github.com/lightboxre/h3-go/internal/h3index"
 )
 
 // Vertex constants.

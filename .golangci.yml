@@ -17,7 +17,7 @@ linters:
 
 linters-settings:
   goimports:
-    local-prefixes: github.com/EDRInc/h3-go
+    local-prefixes: github.com/lightboxre/h3-go
   revive:
     rules:
       - name: exported

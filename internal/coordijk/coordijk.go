@@ -5,7 +5,7 @@ package coordijk
 import (
 	"math"
 
-	"github.com/EDRInc/h3-go/internal/constants"
+	"github.com/lightboxre/h3-go/internal/constants"
 )
 
 // M_ONESEVENTH is 1/7, used in aperture-7 parent calculations.

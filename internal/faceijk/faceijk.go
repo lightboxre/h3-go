@@ -5,9 +5,9 @@ package faceijk
 import (
 	"math"
 
-	"github.com/EDRInc/h3-go/internal/constants"
-	"github.com/EDRInc/h3-go/internal/coordijk"
-	"github.com/EDRInc/h3-go/internal/h3index"
+	"github.com/lightboxre/h3-go/internal/constants"
+	"github.com/lightboxre/h3-go/internal/coordijk"
+	"github.com/lightboxre/h3-go/internal/h3index"
 )
 
 // FaceIJK represents an H3 index on a specific icosahedron face.

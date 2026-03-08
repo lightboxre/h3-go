@@ -1,8 +1,8 @@
 package h3math
 
 import (
-	"github.com/EDRInc/h3-go/internal/constants"
-	"github.com/EDRInc/h3-go/internal/h3index"
+	"github.com/lightboxre/h3-go/internal/constants"
+	"github.com/lightboxre/h3-go/internal/h3index"
 )
 
 // averageEdgeLengthKmTable contains the average hexagon edge lengths in kilometers
