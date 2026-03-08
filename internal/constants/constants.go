@@ -49,23 +49,23 @@ var PentagonBaseCells = [NumPentagons]int{
 // Index 16 supports the substrate grid for Class III resolution 15 pentagons
 // (faceIjkPentToVerts increments adjRes from 15 to 16).
 var MaxDimByCIIres = [MaxH3Res + 2]int{
-	2,         // res 0
-	-1,        // res 1 (class III — unused here)
-	14,        // res 2
-	-1,        // res 3
-	98,        // res 4
-	-1,        // res 5
-	686,       // res 6
-	-1,        // res 7
-	4802,      // res 8
-	-1,        // res 9
-	33614,     // res 10
-	-1,        // res 11
-	235298,    // res 12
-	-1,        // res 13
-	1647086,   // res 14
-	-1,        // res 15
-	11529602,  // res 16 (substrate level for Class III res 15)
+	2,        // res 0
+	-1,       // res 1 (class III — unused here)
+	14,       // res 2
+	-1,       // res 3
+	98,       // res 4
+	-1,       // res 5
+	686,      // res 6
+	-1,       // res 7
+	4802,     // res 8
+	-1,       // res 9
+	33614,    // res 10
+	-1,       // res 11
+	235298,   // res 12
+	-1,       // res 13
+	1647086,  // res 14
+	-1,       // res 15
+	11529602, // res 16 (substrate level for Class III res 15)
 }
 
 // unitScaleByCIIres[r] is the unit scale for Class II grids at resolution r.
@@ -99,30 +99,30 @@ const (
 
 // Bit-field positions for the H3Index packed integer.
 const (
-	H3_MODE_OFFSET       = 59
-	H3_RESERVED_OFFSET   = 56
-	H3_RES_OFFSET        = 52
-	H3_BC_OFFSET         = 45
-	H3_PER_DIGIT_OFFSET  = 3
+	H3_MODE_OFFSET      = 59
+	H3_RESERVED_OFFSET  = 56
+	H3_RES_OFFSET       = 52
+	H3_BC_OFFSET        = 45
+	H3_PER_DIGIT_OFFSET = 3
 
-	H3_MODE_MASK       uint64 = 0xF
-	H3_RESERVED_MASK   uint64 = 0x7
-	H3_RES_MASK        uint64 = 0xF
-	H3_BC_MASK         uint64 = 0x7F
-	H3_DIGIT_MASK      uint64 = 0x7
+	H3_MODE_MASK     uint64 = 0xF
+	H3_RESERVED_MASK uint64 = 0x7
+	H3_RES_MASK      uint64 = 0xF
+	H3_BC_MASK       uint64 = 0x7F
+	H3_DIGIT_MASK    uint64 = 0x7
 )
 
 // Direction digits used in H3 index encoding.
 const (
-	CENTER_DIGIT    = 0
-	K_AXES_DIGIT    = 1
-	J_AXES_DIGIT    = 2
-	JK_AXES_DIGIT   = 3
-	I_AXES_DIGIT    = 4
-	IK_AXES_DIGIT   = 5
-	IJ_AXES_DIGIT   = 6
-	INVALID_DIGIT   = 7
-	NUM_DIGITS      = 7
+	CENTER_DIGIT  = 0
+	K_AXES_DIGIT  = 1
+	J_AXES_DIGIT  = 2
+	JK_AXES_DIGIT = 3
+	I_AXES_DIGIT  = 4
+	IK_AXES_DIGIT = 5
+	IJ_AXES_DIGIT = 6
+	INVALID_DIGIT = 7
+	NUM_DIGITS    = 7
 )
 
 // UNUSED_DIGIT is the filler for cells coarser than the resolution.

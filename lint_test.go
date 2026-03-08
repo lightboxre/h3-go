@@ -17,13 +17,13 @@ import (
 )
 
 type RegistryEntry struct {
-	CFile   string `yaml:"c_file"`
-	CSuite  string `yaml:"c_suite"`
-	CTest   string `yaml:"c_test"`
-	GoTest  string `yaml:"go_test"`
-	Status  string `yaml:"status"`
-	Notes   string `yaml:"notes"`
-	SHA256  string `yaml:"sha256"`
+	CFile  string `yaml:"c_file"`
+	CSuite string `yaml:"c_suite"`
+	CTest  string `yaml:"c_test"`
+	GoTest string `yaml:"go_test"`
+	Status string `yaml:"status"`
+	Notes  string `yaml:"notes"`
+	SHA256 string `yaml:"sha256"`
 }
 
 type Registry struct {

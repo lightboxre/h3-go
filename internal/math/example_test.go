@@ -5,6 +5,7 @@ import (
 
 	"github.com/lightboxre/h3-go/internal/constants"
 	"github.com/lightboxre/h3-go/internal/h3index"
+
 	h3math "github.com/lightboxre/h3-go/internal/math"
 )
 
@@ -34,7 +35,7 @@ func ExampleEdgeLengthKm() {
 // ExampleCellAreaKm2 demonstrates calculating the area of an H3 cell.
 func ExampleCellAreaKm2() {
 	// Create an H3 cell at resolution 5
-	var h h3index.H3Index = h3index.H3_INIT
+	var h = h3index.H3_INIT
 	h = h3index.SetMode(h, constants.H3_CELL_MODE)
 	h = h3index.SetResolution(h, 5)
 	h = h3index.SetBaseCell(h, 0)

@@ -1,27 +1,98 @@
+version: "2"
 run:
+  # Timeout for analysis.
+  # Default: 1m.
   timeout: 5m
   tests: true
 
 linters:
-  enable:
-    - errcheck
-    - gosimple
-    - govet
-    - ineffassign
-    - staticcheck
-    - unused
-    - gofmt
-    - goimports
-    - revive
-    - misspell
+  # Standard is the default value for default, declared explicitly for clarity.
+  # It includes several standard linters.
+  default: standard #https://golangci-lint.run/docs/linters/#enabled-by-default
 
-linters-settings:
-  goimports:
-    local-prefixes: github.com/lightboxre/h3-go
-  revive:
-    rules:
-      - name: exported
-        severity: warning
+  enable:
+    - whitespace #https://golangci-lint.run/docs/linters/configuration/#whitespace
+    - misspell #https://golangci-lint.run/docs/linters/configuration/#misspell
+    - goconst #https://golangci-lint.run/docs/linters/configuration/#goconst
+    - wastedassign #https://golangci-lint.run/docs/linters/configuration/#wastedassign
+    - unused #https://golangci-lint.run/docs/linters/configuration/#unused
+    - nilnil #https://golangci-lint.run/docs/linters/configuration/#nilnil
+    - asciicheck #https://golangci-lint.run/docs/linters/configuration/#asciicheck
+    - revive #https://golangci-lint.run/docs/linters/configuration/#revive
+    - modernize #https://golangci-lint.run/docs/linters/configuration/#modernize
+
+  settings:
+    misspell:
+      locale: US # Color, not Colour
+    nilnil:
+      only-two: false # Also check functions that return more than 2 values.
+      detect-opposite: true # Function shouldn't return a valid value ALONG with non-nil error.
+    # For Revive, once you explicitly set rules, you lose the built-in 'recommended' ruleset.
+    # Since we want to customize, we have to explicitly set all the recommended rules as well.
+    revive:
+      rules:
+        # Recommended rules - https://github.com/mgechev/revive#recommended-configuration
+        - name: blank-imports
+        - name: context-as-argument
+        - name: context-keys-type
+        - name: dot-imports
+        - name: error-return
+        - name: error-strings
+        - name: error-naming
+        # 'exported' rule enforces comments on anything that's exported. A bit too much for now - 215 issues at time of writing.
+        # - name: exported
+        - name: increment-decrement
+        - name: var-naming
+          arguments:
+            # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#var-naming
+            - []
+            - []
+            # TODO: This is triggered by 'util' package which needs to be split up.
+            - [{ skipPackageNameChecks: true }]
+        - name: var-declaration
+        # 'package-comments' not necessary (for now) due to our service being internal.
+        # - name: package-comments
+        - name: range
+        - name: receiver-naming
+        - name: time-naming
+        - name: unexported-return
+        - name: indent-error-flow
+        - name: errorf
+        - name: empty-block
+        - name: superfluous-else
+        - name: unused-parameter
+        - name: unreachable-code
+        - name: redefines-builtin-id
+
+        # Extra rules
+        - name: string-of-int
+        - name: time-equal
+        - name: redundant-import-alias
+        - name: enforce-map-style
+          arguments:
+            - "literal"
+        - name: enforce-slice-style
+          arguments:
+            - "literal"
+        - name: constant-logical-expr
+        - name: early-return
+
+formatters:
+  enable:
+    - gofmt
+    - gci
+
+  settings:
+    gci:
+      sections:
+        - standard # Standard section: captures all standard package imports
+        - default # Default section: Fallback - contains 3rd party package imports
+        - prefix(github.com/EDRInc/lbx-live/environmental-service) # Local package imports
+        - alias # Alias imports
+      # Enable custom order of sections.
+      # If `true`, make the section order the same as the order of `sections`.
+      # Default: false
+      custom-order: true
 
 issues:
   exclude-rules:

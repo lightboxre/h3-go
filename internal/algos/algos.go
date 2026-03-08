@@ -350,7 +350,7 @@ func GridRingUnsafe(origin h3index.H3Index, k int) ([]h3index.H3Index, error) {
 }
 
 // GridPathCells returns all cells on the path from src to dst (inclusive).
-// Uses H3's canonical algorithm: at each step pick the neighbor that minimises
+// Uses H3's canonical algorithm: at each step pick the neighbor that minimizes
 // grid distance to dst; on ties, prefer the neighbor whose IJK displacement
 // from the current cell matches the normalised IJK direction from current→dst.
 func GridPathCells(src, dst h3index.H3Index) ([]h3index.H3Index, error) {
@@ -732,16 +732,17 @@ func h3NeighborRotations(origin h3index.H3Index, dir int, rotations *int, out *h
 				alreadyAdjustedKSubsequence = true
 			} else {
 				// Traversed into deleted k subsequence from within same pentagon
-				if oldLeadingDigit == constants.CENTER_DIGIT {
+				switch oldLeadingDigit {
+				case constants.CENTER_DIGIT:
 					// Undefined: the k direction is deleted from here
 					return ErrPentagon
-				} else if oldLeadingDigit == constants.JK_AXES_DIGIT {
+				case constants.JK_AXES_DIGIT:
 					current = rotate60ccwIndex(current)
 					*rotations = *rotations + 1
-				} else if oldLeadingDigit == constants.IK_AXES_DIGIT {
+				case constants.IK_AXES_DIGIT:
 					current = rotate60cwIndex(current)
 					*rotations = *rotations + 5
-				} else {
+				default:
 					return ErrFailed
 				}
 			}

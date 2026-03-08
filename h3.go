@@ -13,6 +13,7 @@ import (
 	"github.com/lightboxre/h3-go/internal/constants"
 	"github.com/lightboxre/h3-go/internal/faceijk"
 	"github.com/lightboxre/h3-go/internal/h3index"
+
 	h3math "github.com/lightboxre/h3-go/internal/math"
 	polygonpkg "github.com/lightboxre/h3-go/internal/polygon"
 )

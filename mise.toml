@@ -1,2 +1,3 @@
 [tools]
 go = "latest"
+"ubi:golangci/golangci-lint" = "2.9.0"

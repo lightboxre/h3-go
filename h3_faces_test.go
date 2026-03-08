@@ -11,7 +11,7 @@ func TestGetIcosahedronFaces_SingleFaceHexes(t *testing.T) {
 	// Base cell 16 is at the center of an icosahedron face
 	// Construct directly from base cell 16 at res 2
 	h := h3index.H3_INIT
-	h = h3index.SetMode(h, 1)      // H3_CELL_MODE
+	h = h3index.SetMode(h, 1) // H3_CELL_MODE
 	h = h3index.SetResolution(h, 2)
 	h = h3index.SetBaseCell(h, 16)
 	h = h3index.SetIndexDigit(h, 0, 0)

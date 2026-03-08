@@ -158,7 +158,7 @@ func TestEdgeLengthM(t *testing.T) {
 func TestExactEdgeLengthApproximation(t *testing.T) {
 	// Create a mock edge index at resolution 5
 	// In mode 2 (directed edge mode), the resolution field should still work
-	var edge h3index.H3Index = h3index.H3_INIT
+	var edge = h3index.H3_INIT
 	edge = h3index.SetMode(edge, constants.H3_DIRECTEDEDGE_MODE)
 	edge = h3index.SetResolution(edge, 5)
 	edge = h3index.SetBaseCell(edge, 0)
@@ -222,7 +222,7 @@ func TestSphericalPolygonArea(t *testing.T) {
 // TestCellAreaRads2 tests cell area calculation for a valid H3 index.
 func TestCellAreaRads2(t *testing.T) {
 	// Create a valid H3 index at resolution 5
-	var h h3index.H3Index = h3index.H3_INIT
+	var h = h3index.H3_INIT
 	h = h3index.SetMode(h, constants.H3_CELL_MODE)
 	h = h3index.SetResolution(h, 5)
 	h = h3index.SetBaseCell(h, 0)
@@ -245,7 +245,7 @@ func TestCellAreaRads2(t *testing.T) {
 // TestCellAreaKm2 tests cell area in square kilometers.
 func TestCellAreaKm2(t *testing.T) {
 	// Create a valid H3 index at resolution 5
-	var h h3index.H3Index = h3index.H3_INIT
+	var h = h3index.H3_INIT
 	h = h3index.SetMode(h, constants.H3_CELL_MODE)
 	h = h3index.SetResolution(h, 5)
 	h = h3index.SetBaseCell(h, 0)
@@ -270,7 +270,7 @@ func TestCellAreaKm2(t *testing.T) {
 // TestCellAreaM2 tests cell area in square meters.
 func TestCellAreaM2(t *testing.T) {
 	// Create a valid H3 index at resolution 5
-	var h h3index.H3Index = h3index.H3_INIT
+	var h = h3index.H3_INIT
 	h = h3index.SetMode(h, constants.H3_CELL_MODE)
 	h = h3index.SetResolution(h, 5)
 	h = h3index.SetBaseCell(h, 0)
@@ -288,7 +288,7 @@ func TestCellAreaM2(t *testing.T) {
 // TestPentagonArea tests that pentagon cells have reasonable areas.
 func TestPentagonArea(t *testing.T) {
 	// Get a pentagon cell (base cell 4 is pentagon)
-	var h h3index.H3Index = h3index.H3_INIT
+	var h = h3index.H3_INIT
 	h = h3index.SetMode(h, constants.H3_CELL_MODE)
 	h = h3index.SetResolution(h, 0)
 	h = h3index.SetBaseCell(h, 4) // Pentagon base cell
@@ -329,7 +329,7 @@ func BenchmarkGreatCircleDistanceRads(b *testing.B) {
 
 // BenchmarkCellAreaRads2 benchmarks the cell area calculation.
 func BenchmarkCellAreaRads2(b *testing.B) {
-	var h h3index.H3Index = h3index.H3_INIT
+	var h = h3index.H3_INIT
 	h = h3index.SetMode(h, constants.H3_CELL_MODE)
 	h = h3index.SetResolution(h, 5)
 	h = h3index.SetBaseCell(h, 0)

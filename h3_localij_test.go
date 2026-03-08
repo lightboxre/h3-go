@@ -4,8 +4,8 @@ import (
 	"math"
 	"testing"
 
-	"github.com/lightboxre/h3-go/internal/coordijk"
 	"github.com/lightboxre/h3-go/internal/constants"
+	"github.com/lightboxre/h3-go/internal/coordijk"
 	"github.com/lightboxre/h3-go/internal/h3index"
 )
 

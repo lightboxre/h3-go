@@ -14,9 +14,7 @@ func TestPolygonToCells_Exact(t *testing.T) {
 
 	// Convert boundary to GeoLoop
 	geoLoop := make(h3.GeoLoop, len(boundary))
-	for i, pt := range boundary {
-		geoLoop[i] = pt
-	}
+	copy(geoLoop, boundary)
 
 	polygon := h3.GeoPolygon{
 		GeoLoop: geoLoop,

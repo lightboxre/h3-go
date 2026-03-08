@@ -97,10 +97,8 @@ func CellsToLinkedMultiPolygon(cells []h3index.H3Index) LinkedGeoMultiPolygon {
 		var loopPoints []faceijk.GeoPoint
 		cur := startV
 
-		for {
-			if visitedVertex[cur] {
-				break
-			}
+		for !visitedVertex[cur] {
+
 			visitedVertex[cur] = true
 			loopPoints = append(loopPoints, faceijk.GeoPoint{Lat: cur.lat, Lng: cur.lng})
 
