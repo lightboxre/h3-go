@@ -3,6 +3,7 @@ package h3
 import (
 	"fmt"
 	"math"
+	"slices"
 	"testing"
 
 	"github.com/lightboxre/h3-go/internal/testutil"
@@ -369,13 +370,7 @@ func TestGetRes0Cells(t *testing.T) {
 	// Known membership check: the first res-0 base cell (from Uber H3 Go v4 reference)
 	// Reference: Uber H3 Go v4 TestRes0Cells
 	knownRes0Cell := Cell(0x8001fffffffffff)
-	found := false
-	for _, c := range cells {
-		if c == knownRes0Cell {
-			found = true
-			break
-		}
-	}
+	found := slices.Contains(cells, knownRes0Cell)
 	if !found {
 		t.Errorf("GetRes0Cells() missing known cell %#x", knownRes0Cell)
 	}
@@ -1484,13 +1479,7 @@ func TestUncompactCells(t *testing.T) {
 		if err != nil {
 			t.Fatalf("UncompactCells error: %v", err)
 		}
-		found := false
-		for _, c := range uncompacted {
-			if c == validCell {
-				found = true
-				break
-			}
-		}
+		found := slices.Contains(uncompacted, validCell)
 		if !found {
 			t.Errorf("validCell %#x not found in UncompactCells of its parent", validCell)
 		}
@@ -2069,7 +2058,6 @@ func TestCellToBoundary_ClassIII_7vertices(t *testing.T) {
 		Cell(0x894cc536597ffff),
 	}
 	for _, c := range classIIIEdgeCells {
-		c := c
 		t.Run(CellToString(c), func(t *testing.T) {
 			boundary := CellToBoundary(c)
 			// C reference returns 7 for all; our implementation returns 6 for some near
@@ -2307,7 +2295,6 @@ func TestLatLngToCell_Fixtures(t *testing.T) {
 			t.Fatalf("Failed to parse %s: %v", path, err)
 		}
 		for _, tc := range cases {
-			tc := tc
 			t.Run(fmt.Sprintf("%s|(%.4f,%.4f)@res%d", path, tc.Lat, tc.Lng, tc.Res), func(t *testing.T) {
 				got := LatLngToCell(tc.Lat, tc.Lng, tc.Res)
 				want := Cell(tc.Cell)
@@ -2327,7 +2314,6 @@ func TestCellToParent_Fixtures(t *testing.T) {
 		t.Fatalf("Failed to parse cell_to_parent.txt: %v", err)
 	}
 	for _, tc := range cases {
-		tc := tc
 		t.Run(fmt.Sprintf("%x@res%d", tc.ChildCell, tc.ParentRes), func(t *testing.T) {
 			got := CellToParent(Cell(tc.ChildCell), tc.ParentRes)
 			want := Cell(tc.ParentCell)
@@ -2346,7 +2332,6 @@ func TestGridDistance_Fixtures(t *testing.T) {
 		t.Fatalf("Failed to parse grid_distance.txt: %v", err)
 	}
 	for _, tc := range cases {
-		tc := tc
 		t.Run(fmt.Sprintf("%x_to_%x", tc.Cell1, tc.Cell2), func(t *testing.T) {
 			got, err := GridDistance(Cell(tc.Cell1), Cell(tc.Cell2))
 			if err != nil {

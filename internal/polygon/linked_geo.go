@@ -151,7 +151,7 @@ func getCellDirectedEdges(h h3index.H3Index) []directedEdge {
 
 	n := len(boundary)
 	edges := make([]directedEdge, n)
-	for i := 0; i < n; i++ {
+	for i := range n {
 		p1 := boundary[i]
 		p2 := boundary[(i+1)%n]
 		edges[i] = directedEdge{p1.Lat, p1.Lng, p2.Lat, p2.Lng}
@@ -170,7 +170,7 @@ func isCounterClockwise(loop LinkedGeoLoop) bool {
 
 	area := 0.0
 	n := len(loop.Points)
-	for i := 0; i < n; i++ {
+	for i := range n {
 		p1 := loop.Points[i]
 		p2 := loop.Points[(i+1)%n]
 		area += (p1.Lng * p2.Lat) - (p2.Lng * p1.Lat)

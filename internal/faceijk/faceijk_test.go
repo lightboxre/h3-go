@@ -346,7 +346,7 @@ func TestFaceCenterPointsAreUnitVectors(t *testing.T) {
 
 func TestFaceCenterGeoToVec3dConsistency(t *testing.T) {
 	// Verify faceCenterGeo and faceCenterPoint are consistent
-	for i := 0; i < constants.NumIcosaFaces; i++ {
+	for i := range constants.NumIcosaFaces {
 		geo := faceCenterGeo[i]
 		v3d := coordijk.GeoToVec3d(geo.Lat, geo.Lng)
 

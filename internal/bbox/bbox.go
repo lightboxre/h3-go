@@ -130,7 +130,7 @@ func BBoxFromGeoLoop(lats, lngs []float64) BBox {
 
 	prevLng := lngs[len(lngs)-1] // Start with last vertex for wrapping
 
-	for i := 0; i < len(lats); i++ {
+	for i := range lats {
 		lat := lats[i]
 		lng := lngs[i]
 

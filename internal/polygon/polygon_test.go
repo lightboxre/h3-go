@@ -105,7 +105,7 @@ func TestPolygonToCells(t *testing.T) {
 
 func TestGetAvgHexagonEdgeLengthRads(t *testing.T) {
 	// Test that edge lengths decrease with higher resolution
-	for res := 0; res < 15; res++ {
+	for res := range 15 {
 		length := getAvgHexagonEdgeLengthRads(res)
 		if length <= 0 {
 			t.Errorf("getAvgHexagonEdgeLengthRads(%d) = %v, want positive", res, length)

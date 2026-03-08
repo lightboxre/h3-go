@@ -211,7 +211,7 @@ func TestDirectedEdgeModeAndReservedBits(t *testing.T) {
 
 		// Check digits match
 		res := h.Resolution()
-		for r := 0; r < res; r++ {
+		for r := range res {
 			if h.IndexDigit(r) != originH.IndexDigit(r) {
 				t.Errorf("Edge %d: digit mismatch at resolution %d", i, r)
 			}

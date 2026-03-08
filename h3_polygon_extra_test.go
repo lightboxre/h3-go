@@ -1,6 +1,7 @@
 package h3_test
 
 import (
+	"slices"
 	"testing"
 
 	h3 "github.com/lightboxre/h3-go"
@@ -130,13 +131,7 @@ func TestPolygonToCells_Pentagon(t *testing.T) {
 	}
 
 	// Check if any result is a pentagon
-	foundPentagon := false
-	for _, c := range cells {
-		if h3.IsPentagon(c) {
-			foundPentagon = true
-			break
-		}
-	}
+	foundPentagon := slices.ContainsFunc(cells, h3.IsPentagon)
 
 	if !foundPentagon {
 		t.Log("warning: no pentagon found in result (may be expected if polygon is too small)")

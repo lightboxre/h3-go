@@ -108,7 +108,7 @@ func IsValid(h H3Index) bool {
 
 	// Check digit validity.
 	foundFirstNonZeroDigit := false
-	for r := 0; r < res; r++ {
+	for r := range res {
 		digit := h.IndexDigit(r)
 		if digit < 0 || digit >= constants.NUM_DIGITS {
 			return false
@@ -147,7 +147,7 @@ func IsPentagon(h H3Index) bool {
 
 	// Check if there is any non-zero leading digit.
 	res := h.Resolution()
-	for r := 0; r < res; r++ {
+	for r := range res {
 		if h.IndexDigit(r) != constants.CENTER_DIGIT {
 			return false
 		}
@@ -207,7 +207,7 @@ func ipow7(n int) int64 {
 // GetRes0Cells returns all 122 resolution-0 base cells as H3 indices.
 func GetRes0Cells() []H3Index {
 	cells := make([]H3Index, constants.NumBaseCells)
-	for bc := 0; bc < constants.NumBaseCells; bc++ {
+	for bc := range constants.NumBaseCells {
 		h := H3_INIT
 		h = SetMode(h, constants.H3_CELL_MODE)
 		h = SetResolution(h, 0)
@@ -231,7 +231,7 @@ func GetPentagonCells(res int) []H3Index {
 		h = SetBaseCell(h, bc)
 		// All digits are already set to INVALID_DIGIT by H3_INIT.
 		// Set resolution digits to CENTER_DIGIT (0).
-		for r := 0; r < res; r++ {
+		for r := range res {
 			h = SetIndexDigit(h, r, constants.CENTER_DIGIT)
 		}
 		cells[i] = h

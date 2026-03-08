@@ -306,7 +306,7 @@ func GridRingUnsafe(origin h3index.H3Index, k int) ([]h3index.H3Index, error) {
 
 	// Move to the start of ring k
 	current := origin
-	for ring := 0; ring < k; ring++ {
+	for range k {
 		neighborResult := h3NeighborRotations(current, NEXT_RING_DIRECTION, &rotations, &current)
 		if neighborResult != nil {
 			return nil, neighborResult
@@ -322,8 +322,8 @@ func GridRingUnsafe(origin h3index.H3Index, k int) ([]h3index.H3Index, error) {
 	idx++
 
 	// Traverse the ring
-	for direction := 0; direction < 6; direction++ {
-		for pos := 0; pos < k; pos++ {
+	for direction := range 6 {
+		for pos := range k {
 			neighborResult := h3NeighborRotations(current, DIRECTIONS[direction], &rotations, &current)
 			if neighborResult != nil {
 				return nil, neighborResult
@@ -617,7 +617,7 @@ func UncompactCellsSize(cells []h3index.H3Index, res int) (int64, error) {
 		// Count children at target resolution
 		resDiff := res - cellRes
 		childCount := int64(1)
-		for i := 0; i < resDiff; i++ {
+		for i := range resDiff {
 			if h3index.IsPentagon(h) && i == 0 {
 				childCount *= 6 // Pentagons have 6 children (one center + 5 neighbors)
 			} else {
@@ -810,7 +810,7 @@ func gridDiskSafe(origin h3index.H3Index, k int) ([]h3index.H3Index, error) {
 	queue := []h3index.H3Index{origin}
 	seen[origin] = struct{}{}
 
-	for step := 0; step < k; step++ {
+	for range k {
 		var next []h3index.H3Index
 		for _, h := range queue {
 			neighbors := getNeighbors(h)
@@ -845,7 +845,7 @@ func gridDiskDistancesSafe(origin h3index.H3Index, k int) ([][]h3index.H3Index, 
 	seen[origin] = struct{}{}
 	result[0] = []h3index.H3Index{origin}
 
-	for step := 0; step < k; step++ {
+	for step := range k {
 		var next []h3index.H3Index
 		for _, h := range queue {
 			neighbors := getNeighbors(h)
@@ -888,7 +888,7 @@ func rotate60ccw(dir int) int {
 // rotate60ccwIndex rotates all digits of an H3Index 60 degrees counter-clockwise.
 func rotate60ccwIndex(h h3index.H3Index) h3index.H3Index {
 	res := h.Resolution()
-	for r := 0; r < res; r++ {
+	for r := range res {
 		digit := h.IndexDigit(r)
 		h = h3index.SetIndexDigit(h, r, rotate60ccw(digit))
 	}
@@ -898,7 +898,7 @@ func rotate60ccwIndex(h h3index.H3Index) h3index.H3Index {
 // rotate60cwIndex rotates all digits of an H3Index 60 degrees clockwise.
 func rotate60cwIndex(h h3index.H3Index) h3index.H3Index {
 	// Rotate clockwise 5 times is the same as counter-clockwise once
-	for i := 0; i < 5; i++ {
+	for range 5 {
 		h = rotate60ccwIndex(h)
 	}
 	return h
@@ -908,7 +908,7 @@ func rotate60cwIndex(h h3index.H3Index) h3index.H3Index {
 // Pentagon rotations skip the deleted K subsequence.
 func rotatePent60ccw(h h3index.H3Index) h3index.H3Index {
 	res := h.Resolution()
-	for r := 0; r < res; r++ {
+	for r := range res {
 		digit := h.IndexDigit(r)
 		// Skip K_AXES_DIGIT for pentagons
 		newDigit := rotate60ccw(digit)
@@ -923,7 +923,7 @@ func rotatePent60ccw(h h3index.H3Index) h3index.H3Index {
 // leadingNonZeroDigit returns the first non-zero digit of an H3Index.
 func leadingNonZeroDigit(h h3index.H3Index) int {
 	res := h.Resolution()
-	for r := 0; r < res; r++ {
+	for r := range res {
 		digit := h.IndexDigit(r)
 		if digit != constants.CENTER_DIGIT {
 			return digit

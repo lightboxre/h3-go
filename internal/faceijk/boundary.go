@@ -293,7 +293,7 @@ func faceIjkToVerts(fijk *FaceIJK, adjRes *int) [6]FaceIJK {
 
 	// Compute each vertex: center + offset, then normalize.
 	var fijkVerts [6]FaceIJK
-	for v := 0; v < 6; v++ {
+	for v := range 6 {
 		fijkVerts[v].Face = fijk.Face
 		fijkVerts[v].Coord = coordijk.CoordIJK{
 			I: fijk.Coord.I + verts[v].I,
@@ -345,7 +345,7 @@ func faceIjkPentToVerts(fijk *FaceIJK, adjRes *int) [5]FaceIJK {
 
 	// Compute each vertex: center + offset, then normalize.
 	var fijkVerts [5]FaceIJK
-	for v := 0; v < 5; v++ {
+	for v := range 5 {
 		fijkVerts[v].Face = fijk.Face
 		fijkVerts[v].Coord = coordijk.CoordIJK{
 			I: fijk.Coord.I + verts[v].I,
@@ -371,7 +371,7 @@ func hex2dToGeoSubstrate(v coordijk.Vec2d, face, res int) (latRad, lngRad float6
 	theta := math.Atan2(v.Y, v.X)
 
 	// Reverse resolution scaling.
-	for i := 0; i < res; i++ {
+	for range res {
 		r *= M_RSQRT7
 	}
 
@@ -441,7 +441,7 @@ func faceIjkToCellBoundary(h FaceIJK, res int) []GeoPoint {
 	lastFace := -1
 	lastOverage := NO_OVERAGE
 
-	for vert := 0; vert < numHexVerts+1; vert++ {
+	for vert := range numHexVerts + 1 {
 		v := vert % numHexVerts
 
 		fv := fijkVerts[v]
@@ -509,7 +509,7 @@ func faceIjkPentToCellBoundary(h FaceIJK, res int) []GeoPoint {
 	var boundary []GeoPoint
 	var lastFijk FaceIJK
 
-	for vert := 0; vert < numPentVerts+1; vert++ {
+	for vert := range numPentVerts + 1 {
 		v := vert % numPentVerts
 
 		fv := fijkVerts[v]

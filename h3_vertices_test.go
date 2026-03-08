@@ -90,10 +90,10 @@ func TestCellToVertex(t *testing.T) {
 
 func TestCellToVertexes(t *testing.T) {
 	tests := []struct {
-		name         string
-		cell         string
-		wantCount    int
-		isPentagon   bool
+		name       string
+		cell       string
+		wantCount  int
+		isPentagon bool
 	}{
 		{
 			name:       "Hexagon has 6 vertices",
@@ -341,7 +341,7 @@ func TestVertexModeEncoding(t *testing.T) {
 		t.Fatalf("Failed to parse cell: %v", err)
 	}
 
-	for vertexNum := 0; vertexNum < 6; vertexNum++ {
+	for vertexNum := range 6 {
 		v := CellToVertex(cell, vertexNum)
 
 		// Extract mode (bits 59-62)

@@ -185,7 +185,7 @@ func geoToHex2d(latRad, lngRad float64, face, res int) coordijk.Vec2d {
 	r /= constants.RES0_U_GNOMONIC
 
 	// Scale by sqrt(7) for each resolution level (aperture-7 grid)
-	for i := 0; i < res; i++ {
+	for range res {
 		r *= M_SQRT7
 	}
 
@@ -209,7 +209,7 @@ func hex2dToGeo(v coordijk.Vec2d, face, res int) (latRad, lngRad float64) {
 	theta := math.Atan2(v.Y, v.X)
 
 	// Reverse the resolution scaling: divide by sqrt(7) for each level
-	for i := 0; i < res; i++ {
+	for range res {
 		r *= M_RSQRT7
 	}
 
@@ -427,7 +427,7 @@ func FaceIJKToH3(fijk FaceIJK, res int) h3index.H3Index {
 	// Apply CCW rotations to align the digit sequence with the base cell's
 	// native orientation. From C: for (i = 0; i < numRots; i++) h = _h3Rotate60ccw(h).
 	numRots := faceIJKToCCWRot60(fijkBC)
-	for i := 0; i < numRots; i++ {
+	for range numRots {
 		h = h3Rotate60CCW(h, res)
 	}
 
@@ -485,7 +485,7 @@ func rotate60CCWDigit(d int) int {
 // h3Rotate60CCW rotates all digits of h by 60 degrees counter-clockwise.
 // From C: _h3Rotate60ccw.
 func h3Rotate60CCW(h h3index.H3Index, res int) h3index.H3Index {
-	for r := 0; r < res; r++ {
+	for r := range res {
 		oldDigit := h.IndexDigit(r)
 		h = h3index.SetIndexDigit(h, r, rotate60CCWDigit(oldDigit))
 	}

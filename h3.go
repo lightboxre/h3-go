@@ -163,7 +163,7 @@ func enumerateChildren(h h3index.H3Index, currentRes, targetRes int, out *[]Cell
 	isPent := h3index.IsPentagon(h)
 
 	// Enumerate all 7 directions (0-6), skip K_AXES_DIGIT (1) for pentagons
-	for d := 0; d < constants.NUM_DIGITS; d++ {
+	for d := range constants.NUM_DIGITS {
 		if isPent && d == constants.K_AXES_DIGIT {
 			continue // Skip K-axis direction for pentagons
 		}
@@ -196,7 +196,7 @@ func CellToChildrenSize(c Cell, childRes int) int64 {
 	// Pentagon children: 1 + 5*(7^diff - 1)/6
 	if h3index.IsPentagon(h) {
 		pow7 := int64(1)
-		for i := 0; i < diff; i++ {
+		for range diff {
 			pow7 *= 7
 		}
 		return 1 + 5*(pow7-1)/6
@@ -204,7 +204,7 @@ func CellToChildrenSize(c Cell, childRes int) int64 {
 
 	// Hexagon children: 7^diff
 	result := int64(1)
-	for i := 0; i < diff; i++ {
+	for range diff {
 		result *= 7
 	}
 	return result
@@ -307,7 +307,7 @@ func ChildPosToCell(childPos int64, parent Cell, childRes int) Cell {
 		}
 		h := h3index.H3Index(parent)
 		h = h3index.SetResolution(h, childRes)
-		for i := 0; i < depth; i++ {
+		for i := range depth {
 			h = h3index.SetIndexDigit(h, parentRes+i, digits[i])
 		}
 		return Cell(h)
@@ -695,6 +695,6 @@ func faceIJKToH3(fijk faceijk.FaceIJK, res int) h3index.H3Index {
 }
 
 // Error returns a formatted error message.
-func Error(format string, args ...interface{}) error {
+func Error(format string, args ...any) error {
 	return fmt.Errorf(format, args...)
 }

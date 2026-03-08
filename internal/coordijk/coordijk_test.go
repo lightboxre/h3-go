@@ -322,7 +322,7 @@ func TestRotationInverse(t *testing.T) {
 	for _, tc := range testCases {
 		// 6 CCW rotations should return to original
 		current := tc
-		for i := 0; i < 6; i++ {
+		for range 6 {
 			current = Rotate60CCW(current)
 		}
 		if current != tc {
@@ -331,7 +331,7 @@ func TestRotationInverse(t *testing.T) {
 
 		// 6 CW rotations should return to original
 		current = tc
-		for i := 0; i < 6; i++ {
+		for range 6 {
 			current = Rotate60CW(current)
 		}
 		if current != tc {

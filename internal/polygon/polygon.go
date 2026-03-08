@@ -37,7 +37,7 @@ func PointInGeoLoop(lats, lngs []float64, bboxLoop bbox.BBox, lat, lng float64) 
 
 	// Ray casting algorithm: cast a ray from point to infinity and count intersections
 	numVerts := len(lats)
-	for i := 0; i < numVerts; i++ {
+	for i := range numVerts {
 		lat1 := lats[i]
 		lng1 := lngs[i]
 		lat2 := lats[(i+1)%numVerts]
@@ -76,7 +76,7 @@ func PointInGeoPolygon(outerLats, outerLngs []float64, holesLats, holesLngs [][]
 	}
 
 	// Check if point is inside any hole (if so, it's outside the polygon)
-	for i := 0; i < len(holesLats); i++ {
+	for i := range holesLats {
 		if len(holesLats[i]) < 3 {
 			continue
 		}
@@ -124,10 +124,7 @@ func PolygonToCells(outerLats, outerLngs []float64, holesLats, holesLngs [][]flo
 	avgEdgeLenRads := getAvgHexagonEdgeLengthRads(res)
 
 	// Calculate k (number of rings) to cover the bbox
-	k := int(math.Ceil(bboxDiameter / (2 * avgEdgeLenRads)))
-	if k < 1 {
-		k = 1
-	}
+	k := max(int(math.Ceil(bboxDiameter/(2*avgEdgeLenRads))), 1)
 	// Add a safety margin
 	k += 2
 
@@ -190,7 +187,7 @@ func cellOverlapsPolygon(h h3index.H3Index, res int, outerLats, outerLngs []floa
 	// Check if any polygon vertex is inside the cell (for large cells)
 	// This is a simplified check - for production, would also check edge intersections
 	cellBBox := cellToBBox(h, res, boundary)
-	for i := 0; i < len(outerLats); i++ {
+	for i := range outerLats {
 		if bbox.BBoxContains(cellBBox, outerLats[i], outerLngs[i]) {
 			// Polygon vertex is within cell's bbox - consider it overlapping
 			return true
