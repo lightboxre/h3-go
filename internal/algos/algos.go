@@ -26,10 +26,10 @@ var (
 	ErrNotConnected = errors.New("cells not connected")
 )
 
-// DIRECTIONS lists the 6 directions for CCW traversal (excluding CENTER).
+// directions lists the 6 directions for CCW traversal (excluding CENTER).
 // These are digit values used for traversing a hexagonal ring counterclockwise.
 // Order: J, JK, K, IK, I, IJ
-var DIRECTIONS = [6]int{
+var directions = [6]int{
 	constants.J_AXES_DIGIT,  // 2
 	constants.JK_AXES_DIGIT, // 3
 	constants.K_AXES_DIGIT,  // 1
@@ -38,13 +38,13 @@ var DIRECTIONS = [6]int{
 	constants.IJ_AXES_DIGIT, // 6
 }
 
-// NEXT_RING_DIRECTION is the direction used to move to the next outward ring.
-const NEXT_RING_DIRECTION = constants.I_AXES_DIGIT
+// nextRingDirection is the direction used to move to the next outward ring.
+const nextRingDirection = constants.I_AXES_DIGIT
 
-// NEW_DIGIT_II[from][to] gives the new digit when moving from digit 'from'
+// newDigitII[from][to] gives the new digit when moving from digit 'from'
 // in direction 'to' in a Class II cell.
 // Transcribed from C's algos.c: newDigitII
-var NEW_DIGIT_II = [7][7]int{
+var newDigitII = [7][7]int{
 	{constants.CENTER_DIGIT, constants.K_AXES_DIGIT, constants.J_AXES_DIGIT, constants.JK_AXES_DIGIT, constants.I_AXES_DIGIT, constants.IK_AXES_DIGIT, constants.IJ_AXES_DIGIT},
 	{constants.K_AXES_DIGIT, constants.I_AXES_DIGIT, constants.JK_AXES_DIGIT, constants.IJ_AXES_DIGIT, constants.IK_AXES_DIGIT, constants.J_AXES_DIGIT, constants.CENTER_DIGIT},
 	{constants.J_AXES_DIGIT, constants.JK_AXES_DIGIT, constants.K_AXES_DIGIT, constants.I_AXES_DIGIT, constants.IJ_AXES_DIGIT, constants.CENTER_DIGIT, constants.IK_AXES_DIGIT},
@@ -54,9 +54,9 @@ var NEW_DIGIT_II = [7][7]int{
 	{constants.IJ_AXES_DIGIT, constants.CENTER_DIGIT, constants.IK_AXES_DIGIT, constants.J_AXES_DIGIT, constants.K_AXES_DIGIT, constants.I_AXES_DIGIT, constants.JK_AXES_DIGIT},
 }
 
-// NEW_ADJUSTMENT_II[from][to] gives the adjustment digit (move at coarser level)
+// newAdjustmentII[from][to] gives the adjustment digit (move at coarser level)
 // when moving from digit 'from' in direction 'to' in a Class II cell.
-var NEW_ADJUSTMENT_II = [7][7]int{
+var newAdjustmentII = [7][7]int{
 	{constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.CENTER_DIGIT},
 	{constants.CENTER_DIGIT, constants.K_AXES_DIGIT, constants.CENTER_DIGIT, constants.K_AXES_DIGIT, constants.CENTER_DIGIT, constants.IK_AXES_DIGIT, constants.CENTER_DIGIT},
 	{constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.J_AXES_DIGIT, constants.JK_AXES_DIGIT, constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.J_AXES_DIGIT},
@@ -66,9 +66,9 @@ var NEW_ADJUSTMENT_II = [7][7]int{
 	{constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.J_AXES_DIGIT, constants.CENTER_DIGIT, constants.IJ_AXES_DIGIT, constants.CENTER_DIGIT, constants.IJ_AXES_DIGIT},
 }
 
-// NEW_DIGIT_III[from][to] gives the new digit when moving from digit 'from'
+// newDigitIII[from][to] gives the new digit when moving from digit 'from'
 // in direction 'to' in a Class III cell.
-var NEW_DIGIT_III = [7][7]int{
+var newDigitIII = [7][7]int{
 	{constants.CENTER_DIGIT, constants.K_AXES_DIGIT, constants.J_AXES_DIGIT, constants.JK_AXES_DIGIT, constants.I_AXES_DIGIT, constants.IK_AXES_DIGIT, constants.IJ_AXES_DIGIT},
 	{constants.K_AXES_DIGIT, constants.J_AXES_DIGIT, constants.JK_AXES_DIGIT, constants.I_AXES_DIGIT, constants.IK_AXES_DIGIT, constants.IJ_AXES_DIGIT, constants.CENTER_DIGIT},
 	{constants.J_AXES_DIGIT, constants.JK_AXES_DIGIT, constants.I_AXES_DIGIT, constants.IK_AXES_DIGIT, constants.IJ_AXES_DIGIT, constants.CENTER_DIGIT, constants.K_AXES_DIGIT},
@@ -78,9 +78,9 @@ var NEW_DIGIT_III = [7][7]int{
 	{constants.IJ_AXES_DIGIT, constants.CENTER_DIGIT, constants.K_AXES_DIGIT, constants.J_AXES_DIGIT, constants.JK_AXES_DIGIT, constants.I_AXES_DIGIT, constants.IK_AXES_DIGIT},
 }
 
-// NEW_ADJUSTMENT_III[from][to] gives the adjustment digit (move at coarser level)
+// newAdjustmentIII[from][to] gives the adjustment digit (move at coarser level)
 // when moving from digit 'from' in direction 'to' in a Class III cell.
-var NEW_ADJUSTMENT_III = [7][7]int{
+var newAdjustmentIII = [7][7]int{
 	{constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.CENTER_DIGIT},
 	{constants.CENTER_DIGIT, constants.K_AXES_DIGIT, constants.CENTER_DIGIT, constants.JK_AXES_DIGIT, constants.CENTER_DIGIT, constants.K_AXES_DIGIT, constants.CENTER_DIGIT},
 	{constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.J_AXES_DIGIT, constants.J_AXES_DIGIT, constants.CENTER_DIGIT, constants.CENTER_DIGIT, constants.IJ_AXES_DIGIT},
@@ -161,7 +161,7 @@ func GridDiskUnsafe(origin h3index.H3Index, k int) ([]h3index.H3Index, error) {
 	for ring <= k {
 		if direction == 0 && i == 0 {
 			// Move to the start of the next ring
-			neighborResult := h3NeighborRotations(current, NEXT_RING_DIRECTION, &rotations, &current)
+			neighborResult := h3NeighborRotations(current, nextRingDirection, &rotations, &current)
 			if neighborResult != nil {
 				return nil, neighborResult
 			}
@@ -171,7 +171,7 @@ func GridDiskUnsafe(origin h3index.H3Index, k int) ([]h3index.H3Index, error) {
 			}
 		}
 
-		neighborResult := h3NeighborRotations(current, DIRECTIONS[direction], &rotations, &current)
+		neighborResult := h3NeighborRotations(current, directions[direction], &rotations, &current)
 		if neighborResult != nil {
 			return nil, neighborResult
 		}
@@ -239,7 +239,7 @@ func GridDiskDistancesUnsafe(origin h3index.H3Index, k int) ([][]h3index.H3Index
 	for ring <= k {
 		if direction == 0 && i == 0 {
 			// Move to the start of the next ring
-			neighborResult := h3NeighborRotations(current, NEXT_RING_DIRECTION, &rotations, &current)
+			neighborResult := h3NeighborRotations(current, nextRingDirection, &rotations, &current)
 			if neighborResult != nil {
 				return nil, neighborResult
 			}
@@ -249,7 +249,7 @@ func GridDiskDistancesUnsafe(origin h3index.H3Index, k int) ([][]h3index.H3Index
 			}
 		}
 
-		neighborResult := h3NeighborRotations(current, DIRECTIONS[direction], &rotations, &current)
+		neighborResult := h3NeighborRotations(current, directions[direction], &rotations, &current)
 		if neighborResult != nil {
 			return nil, neighborResult
 		}
@@ -307,7 +307,7 @@ func GridRingUnsafe(origin h3index.H3Index, k int) ([]h3index.H3Index, error) {
 	// Move to the start of ring k
 	current := origin
 	for range k {
-		neighborResult := h3NeighborRotations(current, NEXT_RING_DIRECTION, &rotations, &current)
+		neighborResult := h3NeighborRotations(current, nextRingDirection, &rotations, &current)
 		if neighborResult != nil {
 			return nil, neighborResult
 		}
@@ -324,7 +324,7 @@ func GridRingUnsafe(origin h3index.H3Index, k int) ([]h3index.H3Index, error) {
 	// Traverse the ring
 	for direction := range 6 {
 		for pos := range k {
-			neighborResult := h3NeighborRotations(current, DIRECTIONS[direction], &rotations, &current)
+			neighborResult := h3NeighborRotations(current, directions[direction], &rotations, &current)
 			if neighborResult != nil {
 				return nil, neighborResult
 			}
@@ -528,8 +528,8 @@ func CompactCells(cells []h3index.H3Index) ([]h3index.H3Index, error) {
 	changed := true
 	for changed {
 		changed = false
-		parentCounts := make(map[h3index.H3Index]int)
-		parentRes := make(map[h3index.H3Index]int)
+		parentCounts := map[h3index.H3Index]int{}
+		parentRes := map[h3index.H3Index]int{}
 
 		// Count children for each parent
 		for h := range cellSet {
@@ -682,37 +682,35 @@ func h3NeighborRotations(origin h3index.H3Index, dir int, rotations *int, out *h
 
 			current = h3index.SetBaseCell(current, newBaseCell)
 			break
-		} else {
-			// IndexDigit/SetIndexDigit use 0-indexed resolution (0=coarsest digit).
-			// C uses 1-indexed: C position r+1 = Go index r.
-			oldDigit := current.IndexDigit(r)
-			var nextDir int
-
-			if oldDigit == constants.INVALID_DIGIT {
-				return ErrCellInvalid
-			}
-
-			// Note: In C code, isResolutionClassIII checks resolution level r+1.
-			// Class II: even resolution, Class III: odd resolution.
-			// Class III (odd) uses NEW_DIGIT_II tables (per C source).
-			if isResClassIII(r + 1) {
-				// For Class III resolution, use Class II tables (per C source algos.c)
-				current = h3index.SetIndexDigit(current, r, NEW_DIGIT_II[oldDigit][dir])
-				nextDir = NEW_ADJUSTMENT_II[oldDigit][dir]
-			} else {
-				// For Class II resolution, use Class III tables (per C source algos.c)
-				current = h3index.SetIndexDigit(current, r, NEW_DIGIT_III[oldDigit][dir])
-				nextDir = NEW_ADJUSTMENT_III[oldDigit][dir]
-			}
-
-			if nextDir != constants.CENTER_DIGIT {
-				dir = nextDir
-				r--
-			} else {
-				// No more adjustment to perform
-				break
-			}
 		}
+		// IndexDigit/SetIndexDigit use 0-indexed resolution (0=coarsest digit).
+		// C uses 1-indexed: C position r+1 = Go index r.
+		oldDigit := current.IndexDigit(r)
+		var nextDir int
+
+		if oldDigit == constants.INVALID_DIGIT {
+			return ErrCellInvalid
+		}
+
+		// Note: In C code, isResolutionClassIII checks resolution level r+1.
+		// Class II: even resolution, Class III: odd resolution.
+		// Class III (odd) uses newDigitII tables (per C source).
+		if isResClassIII(r + 1) {
+			// For Class III resolution, use Class II tables (per C source algos.c)
+			current = h3index.SetIndexDigit(current, r, newDigitII[oldDigit][dir])
+			nextDir = newAdjustmentII[oldDigit][dir]
+		} else {
+			// For Class II resolution, use Class III tables (per C source algos.c)
+			current = h3index.SetIndexDigit(current, r, newDigitIII[oldDigit][dir])
+			nextDir = newAdjustmentIII[oldDigit][dir]
+		}
+
+		if nextDir == constants.CENTER_DIGIT {
+			// No more adjustment to perform
+			break
+		}
+		dir = nextDir
+		r--
 	}
 
 	newBaseCell := current.BaseCell()
@@ -807,7 +805,7 @@ func gridDiskSafe(origin h3index.H3Index, k int) ([]h3index.H3Index, error) {
 		return nil, ErrDomain
 	}
 
-	seen := make(map[h3index.H3Index]struct{})
+	seen := map[h3index.H3Index]struct{}{}
 	queue := []h3index.H3Index{origin}
 	seen[origin] = struct{}{}
 
@@ -841,7 +839,7 @@ func gridDiskDistancesSafe(origin h3index.H3Index, k int) ([][]h3index.H3Index, 
 	}
 
 	result := make([][]h3index.H3Index, k+1)
-	seen := make(map[h3index.H3Index]struct{})
+	seen := map[h3index.H3Index]struct{}{}
 	queue := []h3index.H3Index{origin}
 	seen[origin] = struct{}{}
 	result[0] = []h3index.H3Index{origin}
@@ -1002,7 +1000,7 @@ func getChildrenCount(h h3index.H3Index) int {
 
 // baseCellIsCwOffset returns true if the base cell has a clockwise offset on the given face.
 // This is a simplified implementation; the full version requires baseCellData.
-func baseCellIsCwOffset(baseCell int, face int) bool {
+func baseCellIsCwOffset(_ int, _ int) bool {
 	// Simplified: assume no CW offset for now
 	// Full implementation would check baseCellData[baseCell].cwOffsetPent
 	return false

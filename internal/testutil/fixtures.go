@@ -27,7 +27,7 @@ func ParseLatLngCellFile(path string) ([]LatLngCell, error) {
 	if err != nil {
 		return nil, fmt.Errorf("open %s: %w", path, err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	var cases []LatLngCell
 	scanner := bufio.NewScanner(f)
@@ -96,7 +96,7 @@ func ParseCellPairFile(path string) ([]CellPair, error) {
 	if err != nil {
 		return nil, fmt.Errorf("open %s: %w", path, err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	var pairs []CellPair
 	scanner := bufio.NewScanner(f)
@@ -158,7 +158,7 @@ func ParseCellParentFile(path string) ([]CellParent, error) {
 	if err != nil {
 		return nil, fmt.Errorf("open %s: %w", path, err)
 	}
-	defer f.Close()
+	defer func() { _ = f.Close() }()
 
 	var cases []CellParent
 	scanner := bufio.NewScanner(f)

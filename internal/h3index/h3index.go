@@ -23,11 +23,11 @@ type H3Index uint64
 // Constants for H3Index.
 const (
 	// H3_NULL is the invalid/null H3 index.
-	H3_NULL H3Index = 0
+	H3_NULL H3Index = 0 //nolint:revive // C-compatible name used in test files
 
 	// H3_INIT is the base initializer with all digits set to invalid (7).
 	// C value: UINT64_C(35184372088831) = 0x1FFFFFFFFFFF
-	H3_INIT H3Index = 35184372088831
+	H3_INIT H3Index = 35184372088831 //nolint:revive // C-compatible name used in test files
 )
 
 // Mode returns the mode field of the H3 index.

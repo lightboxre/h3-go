@@ -32,7 +32,7 @@ func GetCellFaces(h h3index.H3Index) ([]int, error) {
 
 	fijk := H3ToFaceIJK(h)
 
-	faceMap := make(map[int]bool)
+	faceMap := map[int]bool{}
 	faceMap[fijk.Face] = true // center face always included
 
 	adjRes := res

@@ -5,7 +5,7 @@ package h3index
 import "github.com/lightboxre/h3-go/internal/constants"
 
 // INVALID_BASE_CELL is returned when no neighbor exists in a given direction.
-const INVALID_BASE_CELL = 127
+const INVALID_BASE_CELL = 127 //nolint:revive // C-compatible name used in test files
 
 // baseCellNeighbors[bc][dir] gives the neighboring base cell in direction dir.
 // Direction encoding: 0=center, 1-6 are the six adjacent directions.

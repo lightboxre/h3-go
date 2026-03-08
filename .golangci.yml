@@ -10,6 +10,22 @@ linters:
   # It includes several standard linters.
   default: standard #https://golangci-lint.run/docs/linters/#enabled-by-default
 
+  exclusions:
+    rules:
+      - path: _test\.go
+        linters:
+          - revive
+          - staticcheck
+      # C-compatible ALL_CAPS names preserved for interoperability with test files.
+      - path: internal/constants/constants\.go
+        linters:
+          - revive
+      # Transcribed data tables use positional notation matching the C source.
+      - path: internal/faceijk/(boundary|faceijk)\.go
+        linters:
+          - govet
+        text: "struct literal uses unkeyed fields"
+
   enable:
     - whitespace #https://golangci-lint.run/docs/linters/configuration/#whitespace
     - misspell #https://golangci-lint.run/docs/linters/configuration/#misspell
@@ -105,3 +121,13 @@ issues:
       linters:
         - govet
       text: "struct literal uses unkeyed fields"
+    - path: _test\.go
+      linters:
+        - revive
+    - path: _test\.go
+      linters:
+        - staticcheck
+    # C-compatible ALL_CAPS names preserved for interoperability with test files.
+    - path: internal/constants/constants\.go
+      linters:
+        - revive

@@ -23,23 +23,23 @@ type GeoPoint struct {
 
 // Quadrant direction constants for adjacent face relationships.
 const (
-	IJ           = 1
-	KI           = 2
-	JK           = 3
-	INVALID_FACE = -1
+	IJ          = 1
+	KI          = 2
+	JK          = 3
+	invalidFace = -1
 )
 
 // Overage classification for boundary conditions.
 const (
-	NO_OVERAGE = 0
-	FACE_EDGE  = 1
-	NEW_FACE   = 2
+	noOverage = 0
+	faceEdge  = 1
+	newFace   = 2
 )
 
-// M_SQRT7 and M_RSQRT7 constants from C source.
+// mSqrt7 and mRsqrt7 constants from C source.
 const (
-	M_SQRT7  = 2.6457513110645905905016157536392604257102
-	M_RSQRT7 = 0.37796447300922722721451653623418006081576
+	mSqrt7  = 2.6457513110645905905016157536392604257102
+	mRsqrt7 = 0.37796447300922722721451653623418006081576
 )
 
 // faceCenterGeo contains lat/lng (radians) of icosahedron face centers.
@@ -186,7 +186,7 @@ func geoToHex2d(latRad, lngRad float64, face, res int) coordijk.Vec2d {
 
 	// Scale by sqrt(7) for each resolution level (aperture-7 grid)
 	for range res {
-		r *= M_SQRT7
+		r *= mSqrt7
 	}
 
 	return coordijk.Vec2d{
@@ -210,7 +210,7 @@ func hex2dToGeo(v coordijk.Vec2d, face, res int) (latRad, lngRad float64) {
 
 	// Reverse the resolution scaling: divide by sqrt(7) for each level
 	for range res {
-		r *= M_RSQRT7
+		r *= mRsqrt7
 	}
 
 	// Reverse the RES0_U_GNOMONIC scaling

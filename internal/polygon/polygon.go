@@ -95,7 +95,7 @@ func PointInGeoPolygon(outerLats, outerLngs []float64, holesLats, holesLngs [][]
 // holesLats/holesLngs are arrays of hole loops in RADIANS.
 // flags is reserved for future use (e.g., containment mode vs. overlapping mode).
 // From C: H3_EXPORT(polygonToCells)
-func PolygonToCells(outerLats, outerLngs []float64, holesLats, holesLngs [][]float64, res int, flags uint32) ([]h3index.H3Index, error) {
+func PolygonToCells(outerLats, outerLngs []float64, holesLats, holesLngs [][]float64, res int, _ uint32) ([]h3index.H3Index, error) {
 	if len(outerLats) < 3 || len(outerLngs) < 3 {
 		return nil, nil
 	}
@@ -198,7 +198,7 @@ func cellOverlapsPolygon(h h3index.H3Index, res int, outerLats, outerLngs []floa
 }
 
 // cellToBBox creates a bounding box from a cell's boundary
-func cellToBBox(h h3index.H3Index, res int, boundary []faceijk.GeoPoint) bbox.BBox {
+func cellToBBox(_ h3index.H3Index, _ int, boundary []faceijk.GeoPoint) bbox.BBox {
 	if len(boundary) == 0 {
 		return bbox.BBox{}
 	}

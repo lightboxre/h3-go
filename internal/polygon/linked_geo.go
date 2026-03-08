@@ -52,7 +52,7 @@ func CellsToLinkedMultiPolygon(cells []h3index.H3Index) LinkedGeoMultiPolygon {
 
 	// Step 1: Collect all directed boundary edges from all cells.
 	// Each cell contributes n directed edges (n = 6 for hexagons, 5 for pentagons).
-	dirEdgeSet := make(map[directedEdge]bool)
+	dirEdgeSet := map[directedEdge]bool{}
 	for _, h := range cells {
 		if !h3index.IsValid(h) {
 			continue
@@ -98,7 +98,6 @@ func CellsToLinkedMultiPolygon(cells []h3index.H3Index) LinkedGeoMultiPolygon {
 		cur := startV
 
 		for !visitedVertex[cur] {
-
 			visitedVertex[cur] = true
 			loopPoints = append(loopPoints, faceijk.GeoPoint{Lat: cur.lat, Lng: cur.lng})
 
@@ -224,11 +223,6 @@ func almostEqual(a, b float64) bool {
 
 // edge is an alias for directedEdge (backward compatibility).
 type edge = directedEdge
-
-// getCellBoundaryEdges returns directed boundary edges (kept for compatibility).
-func getCellBoundaryEdges(h h3index.H3Index) []edge {
-	return getCellDirectedEdges(h)
-}
 
 // normalizeEdge returns a canonical form of an edge (smaller vertex first by lat then lng).
 // This is a utility used in tests; the production code uses directed edges directly.

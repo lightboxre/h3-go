@@ -10,8 +10,8 @@ import (
 
 // Vertex constants.
 const (
-	NUM_HEX_VERTS  = 6
-	NUM_PENT_VERTS = 5
+	numHexVerts  = 6
+	numPentVerts = 5
 )
 
 // directionToVertexNumHex maps directions to vertex numbers for hexagonal cells.
@@ -50,9 +50,9 @@ func CellToVertex(c Cell, vertexNum int) Vertex {
 	}
 
 	isPent := h3index.IsPentagon(h)
-	maxVertNum := NUM_HEX_VERTS - 1
+	maxVertNum := numHexVerts - 1
 	if isPent {
-		maxVertNum = NUM_PENT_VERTS - 1
+		maxVertNum = numPentVerts - 1
 	}
 
 	if vertexNum < 0 || vertexNum > maxVertNum {
@@ -81,9 +81,9 @@ func CellToVertexes(c Cell) []Vertex {
 	}
 
 	isPent := IsPentagon(c)
-	count := NUM_HEX_VERTS
+	count := numHexVerts
 	if isPent {
-		count = NUM_PENT_VERTS
+		count = numPentVerts
 	}
 
 	vertexes := make([]Vertex, count)
@@ -152,9 +152,9 @@ func IsValidVertex(v Vertex) bool {
 
 	// Check vertex number is in valid range
 	isPent := IsPentagon(ownerCell)
-	maxVert := NUM_HEX_VERTS - 1
+	maxVert := numHexVerts - 1
 	if isPent {
-		maxVert = NUM_PENT_VERTS - 1
+		maxVert = numPentVerts - 1
 	}
 
 	if vertexNum < 0 || vertexNum > maxVert {

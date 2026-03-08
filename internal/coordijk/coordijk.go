@@ -8,8 +8,8 @@ import (
 	"github.com/lightboxre/h3-go/internal/constants"
 )
 
-// M_ONESEVENTH is 1/7, used in aperture-7 parent calculations.
-const M_ONESEVENTH = 0.14285714285714285714285714285714285
+// mOneSeventh is 1/7, used in aperture-7 parent calculations.
+const mOneSeventh = 0.14285714285714285714285714285714285
 
 // CoordIJK represents coordinates in the IJK+ coordinate system.
 // The constraint: after normalization, at least one component is 0.
@@ -20,7 +20,7 @@ type CoordIJK struct {
 
 // UNIT_VECS are direction digits corresponding to H3 digit constants.
 // Index meanings: CENTER=0, K=1, J=2, JK=3, I=4, IK=5, IJ=6
-var UNIT_VECS = [7]CoordIJK{
+var UNIT_VECS = [7]CoordIJK{ //nolint:revive // C-compatible name used in test files
 	{0, 0, 0}, // 0 = CENTER
 	{0, 0, 1}, // 1 = K
 	{0, 1, 0}, // 2 = J
@@ -52,17 +52,11 @@ func IJKNormalize(c *CoordIJK) {
 	}
 
 	// Find minimum and subtract from all
-	min := c.I
-	if c.J < min {
-		min = c.J
-	}
-	if c.K < min {
-		min = c.K
-	}
-	if min > 0 {
-		c.I -= min
-		c.J -= min
-		c.K -= min
+	minVal := min(c.I, c.J, c.K)
+	if minVal > 0 {
+		c.I -= minVal
+		c.J -= minVal
+		c.K -= minVal
 	}
 }
 
@@ -116,14 +110,7 @@ func IJKDistance(a, b CoordIJK) int {
 		absK = -absK
 	}
 
-	max := absI
-	if absJ > max {
-		max = absJ
-	}
-	if absK > max {
-		max = absK
-	}
-	return max
+	return max(absI, absJ, absK)
 }
 
 // Rotate60CCW rotates an IJK coordinate 60 degrees counter-clockwise.
@@ -165,8 +152,8 @@ func UpAp7(c CoordIJK) CoordIJK {
 	j := c.J - c.K
 
 	result := CoordIJK{
-		I: int(math.Round(float64(3*i-j) * M_ONESEVENTH)),
-		J: int(math.Round(float64(i+2*j) * M_ONESEVENTH)),
+		I: int(math.Round(float64(3*i-j) * mOneSeventh)),
+		J: int(math.Round(float64(i+2*j) * mOneSeventh)),
 		K: 0,
 	}
 	IJKNormalize(&result)
@@ -180,8 +167,8 @@ func UpAp7r(c CoordIJK) CoordIJK {
 	j := c.J - c.K
 
 	result := CoordIJK{
-		I: int(math.Round(float64(2*i+j) * M_ONESEVENTH)),
-		J: int(math.Round(float64(3*j-i) * M_ONESEVENTH)),
+		I: int(math.Round(float64(2*i+j) * mOneSeventh)),
+		J: int(math.Round(float64(3*j-i) * mOneSeventh)),
 		K: 0,
 	}
 	IJKNormalize(&result)

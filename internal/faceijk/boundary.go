@@ -182,10 +182,10 @@ func adjustOverageClassII(fijk *FaceIJK, res, pentLeading4, substrate int) int {
 
 	sum := fijk.Coord.I + fijk.Coord.J + fijk.Coord.K
 	if substrate != 0 && sum == maxDim {
-		return FACE_EDGE
+		return faceEdge
 	}
 	if sum <= maxDim {
-		return NO_OVERAGE
+		return noOverage
 	}
 
 	// Overage: determine which face quadrant we're in.
@@ -233,9 +233,9 @@ func adjustOverageClassII(fijk *FaceIJK, res, pentLeading4, substrate int) int {
 
 	// After correction, check if now exactly on edge.
 	if substrate != 0 && fijk.Coord.I+fijk.Coord.J+fijk.Coord.K == maxDim {
-		return FACE_EDGE
+		return faceEdge
 	}
-	return NEW_FACE
+	return newFace
 }
 
 // adjustPentVertOverage loops adjustOverageClassII until not on a new face.
@@ -244,7 +244,7 @@ func adjustPentVertOverage(fijk *FaceIJK, res int) int {
 	var overage int
 	for {
 		overage = adjustOverageClassII(fijk, res, 0, 1)
-		if overage != NEW_FACE {
+		if overage != newFace {
 			break
 		}
 	}
@@ -372,13 +372,13 @@ func hex2dToGeoSubstrate(v coordijk.Vec2d, face, res int) (latRad, lngRad float6
 
 	// Reverse resolution scaling.
 	for range res {
-		r *= M_RSQRT7
+		r *= mRsqrt7
 	}
 
 	// Substrate scale: divide by 3; if ClassIII also divide by sqrt(7).
 	r /= 3.0
 	if res%2 == 1 {
-		r *= M_RSQRT7
+		r *= mRsqrt7
 	}
 
 	r *= constants.RES0_U_GNOMONIC
@@ -439,7 +439,7 @@ func faceIjkToCellBoundary(h FaceIJK, res int) []GeoPoint {
 	// to detect face crossings for Class III cells.
 	var boundary []GeoPoint
 	lastFace := -1
-	lastOverage := NO_OVERAGE
+	lastOverage := noOverage
 
 	for vert := range numHexVerts + 1 {
 		v := vert % numHexVerts
@@ -448,7 +448,7 @@ func faceIjkToCellBoundary(h FaceIJK, res int) []GeoPoint {
 		overage := adjustOverageClassII(&fv, adjRes, 0, 1)
 
 		// For Class III cells crossing face boundaries: insert edge intersection.
-		if res%2 == 1 && vert > 0 && fv.Face != lastFace && lastOverage != FACE_EDGE {
+		if res%2 == 1 && vert > 0 && fv.Face != lastFace && lastOverage != faceEdge {
 			lastV := (v + numHexVerts - 1) % numHexVerts
 
 			orig2d0 := coordijk.ToVec2d(fijkVerts[lastV].Coord)
@@ -458,7 +458,7 @@ func faceIjkToCellBoundary(h FaceIJK, res int) []GeoPoint {
 			v1 := coordijk.Vec2d{X: -1.5 * float64(maxDim), Y: 3.0 * constants.M_SQRT3_2 * float64(maxDim)}
 			v2 := coordijk.Vec2d{X: -1.5 * float64(maxDim), Y: -3.0 * constants.M_SQRT3_2 * float64(maxDim)}
 
-			face2 := fv.Face
+			var face2 int
 			if lastFace == centerIJK.Face {
 				face2 = fv.Face
 			} else {
