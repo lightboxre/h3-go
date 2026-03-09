@@ -39,7 +39,7 @@ Use the `benchstat` tool to compare native Go vs CGO performance:
 go install golang.org/x/perf/cmd/benchstat@latest
 
 # Compare native vs CGO
-benchstat bench_cgo.txt bench_native.txt
+make bench
 ```
 
 Example output:

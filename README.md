@@ -9,6 +9,10 @@ A pure Go implementation of Uber's [H3 geospatial indexing system](https://h3geo
 
 H3 is a hierarchical hexagonal grid system that partitions the Earth into cells at 16 resolutions (0–15). It is used for spatial indexing, proximity analysis, geographic aggregation, and routing.
 
+> NOTE: This is not yet utilized in production at LightBox or anywhere else, however it is being utilized in the
+> development of a new production geospatial search system. The "v1.0" release will coincide with true production
+> usage at scale.
+
 ## Why this library?
 
 The official Go binding ([uber/h3-go](https://github.com/uber/h3-go)) requires CGO and a compiled C library. This library is a complete native Go port — no C toolchain, no `CGO_ENABLED=1`, no shared library installation.
