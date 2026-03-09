@@ -1,0 +1,31 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary and coverage
+*.test
+*.out
+coverage.html
+
+# Go build cache (go build output placed in module root)
+/h3-native-go
+
+# Go module download cache (not committed)
+vendor/
+
+# golangci-lint cache
+.golangci-lint-cache/
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
