@@ -64,10 +64,6 @@ func nativeToCGOEdge(e h3native.DirectedEdge) h3cgo.DirectedEdge {
 // compareCellSets sorts both slices by uint64 value and compares element-by-element.
 func compareCellSets(t *testing.T, native []h3native.Cell, cgo []h3cgo.Cell) {
 	t.Helper()
-	if len(native) != len(cgo) {
-		t.Errorf("cell set size mismatch: native=%d, cgo=%d", len(native), len(cgo))
-		return
-	}
 	sortedNative := make([]uint64, len(native))
 	sortedCGO := make([]uint64, len(cgo))
 	for i, c := range native {
@@ -78,10 +74,43 @@ func compareCellSets(t *testing.T, native []h3native.Cell, cgo []h3cgo.Cell) {
 	}
 	sort.Slice(sortedNative, func(i, j int) bool { return sortedNative[i] < sortedNative[j] })
 	sort.Slice(sortedCGO, func(i, j int) bool { return sortedCGO[i] < sortedCGO[j] })
-	for i := range sortedNative {
-		if sortedNative[i] != sortedCGO[i] {
-			t.Errorf("cell[%d]: native=%#x, cgo=%#x", i, sortedNative[i], sortedCGO[i])
+
+	if len(sortedNative) != len(sortedCGO) {
+		t.Errorf("cell set size mismatch: native=%d, cgo=%d", len(sortedNative), len(sortedCGO))
+	}
+
+	i, j := 0, 0
+	missing := make([]uint64, 0, 5)
+	extra := make([]uint64, 0, 5)
+	for i < len(sortedCGO) && j < len(sortedNative) {
+		switch {
+		case sortedCGO[i] == sortedNative[j]:
+			i++
+			j++
+		case sortedCGO[i] < sortedNative[j]:
+			if len(missing) < cap(missing) {
+				missing = append(missing, sortedCGO[i])
+			}
+			i++
+		default:
+			if len(extra) < cap(extra) {
+				extra = append(extra, sortedNative[j])
+			}
+			j++
 		}
+	}
+	for ; i < len(sortedCGO); i++ {
+		if len(missing) < cap(missing) {
+			missing = append(missing, sortedCGO[i])
+		}
+	}
+	for ; j < len(sortedNative); j++ {
+		if len(extra) < cap(extra) {
+			extra = append(extra, sortedNative[j])
+		}
+	}
+	if len(missing) > 0 || len(extra) > 0 {
+		t.Errorf("cell set mismatch: missing=%#v extra=%#v", missing, extra)
 	}
 }
 
@@ -114,6 +143,17 @@ func convertGeoPolygon(p h3native.GeoPolygon) h3cgo.GeoPolygon {
 		holes[i] = h
 	}
 	return h3cgo.GeoPolygon{GeoLoop: outer, Holes: holes}
+}
+
+func bboxGeoPolygon(xMin, xMax, yMin, yMax float64) h3native.GeoPolygon {
+	return h3native.GeoPolygon{
+		GeoLoop: []h3native.LatLng{
+			{Lat: yMin, Lng: xMin},
+			{Lat: yMin, Lng: xMax},
+			{Lat: yMax, Lng: xMax},
+			{Lat: yMax, Lng: xMin},
+		},
+	}
 }
 
 // approxEq returns true if |a-b| <= eps.
@@ -163,6 +203,12 @@ func TestCellToLatLng_Oracle(t *testing.T) {
 	cells := []h3native.Cell{
 		h3native.Cell(0x89283082877ffff),
 		h3native.Cell(0x85283473fffffff),
+		h3native.Cell(0x814c3ffffffffff),
+		h3native.Cell(0x814cbffffffffff),
+		h3native.Cell(0x814cfffffffffff),
+		h3native.Cell(0x814d3ffffffffff),
+		h3native.Cell(0x814d7ffffffffff),
+		h3native.Cell(0x814dbffffffffff),
 	}
 	for _, c := range cells {
 		c := c
@@ -665,6 +711,100 @@ func TestPolygonToCells_Oracle(t *testing.T) {
 		t.Fatalf("native PolygonToCells error: %v", err)
 	}
 	compareCellSets(t, got, wantCGO)
+}
+
+func TestPolygonToCells_BBoxOracle(t *testing.T) {
+	tests := []struct {
+		name       string
+		xMin       float64
+		xMax       float64
+		yMin       float64
+		yMax       float64
+		resolution int
+	}{
+		{
+			name:       "US East Coast at resolution 1",
+			xMin:       -85.0,
+			xMax:       -65.0,
+			yMin:       25.0,
+			yMax:       50.0,
+			resolution: 1,
+		},
+		{
+			name:       "Long Island area at resolution 4",
+			xMin:       -73.38373433514482,
+			xMax:       -73.12314657794963,
+			yMin:       40.79662355734774,
+			yMax:       40.85749113791863,
+			resolution: 4,
+		},
+		{
+			name:       "Manhattan area at resolution 4",
+			xMin:       -74.0,
+			xMax:       -73.9,
+			yMin:       40.7,
+			yMax:       40.8,
+			resolution: 4,
+		},
+		{
+			name:       "Wider NYC area at resolution 3",
+			xMin:       -74.3,
+			xMax:       -73.7,
+			yMin:       40.5,
+			yMax:       40.9,
+			resolution: 3,
+		},
+		{
+			name:       "Small area at resolution 5",
+			xMin:       -73.38,
+			xMax:       -73.12,
+			yMin:       40.79,
+			yMax:       40.86,
+			resolution: 5,
+		},
+		{
+			name:       "Large area at resolution 2",
+			xMin:       -80.0,
+			xMax:       -70.0,
+			yMin:       35.0,
+			yMax:       45.0,
+			resolution: 2,
+		},
+		{
+			name:       "San Francisco area at resolution 4",
+			xMin:       -122.5,
+			xMax:       -122.3,
+			yMin:       37.7,
+			yMax:       37.85,
+			resolution: 4,
+		},
+		{
+			name:       "London area at resolution 3",
+			xMin:       -0.3,
+			xMax:       0.1,
+			yMin:       51.4,
+			yMax:       51.6,
+			resolution: 3,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			polygon := bboxGeoPolygon(tt.xMin, tt.xMax, tt.yMin, tt.yMax)
+			cgoPoly := convertGeoPolygon(polygon)
+
+			wantCGO, err := h3cgo.PolygonToCells(cgoPoly, tt.resolution)
+			if err != nil {
+				t.Fatalf("cgo PolygonToCells error: %v", err)
+			}
+			got, err := h3native.PolygonToCells(polygon, tt.resolution)
+			if err != nil {
+				t.Fatalf("native PolygonToCells error: %v", err)
+			}
+
+			compareCellSets(t, got, wantCGO)
+		})
+	}
 }
 
 func TestCellsToLinkedMultiPolygon_Oracle(t *testing.T) {

@@ -9,7 +9,7 @@
 37.7796 -122.4193 5 85283083fffffff
 
 # Origin (0, 0)
-0.0 0.0 5 85745c4ffffffff
+0.0 0.0 5 85754e67fffffff
 
 # London, UK
 51.5074 -0.1278 5 85194ad3fffffff

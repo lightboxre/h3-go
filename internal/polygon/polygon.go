@@ -104,51 +104,75 @@ func PolygonToCells(outerLats, outerLngs []float64, holesLats, holesLngs [][]flo
 		return nil, algos.ErrDomain
 	}
 
-	// Compute bounding box of the polygon
 	bboxPoly := bbox.BBoxFromGeoLoop(outerLats, outerLngs)
-
-	// Find the center of the bounding box to seed the search
-	centerLat, centerLng := bbox.BBoxCenter(bboxPoly)
-
-	// Get the H3 cell at this center point
-	seedFijk := faceijk.GeoToFaceIJK(centerLat, centerLng, res)
-	seed := faceIJKToH3(seedFijk, res)
-
-	// Estimate the grid disk size needed to cover the polygon
-	// Use the bbox dimensions to estimate the k value
-	bboxHeight := bbox.BBoxHeight(bboxPoly)
-	bboxWidth := bbox.BBoxWidth(bboxPoly)
-	bboxDiameter := math.Sqrt(bboxHeight*bboxHeight + bboxWidth*bboxWidth)
-
-	// Approximate average edge length at this resolution (in radians)
-	avgEdgeLenRads := getAvgHexagonEdgeLengthRads(res)
-
-	// Calculate k (number of rings) to cover the bbox
-	k := max(int(math.Ceil(bboxDiameter/(2*avgEdgeLenRads))), 1)
-	// Add a safety margin
-	k += 2
-
-	// Get all candidate cells within k steps of the seed
-	candidates, err := algos.GridDisk(seed, k)
-	if err != nil {
-		// Fallback to a larger k if pentagon encountered
-		k *= 2
-		candidates, err = algos.GridDisk(seed, k)
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	// Filter candidates: include only cells whose center is inside the polygon.
-	// This matches H3 C library default (CONTAINMENT_CENTER / flags=0).
 	var result []h3index.H3Index
-	for _, h := range candidates {
-		if cellCenterInPolygon(h, res, outerLats, outerLngs, holesLats, holesLngs, bboxPoly) {
-			result = append(result, h)
-		}
+	for _, root := range h3index.GetRes0Cells() {
+		collectPolygonCells(root, 0, res, outerLats, outerLngs, holesLats, holesLngs, bboxPoly, &result)
 	}
 
 	return result, nil
+}
+
+func collectPolygonCells(h h3index.H3Index, currentRes, targetRes int, outerLats, outerLngs []float64, holesLats, holesLngs [][]float64, bboxPoly bbox.BBox, out *[]h3index.H3Index) {
+	// Coarse parent boundaries near the antimeridian are still imprecise enough
+	// to produce false-negative bboxes at the top of the hierarchy. Delay bbox
+	// pruning until res 2, then use exact boundary-derived bboxes below that.
+	if currentRes >= 2 && !cellBBoxOverlapsPolygonBBox(h, currentRes, bboxPoly) {
+		return
+	}
+
+	if currentRes == targetRes {
+		if cellCenterInPolygon(h, currentRes, outerLats, outerLngs, holesLats, holesLngs, bboxPoly) {
+			*out = append(*out, h)
+		}
+		return
+	}
+
+	for _, child := range cellChildren(h, currentRes) {
+		collectPolygonCells(child, currentRes+1, targetRes, outerLats, outerLngs, holesLats, holesLngs, bboxPoly, out)
+	}
+}
+
+func cellBBoxOverlapsPolygonBBox(h h3index.H3Index, res int, bboxPoly bbox.BBox) bool {
+	fijk := faceijk.H3ToFaceIJK(h)
+	boundary := faceijk.FaceIJKToGeoBoundary(fijk, res, h3index.IsPentagon(h))
+	if len(boundary) == 0 {
+		return false
+	}
+	return bbox.BBoxOverlap(cellToBBox(h, res, boundary), bboxPoly)
+}
+
+func cellChildren(h h3index.H3Index, currentRes int) []h3index.H3Index {
+	digits := []int{
+		constants.CENTER_DIGIT,
+		constants.K_AXES_DIGIT,
+		constants.J_AXES_DIGIT,
+		constants.JK_AXES_DIGIT,
+		constants.I_AXES_DIGIT,
+		constants.IK_AXES_DIGIT,
+		constants.IJ_AXES_DIGIT,
+	}
+	if h3index.IsPentagon(h) {
+		digits = []int{
+			constants.CENTER_DIGIT,
+			constants.J_AXES_DIGIT,
+			constants.JK_AXES_DIGIT,
+			constants.I_AXES_DIGIT,
+			constants.IK_AXES_DIGIT,
+			constants.IJ_AXES_DIGIT,
+		}
+	}
+
+	children := make([]h3index.H3Index, 0, len(digits))
+	for _, digit := range digits {
+		child := h3index.SetResolution(h, currentRes+1)
+		child = h3index.SetIndexDigit(child, currentRes, digit)
+		for r := currentRes + 1; r < constants.MaxH3Res; r++ {
+			child = h3index.SetIndexDigit(child, r, constants.INVALID_DIGIT)
+		}
+		children = append(children, child)
+	}
+	return children
 }
 
 // cellCenterInPolygon returns true if the cell's center point is inside the polygon.

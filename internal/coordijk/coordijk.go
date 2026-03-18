@@ -187,6 +187,7 @@ func DownAp7(c CoordIJK) CoordIJK {
 	kScaled := IJKScale(kVec, c.K)
 
 	result := IJKAdd(IJKAdd(iScaled, jScaled), kScaled)
+	IJKNormalize(&result)
 	return result
 }
 
@@ -202,6 +203,7 @@ func DownAp7r(c CoordIJK) CoordIJK {
 	kScaled := IJKScale(kVec, c.K)
 
 	result := IJKAdd(IJKAdd(iScaled, jScaled), kScaled)
+	IJKNormalize(&result)
 	return result
 }
 

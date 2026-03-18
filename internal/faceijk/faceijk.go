@@ -329,11 +329,18 @@ func hex2dToCoordIJK(v coordijk.Vec2d) coordijk.CoordIJK {
 		}
 	}
 
-	// Correct for negative x (reflection across y-axis).
-	// The mirror of the hex at (i, j) across x=0 has coordinates (j-i, j).
+	// Fold across the y-axis using the same parity-dependent adjustment as the
+	// C reference implementation.
 	if v.X < 0.0 {
-		h.I = h.J - h.I
-		// h.J is unchanged
+		if h.J%2 == 0 {
+			axisI := h.J / 2
+			diff := h.I - axisI
+			h.I = h.I - 2*diff
+		} else {
+			axisI := (h.J + 1) / 2
+			diff := h.I - axisI
+			h.I = h.I - (2*diff + 1)
+		}
 	}
 
 	// Correct for negative y (reflection across x-axis)
@@ -347,11 +354,16 @@ func hex2dToCoordIJK(v coordijk.Vec2d) coordijk.CoordIJK {
 }
 
 // H3ToFaceIJK converts an H3Index to face-IJK coordinates.
-// From C: _h3ToFaceIjkWithInitializedFijk (called from _h3ToFaceIjk)
-// Starts from the base cell's home face-IJK and walks down the digit sequence.
+// From C: _h3ToFaceIjk
 func H3ToFaceIJK(h h3index.H3Index) FaceIJK {
 	bc := h.BaseCell()
 	res := h.Resolution()
+
+	// Pentagon subsequence 5 must be rotated into the canonical orientation
+	// before walking the index down from the base cell.
+	if h3index.IsBaseCellPentagon(bc) && leadingNonZeroDigit(h) == constants.IK_AXES_DIGIT {
+		h = h3Rotate60CW(h, res)
+	}
 
 	d := baseCellHomeFIJK[bc]
 	fijk := FaceIJK{
@@ -359,26 +371,49 @@ func H3ToFaceIJK(h h3index.H3Index) FaceIJK {
 		Coord: coordijk.CoordIJK{I: d.I, J: d.J, K: d.K},
 	}
 
-	if res == 0 {
-		return fijk
+	possibleOverage := true
+	if !h3index.IsBaseCellPentagon(bc) &&
+		(res == 0 || (fijk.Coord.I == 0 && fijk.Coord.J == 0 && fijk.Coord.K == 0)) {
+		possibleOverage = false
 	}
 
-	// Walk down the digit sequence, applying aperture-7 scaling and direction offsets.
-	// From C _h3ToFaceIjkWithInitializedFijk:
-	//   if (isResolutionClassIII(r)) _downAp7(ijk); else _downAp7r(ijk);
-	// Note: Class III (odd r) → DownAp7, Class II (even r) → DownAp7r.
 	for r := 1; r <= res; r++ {
-		if r%2 == 1 { // Class III resolution (odd r) → DownAp7
+		if r%2 == 1 {
 			fijk.Coord = coordijk.DownAp7(fijk.Coord)
-		} else { // Class II resolution (even r) → DownAp7r
+		} else {
 			fijk.Coord = coordijk.DownAp7r(fijk.Coord)
 		}
-		// IndexDigit(r-1) in Go = H3_GET_INDEX_DIGIT(h, r) in C (1-indexed).
-		// Guard against INVALID_DIGIT (7): H3_INIT cells have uninitialized digit bits=7.
 		digit := h.IndexDigit(r - 1)
 		if digit < constants.NUM_DIGITS {
 			fijk.Coord = coordijk.IJKAdd(fijk.Coord, coordijk.UNIT_VECS[digit])
 		}
+	}
+
+	if !possibleOverage {
+		return fijk
+	}
+
+	origIJK := fijk.Coord
+	adjRes := res
+	if res%2 == 1 {
+		fijk.Coord = coordijk.DownAp7r(fijk.Coord)
+		adjRes++
+	}
+
+	pentLeading4 := 0
+	if h3index.IsBaseCellPentagon(bc) && leadingNonZeroDigit(h) == constants.I_AXES_DIGIT {
+		pentLeading4 = 1
+	}
+	if adjustOverageClassII(&fijk, adjRes, pentLeading4, 0) != noOverage {
+		if h3index.IsBaseCellPentagon(bc) {
+			for adjustOverageClassII(&fijk, adjRes, 0, 0) != noOverage {
+			}
+		}
+		if adjRes != res {
+			fijk.Coord = coordijk.UpAp7r(fijk.Coord)
+		}
+	} else if adjRes != res {
+		fijk.Coord = origIJK
 	}
 
 	return fijk
@@ -424,11 +459,23 @@ func FaceIJKToH3(fijk FaceIJK, res int) h3index.H3Index {
 	bc := faceIJKToBaseCell(fijkBC)
 	h = h3index.SetBaseCell(h, bc)
 
-	// Apply CCW rotations to align the digit sequence with the base cell's
-	// native orientation. From C: for (i = 0; i < numRots; i++) h = _h3Rotate60ccw(h).
 	numRots := faceIJKToCCWRot60(fijkBC)
-	for range numRots {
-		h = h3Rotate60CCW(h, res)
+	if h3index.IsBaseCellPentagon(bc) {
+		if leadingNonZeroDigit(h) == constants.K_AXES_DIGIT {
+			if baseCellIsCwOffset(bc, fijkBC.Face) {
+				h = h3Rotate60CW(h, res)
+			} else {
+				h = h3Rotate60CCW(h, res)
+			}
+		}
+
+		for range numRots {
+			h = h3RotatePent60CCW(h, res)
+		}
+	} else {
+		for range numRots {
+			h = h3Rotate60CCW(h, res)
+		}
 	}
 
 	return h
@@ -480,6 +527,37 @@ func rotate60CCWDigit(d int) int {
 		return d
 	}
 	return rot[d]
+}
+
+func h3Rotate60CW(h h3index.H3Index, res int) h3index.H3Index {
+	for range 5 {
+		h = h3Rotate60CCW(h, res)
+	}
+	return h
+}
+
+func h3RotatePent60CCW(h h3index.H3Index, res int) h3index.H3Index {
+	foundFirstNonZeroDigit := false
+	for r := range res {
+		h = h3index.SetIndexDigit(h, r, rotate60CCWDigit(h.IndexDigit(r)))
+		if !foundFirstNonZeroDigit && h.IndexDigit(r) != constants.CENTER_DIGIT {
+			foundFirstNonZeroDigit = true
+			if leadingNonZeroDigit(h) == constants.K_AXES_DIGIT {
+				h = h3Rotate60CCW(h, res)
+			}
+		}
+	}
+	return h
+}
+
+func leadingNonZeroDigit(h h3index.H3Index) int {
+	for r := range h.Resolution() {
+		digit := h.IndexDigit(r)
+		if digit != constants.CENTER_DIGIT {
+			return digit
+		}
+	}
+	return constants.CENTER_DIGIT
 }
 
 // h3Rotate60CCW rotates all digits of h by 60 degrees counter-clockwise.

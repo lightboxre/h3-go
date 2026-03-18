@@ -669,6 +669,14 @@ func cellsToH3Slice(cells []Cell) []h3index.H3Index {
 
 // geoLoopToRadSlices converts a GeoLoop (degrees) to lat/lng slices in radians.
 func geoLoopToRadSlices(loop GeoLoop) (lats, lngs []float64) {
+	if len(loop) > 1 {
+		last := loop[len(loop)-1]
+		first := loop[0]
+		if last.Lat == first.Lat && last.Lng == first.Lng {
+			loop = loop[:len(loop)-1]
+		}
+	}
+
 	lats = make([]float64, len(loop))
 	lngs = make([]float64, len(loop))
 	for i, pt := range loop {
