@@ -228,7 +228,26 @@ Contributions are welcome. Please read this section before opening a pull reques
 ### Prerequisites
 
 - Go 1.22 or later
-- For CGO oracle tests only: CMake, a C compiler, and the [H3 C library](https://github.com/uber/h3) installed
+- [mise](https://mise.jdx.dev/) for repo-managed tooling (`go`, `prek`, `golangci-lint`)
+- For the CGO oracle path: CMake, a C compiler, and the [H3 C library](https://github.com/uber/h3) installed
+
+### Local CI hook with `prek`
+
+This repository uses [`prek`](https://prek.j178.dev/) as its pre-commit hook runner. The hook runs the same validation commands as GitHub Actions CI, but only once against the Go version resolved from `mise.toml`.
+
+```bash
+# Install repo-managed tools
+mise install
+
+# Activate mise in your shell, then install the git pre-commit hook
+prek install
+```
+
+To run the same validation path manually without creating a commit:
+
+```bash
+./scripts/run-ci-checks.sh
+```
 
 ### Running tests
 
@@ -244,11 +263,14 @@ go test -run TestGridDisk -v .
 
 # CGO oracle (requires H3 C library installed — see below)
 cd cgotest && CGO_ENABLED=1 go test -v -count=1 ./...
+
+# Full local CI path used by the prek pre-commit hook
+./scripts/run-ci-checks.sh
 ```
 
 ### Installing the H3 C library (for oracle tests only)
 
-The CGO oracle is optional for local development but runs in CI on every pull request.
+The CGO oracle runs in CI on every pull request and is also part of the local `prek` pre-commit hook.
 
 ```bash
 git clone --depth 1 https://github.com/uber/h3.git /tmp/h3

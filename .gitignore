@@ -8,6 +8,7 @@
 # Test binary and coverage
 *.test
 *.out
+coverage.txt
 coverage.html
 
 # Go build cache (go build output placed in module root)

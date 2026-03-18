@@ -1,0 +1,16 @@
+minimum_prek_version = "0.3.5"
+default_install_hook_types = ["pre-commit"]
+
+[[repos]]
+repo = "local"
+
+[[repos.hooks]]
+id = "ci"
+name = "CI"
+entry = "./scripts/run-ci-checks.sh"
+language = "system"
+always_run = true
+pass_filenames = false
+require_serial = true
+stages = ["pre-commit"]
+verbose = true
