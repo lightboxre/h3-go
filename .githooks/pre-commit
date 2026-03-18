@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+if command -v prek >/dev/null 2>&1; then
+  exec prek run --config "$repo_root/prek.toml" --hook-stage pre-commit
+fi
+
+if command -v mise >/dev/null 2>&1; then
+  exec mise exec -- prek run --config "$repo_root/prek.toml" --hook-stage pre-commit
+fi
+
+printf 'error: prek is not installed or not on PATH. Run "mise install" and ensure prek is available before committing.\n' >&2
+exit 1

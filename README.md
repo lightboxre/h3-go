@@ -239,8 +239,8 @@ This repository uses [`prek`](https://prek.j178.dev/) as its pre-commit hook run
 # Install repo-managed tools
 mise install
 
-# Activate mise in your shell, then install the git pre-commit hook
-prek install
+# Point git at the repo-managed hooks directory
+git config core.hooksPath .githooks
 ```
 
 To run the same validation path manually without creating a commit:
